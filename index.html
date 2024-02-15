@@ -20,18 +20,14 @@
             width: 100px; /* Adjust based on your image sizes */
             height: 100px; /* Maintain aspect ratio */
         }
-        @keyframes jiggle {
-          0%, 100% {
-            transform: rotate(-5deg);
-          }
-          50% {
-            transform: rotate(5deg);
-          }
-        }
-        
-        .website:hover {
-          animation: jiggle 0.1s ease-in-out infinite;
-        }
+      .zoom-effect {
+ 		 transition: transform 0.3s ease;
+	  display: inline-block;
+	}
+
+	.website:hover {
+	  transform: scale(1.1); /* Adjust the scale value to control the zoom level */
+	}
         /* Light mode styles */
         @media (prefers-color-scheme: light) {
             body {
