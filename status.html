@@ -31,6 +31,50 @@
       flex-basis: calc(33.333% - 20px); /* 3 items per row */
     }
   }
+  @media (prefers-color-scheme: light) {
+            body {
+                background-color: #fff;
+                color: #000;
+            }
+        
+            header, footer {
+                background-color: #f0f0f0;
+                color: #333;
+            }
+        
+            nav ul li a {
+                color: #333;
+            }
+        
+            form button {
+                background-color: #007bff;
+                color: #fff;
+                border: none;
+            }
+        }
+        
+        /* Dark mode styles */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #121212;
+                color: #e0e0e0;
+            }
+        
+            header, footer {
+                background-color: #333;
+                color: #fff;
+            }
+        
+            nav ul li a {
+                color: #fff;
+            }
+        
+            form button {
+                background-color: #007bff;
+                color: #fff;
+                border: none;
+            }
+        }
 </style>
 </head>
 <body>
