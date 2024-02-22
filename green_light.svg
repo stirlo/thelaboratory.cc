@@ -1,0 +1,10 @@
+<svg width="120" height="320" id="red_light" xmlns="http://www.w3.org/2000/svg">
+  <!-- Box -->
+  <rect x="10" y="10" width="100" height="300" fill="black" />
+  <!-- Red Light -->
+  <circle cx="60" cy="60" r="40" fill="grey" />
+  <!-- Orange Light -->
+  <circle cx="60" cy="160" r="40" fill="grey" />
+  <!-- Green Light -->
+  <circle cx="60" cy="260" r="40" fill="green" />
+</svg>
