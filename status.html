@@ -5,11 +5,31 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Status Page</title>
 <style>
+  #statusContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
   .domain-status {
-    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    margin: 10px;
+    flex-basis: calc(50% - 20px); /* Default to 2 items per row, accounting for margin */
   }
   .domain-name {
     margin-right: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  img {
+    width: 100px;
+    height: 100px;
+  }
+  @media (min-width: 600px) { /* Adjust for wider screens */
+    .domain-status {
+      flex-basis: calc(33.333% - 20px); /* 3 items per row */
+    }
   }
 </style>
 </head>
