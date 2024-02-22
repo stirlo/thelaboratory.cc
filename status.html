@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Status Page</title>
+<style>
+  .domain-status {
+    margin-bottom: 20px;
+  }
+  .domain-name {
+    margin-right: 10px;
+  }
+</style>
+</head>
+<body>
+<div id="statusContainer"></div>
+
+<script>
+// List of domains to check
+const domains = [
+  'https://oursquadis.top',
+  'https://stirlo.be',
+  'https://stirlo.space',
+  'https://thelaboratory.cc',
+  'https://tfp.la',
+  'https://infinitereality.cc',
+  'https://github.com/stirlo/JPT-flipperzero/',
+  'https://stirlo.github.io/adhan-swift/',
+  'https://github.com/stirlo/adhan/',
+  // Add more domains as needed
+];
+
+// Image URLs for "up" and "down" statuses
+const upImage = 'green_light.svg'; // Placeholder path
+const downImage = 'red_light.svg'; // Placeholder path
+
+// Function to check domain status
+async function checkDomainStatus(domain) {
+  try {
+    const response = await fetch(domain, { mode: 'no-cors' }); // Using no-cors mode for simplicity
+    // Assuming any response means the domain is up
+    return true;
+  } catch (error) {
+    // If an error occurs, assume the domain is down
+    return false;
+  }
+}
+
+// Function to update the UI with domain statuses
+async function updateStatuses() {
+  const statusContainer = document.getElementById('statusContainer');
+  statusContainer.innerHTML = ''; // Clear existing statuses
+
+  for (const domain of domains) {
+    const isUp = await checkDomainStatus(domain);
+    const statusImage = isUp ? upImage : downImage;
+    const domainElement = document.createElement('div');
+    domainElement.className = 'domain-status';
+    domainElement.innerHTML = `
+      <span class="domain-name">${domain}</span>
+      <img src="${statusImage}" alt="${isUp ? 'Up' : 'Down'}">
+    `;
+    statusContainer.appendChild(domainElement);
+  }
+}
+
+// Initial call to update statuses
+updateStatuses();
+</script>
+</body>
+</html>
