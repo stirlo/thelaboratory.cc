@@ -31,23 +31,87 @@
     <meta name="theme-color" content="#ffffff">
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="style.css">
+     <style>
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            align-items: center;
+        }
+        .website {
+            margin: 20px;
+            text-align: center;
+            flex-basis: 30%; /* Adjust this value to control the size */
+        }
+        .website img {
+            width: 100px; /* Adjust based on your image sizes */
+            height: 100px; /* Maintain aspect ratio */
+        }
+      .zoom-effect {
+ 		 transition: transform 0.3s ease;
+	  display: inline-block;
+	}
+
+	.website:hover {
+	  transform: scale(1.1); /* Adjust the scale value to control the zoom level */
+	}
+        /* Light mode styles */
+        @media (prefers-color-scheme: light) {
+            body {
+                background-color: #fff;
+                color: #000;
+            }
+        
+            header, footer {
+                background-color: #f0f0f0;
+                color: #333;
+            }
+        
+            nav ul li a {
+                color: #333;
+            }
+        
+            form button {
+                background-color: #007bff;
+                color: #fff;
+                border: none;
+            }
+        }
+        
+        /* Dark mode styles */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #121212;
+                color: #e0e0e0;
+            }
+        
+            header, footer {
+                background-color: #333;
+                color: #fff;
+            }
+        
+            nav ul li a {
+                color: #fff;
+            }
+        
+            form button {
+                background-color: #007bff;
+                color: #fff;
+                border: none;
+            }
+        }
+    </style>
 </head>
 
 <body>
     <header>
-        <h1>TFP</h1>
-        <nav>
-            <ul>
-                <li><a href="index.html">Latest Gossip</a></li>
-            </ul>
-        </nav>
+        
     </header>
 
     <main>
         <div class="content-container">
             <h2>Thank You</h2>
-            <p>We would like to express our gratitude to the following tools, services, and individuals that made this project possible:</p>
+            <p>We’d like to give our thanks to all the excellent tools, services, and people who made this project a reality!</p>
             <ul id="thankYouList">
                 <!-- This list will be populated by JavaScript -->
             </ul>
