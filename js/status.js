@@ -1,4 +1,4 @@
-// Status page functionality
+// status.js
 const statusGrid = document.getElementById('statusGrid');
 const lastUpdateSpan = document.getElementById('lastUpdate');
 let statusData = null;
@@ -39,6 +39,27 @@ function timeAgo(date) {
     return Math.floor(seconds) + ' seconds ago';
 }
 
+// Check site status
+async function checkSiteStatus(site) {
+    try {
+        const startTime = performance.now();
+        const response = await fetch(site.url, { mode: 'no-cors' });
+        const endTime = performance.now();
+
+        return {
+            status: response.ok ? 'online' : 'error',
+            responseTime: Math.round(endTime - startTime),
+            lastCheck: new Date().toISOString()
+        };
+    } catch (error) {
+        return {
+            status: 'offline',
+            error: error.message,
+            lastCheck: new Date().toISOString()
+        };
+    }
+}
+
 // Create status card
 function createStatusCard(site, status) {
     const card = document.createElement('div');
@@ -59,6 +80,13 @@ function createStatusCard(site, status) {
     link.textContent = site.name;
     title.appendChild(link);
 
+    const logo = document.createElement('img');
+    logo.src = site.logo;
+    logo.alt = `${site.name} logo`;
+    logo.className = 'status-logo';
+    logo.loading = 'lazy';
+
+    details.appendChild(logo);
     details.appendChild(title);
 
     if (status.responseTime) {
@@ -73,13 +101,6 @@ function createStatusCard(site, status) {
         lastCheck.className = 'last-update';
         lastCheck.textContent = `Last checked: ${timeAgo(status.lastCheck)}`;
         details.appendChild(lastCheck);
-    }
-
-    if (status.stars !== undefined && status.forks !== undefined) {
-        const githubStats = document.createElement('p');
-        githubStats.className = 'github-stats';
-        githubStats.textContent = `★ ${status.stars} | 🍴 ${status.forks}`;
-        details.appendChild(githubStats);
     }
 
     if (status.error) {
@@ -98,20 +119,27 @@ function createStatusCard(site, status) {
 // Update status grid
 async function updateStatuses() {
     try {
-        const response = await fetch('/status.json');
-        if (!response.ok) throw new Error('Failed to fetch status data');
+        statusGrid.innerHTML = '<div class="loading">Checking statuses...</div>';
 
-        statusData = await response.json();
+        const statuses = await Promise.all(
+            sites.map(async site => {
+                const status = await checkSiteStatus(site);
+                return { site, status };
+            })
+        );
+
         statusGrid.innerHTML = '';
-
-        for (const [siteName, status] of Object.entries(statusData)) {
-            const site = sites.find(s => s.name === siteName);
-            if (site) {
-                statusGrid.appendChild(createStatusCard(site, status));
-            }
-        }
+        statuses.forEach(({ site, status }) => {
+            statusGrid.appendChild(createStatusCard(site, status));
+        });
 
         lastUpdateSpan.textContent = new Date().toLocaleString();
+
+        // Store status data for offline use
+        if ('caches' in window) {
+            const cache = await caches.open('status-data');
+            await cache.put('/status-data', new Response(JSON.stringify(statuses)));
+        }
     } catch (error) {
         console.error('Error updating statuses:', error);
         statusGrid.innerHTML = `
@@ -139,9 +167,7 @@ window.addEventListener('offline', () => {
     document.body.classList.add('offline');
 });
 
-// Register for background sync if available
-if ('serviceWorker' in navigator && 'SyncManager' in window) {
-    navigator.serviceWorker.ready.then(registration => {
-        registration.sync.register('status-update');
-    });
+// Export for worker
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = { updateStatuses };
 }
