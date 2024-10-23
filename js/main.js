@@ -6,61 +6,61 @@ const sites = [
         name: 'Adhan-Flipperzero',
         url: 'https://github.com/stirlo/adhan/',
         github: 'stirlo/adhan',
-        logo: 'images/adhan-flipper-512x512.png'
+        logo: 'adhan-flipper-512x512.png'
     },
     {
         name: 'Adhan Swift/Web',
         url: 'https://stirlo.github.io/adhan-swift/',
         github: 'stirlo/adhan-swift',
-        logo: 'images/adhan-swift-512x512.png'
+        logo: 'adhan-swift-512x512.png'
     },
     {
         name: 'InfiniteReality.cc',
         url: 'https://infinitereality.cc',
         github: 'jailbreaktheuniverse/infinitereality.cc',
-        logo: 'images/infinitereality.cc-384x384.png'
+        logo: 'infinitereality.cc-384x384.png'
     },
     {
         name: 'JPT-flipperzero',
         url: 'https://github.com/stirlo/JPT-flipperzero/',
         github: 'stirlo/JPT-flipperzero',
-        logo: 'images/JPT-flipper-512x512.png'
+        logo: 'JPT-flipper-512x512.png'
     },
     {
         name: 'OurSquadIs.top',
         url: 'https://oursquadis.top',
         github: 'stirlo/oursquadis.top',
-        logo: 'images/oursquadis.top-512x512.png'
+        logo: 'oursquadis.top-512x512.png'
     },
     {
         name: 'Plaintext to ICS Converter',
         url: 'https://stirlo.github.io/txt_to_ICS_Prayer_Times/',
         github: 'stirlo/txt_to_ICS_Prayer_Times',
-        logo: 'images/alarm-clock.svg'
+        logo: 'alarm-clock.svg'
     },
     {
         name: 'Stirlo.be',
         url: 'https://stirlo.be',
         github: 'stirlo/stirlo.be',
-        logo: 'images/stirlo.be-512x512.png'
+        logo: 'stirlo.be-512x512.png'
     },
     {
         name: 'Stirlo.space',
         url: 'https://stirlo.space',
         github: 'stirlo/stirlo.space',
-        logo: 'images/stirlo.space-512x512.png'
+        logo: 'stirlo.space-512x512.png'
     },
     {
         name: 'TFP.la',
         url: 'https://tfp.la',
         github: 'stirlo/tfp.la',
-        logo: 'images/tfp-green-512.png'
+        logo: 'tfp-green-512.png'
     },
     {
         name: 'The Goss Room',
         url: 'https://thegossroom.com',
         github: 'stirlo/thegossroom.com',
-        logo: 'images/thegossroom-512x512.png'
+        logo: 'thegossroom-512x512.png'
     },
     {
         name: 'TheLaboratory.cc',
