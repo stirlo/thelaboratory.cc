@@ -3,176 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-	<link rel="manifest" href="/site.webmanifest">
-	<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#3333bb">
-	<meta name="msapplication-TileColor" content="#3333bb">
-	<meta name="theme-color" content="#ffffff">
-	<!-- Open Graph meta tags -->
-    <meta property="og:title" content="Current Projects" />
-    <meta property="og:description" content="Sites and Apps we are working on or maintaining..." />
-    <meta property="og:url" content="https://thelaboratory.cc" />
-    <meta property="og:image" content="https://thelaboratory.cc/android-chrome-512x512.png" />
-    <!-- Recommended to specify image dimensions -->
-    <meta property="og:image:width" content="512" />
-    <meta property="og:image:height" content="512" />
-    <title>Current Projects</title>
-	
-    <style>
-        .container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
-            align-items: center;
-        }
-        .website {
-            margin: 20px;
-            text-align: center;
-            flex-basis: 30%; /* Adjust this value to control the size */
-        }
-        .website img {
-            width: 100px; /* Adjust based on your image sizes */
-            height: 100px; /* Maintain aspect ratio */
-        }
-      .zoom-effect {
- 		 transition: transform 0.3s ease;
-	  display: inline-block;
-	}
 
-	.website:hover {
-	  transform: scale(1.1); /* Adjust the scale value to control the zoom level */
-	}
-        /* Light mode styles */
-        @media (prefers-color-scheme: light) {
-            body {
-                background-color: #fff;
-                color: #000;
-            }
-        
-            header, footer {
-                background-color: #f0f0f0;
-                color: #333;
-            }
-        
-            nav ul li a {
-                color: #333;
-            }
-        
-            form button {
-                background-color: #007bff;
-                color: #fff;
-                border: none;
-            }
-        }
-        
-        /* Dark mode styles */
-        @media (prefers-color-scheme: dark) {
-            body {
-                background-color: #121212;
-                color: #e0e0e0;
-            }
-        
-            header, footer {
-                background-color: #333;
-                color: #fff;
-            }
-        
-            nav ul li a {
-                color: #fff;
-            }
-        
-            form button {
-                background-color: #007bff;
-                color: #fff;
-                border: none;
-            }
-        }
-    </style>
+    <!-- Preconnect to critical domains -->
+    <link rel="preconnect" href="https://img.shields.io">
+    <link rel="preconnect" href="https://github.com">
+
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#3333bb">
+
+    <!-- Microsoft/Theme meta -->
+    <meta name="msapplication-TileColor" content="#3333bb">
+    <meta name="theme-color" content="#ffffff">
+
+    <!-- Open Graph meta tags -->
+    <meta property="og:title" content="Current Projects">
+    <meta property="og:description" content="Sites and Apps we are working on or maintaining...">
+    <meta property="og:url" content="https://thelaboratory.cc">
+    <meta property="og:image" content="https://thelaboratory.cc/android-chrome-512x512.png">
+    <meta property="og:image:width" content="512">
+    <meta property="og:image:height" content="512">
+
+    <title>Current Projects</title>
+
+    <!-- Move styles to external CSS file -->
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <h1>Current Projects</h1>
-	<a href="https://thelaboratory.cc/status.html">Check status of project sites</a>
-    <div class="container">
-      <div class="website zoom-effect">
-            <a href="https://oursquadis.top">
-                <img src="oursquadis.top-512x512.png" alt="OurSquadIs Logo">
-            </a>
-            <p>OurSquadIs.top</p>
-        </div>
-    <div class="website zoom-effect">
-            <a href="https://stirlo.be">
-                <img src="stirlo.be-512x512.png" alt="Stirlo Logo">
-            </a>
-            <p>Stirlo.be</p>
-        </div>
-     <div class="website zoom-effect">
-            <a href="https://stirlo.space">
-                <img src="stirlo.space-512x512.png" alt="Stirlo Space Logo">
-            </a>
-            <p>Stirlo.space</p>
-        </div>
-      <div class="website zoom-effect">
-            <a href="https://thelaboratory.cc">
-                <img src="apple-touch-icon.png" alt="The Laboratory Logo">
-            </a>
-            <p>TheLaboratory.cc</p>
-        </div>
-	  <div class="website zoom-effect">
-            <a href="https://TFP.la">
-                <img src="tfp-green-512.png" alt="TFP Logo">
-            </a>
-            <p>TFP.la</p>
-        </div>
-       <div class="website zoom-effect">
-            <a href="https://infinitereality.cc">
-                <img src="infinitereality.cc-384x384.png" alt="Infinite Reality Logo">
-            </a>
-            <p>InfiniteReality.cc</p>
-        </div>
-	    <div class="website zoom-effect">
-	    <a href="https://thegossroom.com">
-		<img src="thegossroom-512x512.png" alt="The Gossip Room">
-	    </a>
-	    <p>The Goss Room</p>
-</div>
-        <!-- Placeholder for additional websites or duplicates -->
-       <div class="website zoom-effect">
-            <a href="https://github.com/stirlo/JPT-flipperzero/">
-                <img src="JPT-flipper-512x512.png" alt="JPT">
-            </a>
-            <p>JPT-flipperzero</p>
-        </div>
-      <div class="website zoom-effect">
-            <a href="https://stirlo.github.io/adhan-swift/">
-                <img src="adhan-swift-512x512.png" alt="adhan-swift-logo">
-            </a>
-            <p>Adhan Swift/Web</p>
-        </div>
-     <div class="website zoom-effect">
-           <a href="https://github.com/stirlo/adhan/">
-                <img src="adhan-flipper-512x512.png" alt="adhan-flipperzero-logo">
-            </a>
-            <p>Adhan-Flipperzero</p>
-        </div>
-	 <div class="website zoom-effect">
-            <a href="https://stirlo.github.io/txt_to_ICS_Prayer_Times/">
-                <img src="alarm-clock.svg" alt="Plaintext to ICS Converter Logo">
-            </a>
-            <p>Plaintext to ICS Converter</p>
-        </div>
+    <header>
+        <h1>The Laboratory</h1>
+        <p><a href="/status.html">View Status Page</a></p>
+    </header>
+
+    <div class="container" id="sitesContainer">
+        <!-- Sites will be dynamically inserted here by main.js -->
+        <noscript>
+            <p>JavaScript is required to view the site listings.</p>
+        </noscript>
     </div>
-   <footer>
+
+    <footer>
         <p>
-            <a href="LICENSE">&copy;</a> <span id="currentYear"></span> 
-            <a href="https://tfp.la">TFP</a> &nbsp;|&nbsp; 
-            <a href="https://thelaboratory.cc">The Laboratory</a> &nbsp;|&nbsp; 
-            <a href="https://thelaboratory.cc/thankyou.html">many thanks to</a>
+            <a href="LICENSE">©</a> <span id="currentYear"></span> 
+            <a href="https://tfp.la">TFP</a> | 
+            <a href="https://thelaboratory.cc">The Laboratory</a> | 
+            <a href="https://thelaboratory.cc/thankyou.html">Thank You</a>
         </p>
     </footer>
-    <script>
-        document.getElementById('currentYear').textContent = new Date().getFullYear();
-    </script>
+
+    <!-- Load main JavaScript -->
+    <script src="/js/main.js" defer></script>
 </body>
 </html>

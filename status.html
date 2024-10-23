@@ -1,141 +1,222 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Status Page</title>
-<style>
-  #statusContainer {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-  }
-  .domain-status {
-    display: flex;
-    align-items: center;
-    margin: 10px;
-    flex-basis: calc(50% - 20px); /* Default to 2 items per row, accounting for margin */
-  }
-  .domain-name {
-    margin-right: 10px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  img {
-    width: 50px;
-    height: 50px;
-  }
-  @media (min-width: 600px) { /* Adjust for wider screens */
-    .domain-status {
-      flex-basis: calc(33.333% - 20px); /* 3 items per row */
-    }
-  }
-  @media (prefers-color-scheme: light) {
-            body {
-                background-color: #fff;
-                color: #000;
-            }
-        
-            header, footer {
-                background-color: #f0f0f0;
-                color: #333;
-            }
-        
-            nav ul li a {
-                color: #333;
-            }
-        
-            form button {
-                background-color: #007bff;
-                color: #fff;
-                border: none;
-            }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#3333bb">
+
+    <!-- Microsoft/Theme meta -->
+    <meta name="msapplication-TileColor" content="#3333bb">
+    <meta name="theme-color" content="#ffffff">
+
+    <title>Status - The Laboratory</title>
+
+    <style>
+        :root {
+            --primary-bg: #ffffff;
+            --primary-text: #000000;
+            --card-bg: #ffffff;
+            --card-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            --hover-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            --success-color: #28a745;
+            --error-color: #dc3545;
+            --warning-color: #ffc107;
+            --link-color: #3333bb;
+            --border-radius: 10px;
+            --transition-speed: 0.3s;
         }
-        
-        /* Dark mode styles */
+
         @media (prefers-color-scheme: dark) {
-            body {
-                background-color: #121212;
-                color: #e0e0e0;
-            }
-        
-            header, footer {
-                background-color: #333;
-                color: #fff;
-            }
-        
-            nav ul li a {
-                color: #fff;
-            }
-        
-            form button {
-                background-color: #007bff;
-                color: #fff;
-                border: none;
+            :root {
+                --primary-bg: #121212;
+                --primary-text: #ffffff;
+                --card-bg: #1e1e1e;
+                --card-shadow: 0 2px 5px rgba(255,255,255,0.1);
+                --hover-shadow: 0 4px 10px rgba(255,255,255,0.15);
+                --link-color: #8888ff;
             }
         }
-</style>
+
+        body {
+            background-color: var(--primary-bg);
+            color: var(--primary-text);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            color: var(--primary-text);
+        }
+
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            flex: 1;
+        }
+
+        .status-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            box-shadow: var(--card-shadow);
+            transition: transform var(--transition-speed) ease,
+                      box-shadow var(--transition-speed) ease;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .status-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--hover-shadow);
+        }
+
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+
+        .status-details {
+            flex: 1;
+        }
+
+        .status-details h3 {
+            margin: 0 0 10px 0;
+            font-size: 1.2em;
+        }
+
+        .response-time, .last-update, .github-stats, .error-message {
+            font-size: 0.9em;
+            opacity: 0.8;
+            margin: 5px 0;
+        }
+
+        .error-message {
+            color: var(--error-color);
+        }
+
+        .site-link {
+            color: var(--link-color);
+            text-decoration: none;
+            padding: 5px 10px;
+            border-radius: var(--border-radius);
+            transition: background-color var(--transition-speed) ease;
+        }
+
+        .site-link:hover {
+            background-color: rgba(51, 51, 187, 0.1);
+        }
+
+        .refresh-button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: var(--link-color);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: opacity var(--transition-speed) ease;
+        }
+
+        .refresh-button:hover {
+            opacity: 0.9;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+        }
+
+        /* Offline state */
+        .status-grid.offline .status-card {
+            opacity: 0.7;
+        }
+
+        .status-grid.offline::before {
+            content: 'You are currently offline';
+            display: block;
+            text-align: center;
+            padding: 10px;
+            background-color: var(--warning-color);
+            color: black;
+            border-radius: var(--border-radius);
+            margin-bottom: 20px;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .status-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                padding: 10px;
+            }
+
+            header h1 {
+                font-size: 2em;
+            }
+
+            .status-card {
+                padding: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
+            .status-details h3 {
+                font-size: 1.1em;
+            }
+        }
+    </style>
 </head>
 <body>
-<div id="statusContainer"></div>
+    <header>
+        <h1>Site Status</h1>
+        <p><a href="/" class="site-link">Back to Home</a></p>
+    </header>
 
-<script>
-// List of domains to check
-const domains = [
-  'https://github.com/stirlo/adhan/',
-  'https://github.com/stirlo/JPT-flipperzero/',
-  'https://infinitereality.cc',
-  'https://jailbreaktheuniverse.com',
-  'https://oursquadis.top',
-  'https://stirlo.be',
-  'https://stirlo.github.io/adhan-swift/',
-  'https://stirlo.space',
-  'https://tfp.la',
-  'https://thelaboratory.cc',
-  `https://stirlo.github.io/txt_to_ICS_Prayer_Times/`,
-  // Add more domains as needed
-];
+    <div id="statusGrid" class="status-grid">
+        <!-- Status cards will be dynamically inserted here -->
+    </div>
 
-// Image URLs for "up" and "down" statuses
-const upImage = 'green_light.svg'; // Placeholder path
-const downImage = 'red_light.svg'; // Placeholder path
+    <button class="refresh-button" onclick="updateStatuses()">
+        Refresh Status
+    </button>
 
-// Function to check domain status
-async function checkDomainStatus(domain) {
-  try {
-    const response = await fetch(domain, { mode: 'no-cors' }); // Using no-cors mode for simplicity
-    // Assuming any response means the domain is up
-    return true;
-  } catch (error) {
-    // If an error occurs, assume the domain is down
-    return false;
-  }
-}
+    <footer>
+        <p>Last updated: <span id="lastUpdate">Checking...</span></p>
+    </footer>
 
-// Function to update the UI with domain statuses
-async function updateStatuses() {
-  const statusContainer = document.getElementById('statusContainer');
-  statusContainer.innerHTML = ''; // Clear existing statuses
-
-  for (const domain of domains) {
-    const isUp = await checkDomainStatus(domain);
-    const statusImage = isUp ? upImage : downImage;
-    const domainElement = document.createElement('div');
-    domainElement.className = 'domain-status';
-    domainElement.innerHTML = `
-      <span class="domain-name">${domain}</span>
-      <img src="${statusImage}" alt="${isUp ? 'Up' : 'Down'}">
-    `;
-    statusContainer.appendChild(domainElement);
-  }
-}
-
-// Initial call to update statuses
-updateStatuses();
-</script>
-Note; this is showing how the pages or domains load for you and your DNS; <p></p></o> not necessarily meaning they're up or
-down for Other people or globally.<p> If you need to confirm please try
-one of these external services such as <a href="https://downforeveryoneorjustme.com/">Down for everyone or just me</a>
+    <script src="js/status.js"></script>
 </body>
 </html>
