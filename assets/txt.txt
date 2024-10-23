@@ -1,1 +1,23 @@
-text
+thelaboratory.cc/
+├── index.html
+├── status.html
+├── js/
+│   ├── main.js
+│   └── status.js
+├── css/
+│   └── style.css
+├── assets/
+│   └── logos/
+│       ├── laboratory-512x512.png
+│       ├── stirlo.space-512x512.png
+│       ├── tfp-green-512.png
+│       ├── oursquadis.top-512x512.png
+│       ├── infinitereality.cc-384x384.png
+│       ├── stirlo.be-512x512.png
+│       ├── JPT-flipper-512x512.png
+│       ├── adhan-flipper-512x512.png
+│       ├── adhan-swift-512x512.png
+│       ├── alarm-clock.svg
+│       └── thegossroom-512x512.png
+├── sw.js
+└── site.webmanifest
