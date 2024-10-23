@@ -12,7 +12,7 @@ if (typeof sites === 'undefined') {
             logo: 'apple-touch-icon.png'
         },
         {
-            name: 'Stirlo.space',
+            name: 'stirlo.space',
             url: 'https://stirlo.space',
             github: 'stirlo/stirlo.space',
             logo: 'stirlo.space-512x512.png'
@@ -32,7 +32,7 @@ if (typeof sites === 'undefined') {
         {
             name: 'InfiniteReality.cc',
             url: 'https://infinitereality.cc',
-            github: 'stirlo/jailbreaktheuniverse',
+            github: 'https://github.com/jailbreaktheuniverse',
             logo: 'infinitereality.cc-384x384.png'
         },
         {
@@ -68,7 +68,7 @@ if (typeof sites === 'undefined') {
         {
             name: 'The Goss Room',
             url: 'https://thegossroom.com',
-            github: 'stirlo/thegossroom',
+            github: 'stirlo/thegossroom.com',
             logo: 'thegossroom-512x512.png'
         }
     ];
