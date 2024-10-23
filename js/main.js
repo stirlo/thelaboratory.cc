@@ -83,7 +83,7 @@ function createSiteCards() {
         const card = document.createElement('div');
         card.className = 'website zoom-effect';
 
-        const cardHTML = `
+        card.innerHTML = `
             <a href="${site.url}" target="_blank" rel="noopener noreferrer" class="site-link">
                 <img src="${site.logo}" 
                      alt="${site.name} Logo"
@@ -100,10 +100,8 @@ function createSiteCards() {
                          src="https://img.shields.io/github/last-commit/${site.github}" 
                          alt="Last Commit">
                 </a>
-            </div>
-        `;
+            </div>`;
 
-        card.innerHTML = cardHTML;
         container.appendChild(card);
     });
 }
