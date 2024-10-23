@@ -1,6 +1,3 @@
-// Debug logging
-console.log('Script starting...');
-
 const sites = [
     {
         name: 'Adhan-Flipperzero',
@@ -68,25 +65,19 @@ const sites = [
         github: 'stirlo/thelaboratory.cc',
         logo: 'apple-touch-icon.png'
     }
-].sort((a, b) => a.name.localeCompare(b.name)); // Ensure alphabetical order
-
-console.log('Sites array loaded:', sites.length, 'items');
+].sort((a, b) => a.name.localeCompare(b.name));
 
 function createSiteCards() {
-    console.log('createSiteCards function called');
     const container = document.getElementById('sitesContainer');
 
     if (!container) {
-        console.error('Container not found - sitesContainer is missing');
         return;
     }
-    console.log('Container found:', container);
 
     container.innerHTML = '';
 
     try {
-        sites.forEach((site, index) => {
-            console.log(`Creating card ${index + 1} for ${site.name}`);
+        sites.forEach((site) => {
             const card = document.createElement('div');
             card.className = 'website zoom-effect';
 
@@ -110,48 +101,25 @@ function createSiteCards() {
                 </div>`;
 
             container.appendChild(card);
-            console.log(`Card ${index + 1} created and appended`);
         });
     } catch (error) {
-        console.error('Error in createSiteCards:', error);
+        // Silent error handling for production
     }
 }
 
 function updateCopyright() {
-    console.log('Updating copyright year');
     const yearElement = document.getElementById('currentYear');
     if (yearElement) {
         yearElement.textContent = new Date().getFullYear();
-        console.log('Copyright year updated');
-    } else {
-        console.error('Copyright year element not found');
     }
 }
 
-// Initialize when DOM is fully loaded
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('DOMContentLoaded event fired');
     createSiteCards();
     updateCopyright();
 });
 
-// Fallback initialization
 if (document.readyState === 'complete') {
-    console.log('Document already complete, running initialization');
     createSiteCards();
     updateCopyright();
 }
-
-// Error handling
-window.addEventListener('error', function(e) {
-    console.error('Global error caught:', e.message);
-    console.error('Error details:', {
-        message: e.message,
-        filename: e.filename,
-        lineno: e.lineno,
-        colno: e.colno,
-        error: e.error
-    });
-});
-
-console.log('Script loaded completely');
