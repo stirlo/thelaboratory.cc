@@ -1,142 +1,231 @@
-const CACHE_NAME = 'laboratory-cache-v1';
-const ASSETS_TO_CACHE = [
+// Service Worker for The Laboratory
+const CACHE_NAME = 'laboratory-v1';
+const DYNAMIC_CACHE = 'laboratory-dynamic-v1';
+
+// Assets to cache on install
+const ASSETS = [
     '/',
     '/index.html',
     '/status.html',
-    '/js/status.js',
-    '/js/main.js',
     '/css/style.css',
-    '/site.webmanifest',
-    '/favicon.ico',
+    '/js/main.js',
+    '/js/status.js',
+    // Images
     '/apple-touch-icon.png',
-    '/favicon-32x32.png',
-    '/favicon-16x16.png',
-    '/safari-pinned-tab.svg',
-    '/android-chrome-192x192.png',
-    '/android-chrome-512x512.png',
-    'https://img.shields.io/github/last-commit/',
-    'https://img.shields.io/website'
+    '/stirlo.space-512x512.png',
+    '/tfp-green-512.png',
+    '/oursquadis.top-512x512.png',
+    '/infinitereality.cc-384x384.png',
+    '/stirlo.be-512x512.png',
+    '/JPT-flipper-512x512.png',
+    '/adhan-flipper-512x512.png',
+    '/adhan-swift-512x512.png',
+    '/alarm-clock.svg',
+    '/thegossroom-512x512.png',
+    // Add any additional assets here
 ];
 
-// Install event - cache assets
+// Install event - triggered when the service worker is first installed
 self.addEventListener('install', event => {
+    console.log('[Service Worker] Installing Service Worker...', event);
     event.waitUntil(
         caches.open(CACHE_NAME)
             .then(cache => {
-                return cache.addAll(ASSETS_TO_CACHE);
+                console.log('[Service Worker] Caching app shell');
+                return cache.addAll(ASSETS).catch(error => {
+                    console.error('[Service Worker] Cache addAll failed:', error);
+                    throw error;
+                });
             })
             .then(() => {
+                console.log('[Service Worker] Skip waiting on install');
                 return self.skipWaiting();
+            })
+            .catch(error => {
+                console.error('[Service Worker] Install failed:', error);
             })
     );
 });
 
-// Activate event - clean up old caches
+// Activate event - triggered when the service worker is activated
 self.addEventListener('activate', event => {
+    console.log('[Service Worker] Activating Service Worker...', event);
     event.waitUntil(
-        caches.keys().then(cacheNames => {
-            return Promise.all(
-                cacheNames.map(cacheName => {
-                    if (cacheName !== CACHE_NAME) {
-                        return caches.delete(cacheName);
-                    }
-                })
-            );
-        }).then(() => {
-            return self.clients.claim();
+        Promise.all([
+            // Clean up old caches
+            caches.keys().then(cacheNames => {
+                return Promise.all(
+                    cacheNames.map(cacheName => {
+                        if (cacheName !== CACHE_NAME && cacheName !== DYNAMIC_CACHE) {
+                            console.log('[Service Worker] Deleting old cache:', cacheName);
+                            return caches.delete(cacheName);
+                        }
+                    })
+                );
+            }),
+            // Take control of all clients
+            self.clients.claim().then(() => {
+                console.log('[Service Worker] Claiming clients');
+            })
+        ]).catch(error => {
+            console.error('[Service Worker] Activation failed:', error);
         })
     );
 });
 
-// Fetch event - network first, fallback to cache
+// Fetch event - triggered when the web app makes a request
 self.addEventListener('fetch', event => {
-    // Handle shield.io badges differently - network only
-    if (event.request.url.includes('img.shields.io')) {
-        event.respondWith(
-            fetch(event.request)
-                .catch(() => new Response('', {
-                    status: 404,
-                    statusText: 'Not Found'
-                }))
-        );
-        return;
-    }
+    console.log('[Service Worker] Fetching:', event.request.url);
 
+    // Handle different types of requests
+    if (event.request.url.includes('/status-data')) {
+        // Handle status data requests separately
+        handleStatusDataFetch(event);
+    } else if (event.request.url.includes('github.com') || 
+               event.request.url.includes('shields.io')) {
+        // Handle GitHub and badge requests with network-first strategy
+        handleAPIFetch(event);
+    } else {
+        // Handle regular asset requests with cache-first strategy
+        handleAssetFetch(event);
+    }
+});
+
+// Handle status data requests
+function handleStatusDataFetch(event) {
     event.respondWith(
         fetch(event.request)
             .then(response => {
-                // Cache successful responses
-                if (response && response.status === 200 && response.type === 'basic') {
-                    const responseToCache = response.clone();
-                    caches.open(CACHE_NAME)
-                        .then(cache => {
-                            cache.put(event.request, responseToCache);
-                        });
-                }
+                // Clone the response before caching
+                const clonedResponse = response.clone();
+                caches.open(DYNAMIC_CACHE).then(cache => {
+                    cache.put(event.request, clonedResponse);
+                });
                 return response;
             })
             .catch(() => {
-                return caches.match(event.request)
+                return caches.match(event.request);
+            })
+    );
+}
+
+// Handle API requests (GitHub, shields.io)
+function handleAPIFetch(event) {
+    event.respondWith(
+        fetch(event.request)
+            .then(response => {
+                // Clone and cache fresh data
+                const clonedResponse = response.clone();
+                caches.open(DYNAMIC_CACHE).then(cache => {
+                    cache.put(event.request, clonedResponse);
+                });
+                return response;
+            })
+            .catch(() => {
+                return caches.match(event.request);
+            })
+    );
+}
+
+// Handle regular asset requests
+function handleAssetFetch(event) {
+    event.respondWith(
+        caches.match(event.request)
+            .then(response => {
+                if (response) {
+                    console.log('[Service Worker] Found in cache:', event.request.url);
+                    return response;
+                }
+
+                console.log('[Service Worker] Fetching resource:', event.request.url);
+                return fetch(event.request)
                     .then(response => {
-                        if (response) {
+                        // Check if we received a valid response
+                        if (!response || response.status !== 200 || response.type !== 'basic') {
                             return response;
                         }
-                        // Return offline page for navigation requests
-                        if (event.request.mode === 'navigate') {
-                            return caches.match('/offline.html');
-                        }
-                        return new Response('', {
-                            status: 404,
-                            statusText: 'Not Found'
-                        });
+
+                        // Clone the response
+                        const responseToCache = response.clone();
+                        caches.open(DYNAMIC_CACHE)
+                            .then(cache => {
+                                cache.put(event.request, responseToCache);
+                                console.log('[Service Worker] Resource cached:', event.request.url);
+                            });
+
+                        return response;
+                    })
+                    .catch(error => {
+                        console.error('[Service Worker] Fetch failed:', error);
+                        // You might want to return a custom offline page here
+                        return new Response('Offline content not available');
                     });
             })
     );
-});
+}
 
-// Handle background sync for status updates
+// Background sync event
 self.addEventListener('sync', event => {
+    console.log('[Service Worker] Background sync:', event.tag);
     if (event.tag === 'status-update') {
         event.waitUntil(
-            fetch('/status.json')
-                .then(response => response.json())
-                .then(data => {
-                    // Update status data
-                    caches.open(CACHE_NAME)
-                        .then(cache => {
-                            cache.put('/status.json', new Response(JSON.stringify(data)));
-                        });
+            updateStatuses()
+                .catch(error => {
+                    console.error('[Service Worker] Background sync failed:', error);
                 })
         );
     }
 });
 
-// Handle push notifications
+// Push notification event
 self.addEventListener('push', event => {
-    if (event.data) {
-        const notification = event.data.json();
-        const options = {
-            body: notification.body,
-            icon: '/android-chrome-192x192.png',
-            badge: '/favicon-32x32.png',
-            data: {
-                url: notification.url
-            }
-        };
+    console.log('[Service Worker] Push received:', event);
+    const options = {
+        body: event.data.text(),
+        icon: '/apple-touch-icon.png',
+        badge: '/apple-touch-icon.png'
+    };
 
-        event.waitUntil(
-            self.registration.showNotification('The Laboratory', options)
-        );
-    }
+    event.waitUntil(
+        self.registration.showNotification('The Laboratory', options)
+            .catch(error => {
+                console.error('[Service Worker] Push notification failed:', error);
+            })
+    );
 });
 
-// Handle notification clicks
+// Notification click event
 self.addEventListener('notificationclick', event => {
+    console.log('[Service Worker] Notification click:', event);
     event.notification.close();
 
-    if (event.notification.data && event.notification.data.url) {
-        event.waitUntil(
-            clients.openWindow(event.notification.data.url)
-        );
+    event.waitUntil(
+        clients.openWindow('/')
+            .catch(error => {
+                console.error('[Service Worker] Open window failed:', error);
+            })
+    );
+});
+
+// Helper function to update statuses
+async function updateStatuses() {
+    try {
+        const cache = await caches.open(DYNAMIC_CACHE);
+        const response = await fetch('/status-data');
+        await cache.put('/status-data', response.clone());
+        return response;
+    } catch (error) {
+        console.error('[Service Worker] Update statuses failed:', error);
+        throw error;
     }
+}
+
+// Log any unhandled errors
+self.addEventListener('error', event => {
+    console.error('[Service Worker] Unhandled error:', event.error);
+});
+
+// Log any unhandled promise rejections
+self.addEventListener('unhandledrejection', event => {
+    console.error('[Service Worker] Unhandled promise rejection:', event.reason);
 });
