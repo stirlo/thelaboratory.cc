@@ -76,35 +76,37 @@ function createSiteCards() {
 
     container.innerHTML = '';
 
-    try {
-        sites.forEach((site) => {
-            const card = document.createElement('div');
-            card.className = 'website zoom-effect';
+    sites.forEach((site) => {
+        const card = document.createElement('div');
+        card.className = 'website zoom-effect';
 
-            card.innerHTML = `
-                <a href="${site.url}" target="_blank" rel="noopener noreferrer" class="site-link">
-                    <img src="${site.logo}" 
-                         alt="${site.name} Logo"
-                         class="site-logo"
-                         onerror="this.onerror=null; this.src='apple-touch-icon.png';">
-                    <h2 class="site-name">${site.name}</h2>
+        card.innerHTML = `
+            <a href="${site.url}" target="_blank" rel="noopener noreferrer" class="site-link">
+                <img src="${site.logo}" 
+                     alt="${site.name} Logo"
+                     class="site-logo"
+                     onerror="this.onerror=null; this.src='apple-touch-icon.png';">
+                <h2 class="site-name">${site.name}</h2>
+            </a>
+            <div class="badges">
+                <a href="https://github.com/${site.github}" 
+                   target="_blank" 
+                   rel="noopener noreferrer" 
+                   class="github-link">
+                    <img class="badge" 
+                         src="https://img.shields.io/github/last-commit/${site.github}" 
+                         alt="Last Commit">
+                    <img class="badge"
+                         src="https://img.shields.io/github/languages/top/${site.github}"
+                         alt="Primary Language">
+                    <img class="badge"
+                         src="https://img.shields.io/github/languages/count/${site.github}"
+                         alt="Language Count">
                 </a>
-                <div class="badges">
-                    <a href="https://github.com/${site.github}" 
-                       target="_blank" 
-                       rel="noopener noreferrer" 
-                       class="github-link">
-                        <img class="badge" 
-                             src="https://img.shields.io/github/last-commit/${site.github}" 
-                             alt="Last Commit">
-                    </a>
-                </div>`;
+            </div>`;
 
-            container.appendChild(card);
-        });
-    } catch (error) {
-        // Silent error handling for production
-    }
+        container.appendChild(card);
+    });
 }
 
 function updateCopyright() {
