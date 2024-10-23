@@ -1,156 +1,219 @@
-// status.js
+// status.js - Complete version with all functionality
 const statusGrid = document.getElementById('statusGrid');
 const lastUpdateSpan = document.getElementById('lastUpdate');
-let statusData = null;
 
-// Status indicators
-const STATUS_COLORS = {
-    online: '#28a745',
-    offline: '#dc3545',
-    error: '#ffc107'
-};
-
-// Format time difference
-function timeAgo(date) {
-    const seconds = Math.floor((new Date() - new Date(date)) / 1000);
-
-    let interval = Math.floor(seconds / 31536000);
-    if (interval > 1) return interval + ' years ago';
-    if (interval === 1) return 'a year ago';
-
-    interval = Math.floor(seconds / 2592000);
-    if (interval > 1) return interval + ' months ago';
-    if (interval === 1) return 'a month ago';
-
-    interval = Math.floor(seconds / 86400);
-    if (interval > 1) return interval + ' days ago';
-    if (interval === 1) return 'yesterday';
-
-    interval = Math.floor(seconds / 3600);
-    if (interval > 1) return interval + ' hours ago';
-    if (interval === 1) return 'an hour ago';
-
-    interval = Math.floor(seconds / 60);
-    if (interval > 1) return interval + ' minutes ago';
-    if (interval === 1) return 'a minute ago';
-
-    if (seconds < 10) return 'just now';
-
-    return Math.floor(seconds) + ' seconds ago';
+// Import sites from main.js if not already available
+if (typeof sites === 'undefined') {
+    const sites = [
+        {
+            name: 'TheLaboratory.cc',
+            url: 'https://thelaboratory.cc',
+            github: 'stirlo/thelaboratory.cc',
+            logo: 'apple-touch-icon.png'
+        },
+        {
+            name: 'Stirlo.space',
+            url: 'https://stirlo.space',
+            github: 'stirlo/stirlo.space',
+            logo: 'stirlo.space-512x512.png'
+        },
+        {
+            name: 'TFP.la',
+            url: 'https://tfp.la',
+            github: 'stirlo/tfp.la',
+            logo: 'tfp-green-512.png'
+        },
+        {
+            name: 'OurSquadIs.top',
+            url: 'https://oursquadis.top',
+            github: 'stirlo/oursquadis.top',
+            logo: 'oursquadis.top-512x512.png'
+        },
+        {
+            name: 'InfiniteReality.cc',
+            url: 'https://infinitereality.cc',
+            github: 'stirlo/jailbreaktheuniverse',
+            logo: 'infinitereality.cc-384x384.png'
+        },
+        {
+            name: 'Stirlo.be',
+            url: 'https://stirlo.be',
+            github: 'stirlo/stirlo.be',
+            logo: 'stirlo.be-512x512.png'
+        },
+        {
+            name: 'JPT-flipperzero',
+            url: 'https://github.com/stirlo/JPT-flipperzero/',
+            github: 'stirlo/JPT-flipperzero',
+            logo: 'JPT-flipper-512x512.png'
+        },
+        {
+            name: 'Adhan-Flipperzero',
+            url: 'https://github.com/stirlo/adhan/',
+            github: 'stirlo/adhan',
+            logo: 'adhan-flipper-512x512.png'
+        },
+        {
+            name: 'Adhan Swift/Web',
+            url: 'https://stirlo.github.io/adhan-swift/',
+            github: 'stirlo/adhan-swift',
+            logo: 'adhan-swift-512x512.png'
+        },
+        {
+            name: 'Plaintext to ICS Converter',
+            url: 'https://stirlo.github.io/txt_to_ICS_Prayer_Times/',
+            github: 'stirlo/txt_to_ICS_Prayer_Times',
+            logo: 'alarm-clock.svg'
+        },
+        {
+            name: 'The Goss Room',
+            url: 'https://thegossroom.com',
+            github: 'stirlo/thegossroom',
+            logo: 'thegossroom-512x512.png'
+        }
+    ];
 }
 
-// Check site status
+// Cache for storing status results
+const statusCache = new Map();
+
+// Function to check if a site is reachable
 async function checkSiteStatus(site) {
     try {
         const startTime = performance.now();
-        const response = await fetch(site.url, { mode: 'no-cors' });
+
+        // Try to fetch the favicon first as it's typically allowed by CORS
+        const faviconUrl = new URL('/favicon.ico', site.url).href;
+        const response = await fetch(faviconUrl, {
+            mode: 'no-cors',
+            cache: 'no-cache',
+            timeout: 5000
+        });
+
         const endTime = performance.now();
+        const responseTime = Math.round(endTime - startTime);
 
         return {
-            status: response.ok ? 'online' : 'error',
-            responseTime: Math.round(endTime - startTime),
+            status: 'online',
+            responseTime: responseTime,
             lastCheck: new Date().toISOString()
         };
     } catch (error) {
         return {
             status: 'offline',
-            error: error.message,
+            error: 'Site unreachable',
             lastCheck: new Date().toISOString()
         };
     }
 }
 
-// Create status card
-function createStatusCard(site, status) {
+// Function to check GitHub repository status
+async function checkGitHubStatus(github) {
+    try {
+        const response = await fetch(`https://api.github.com/repos/${github}`);
+        const data = await response.json();
+        return {
+            stars: data.stargazers_count,
+            lastUpdate: data.updated_at
+        };
+    } catch (error) {
+        return null;
+    }
+}
+
+// Function to create a status card for each site
+function createStatusCard(site, status, githubStatus = null) {
     const card = document.createElement('div');
     card.className = 'status-card';
 
-    const indicator = document.createElement('div');
-    indicator.className = 'status-indicator';
-    indicator.style.backgroundColor = STATUS_COLORS[status.status];
+    const statusColor = status.status === 'online' ? '#28a745' : '#dc3545';
+    const statusText = status.status === 'online' ? 'Online' : 'Offline';
 
-    const details = document.createElement('div');
-    details.className = 'status-details';
-
-    const title = document.createElement('h3');
-    const link = document.createElement('a');
-    link.href = site.url;
-    link.target = '_blank';
-    link.rel = 'noopener';
-    link.textContent = site.name;
-    title.appendChild(link);
-
-    const logo = document.createElement('img');
-    logo.src = site.logo;
-    logo.alt = `${site.name} logo`;
-    logo.className = 'status-logo';
-    logo.loading = 'lazy';
-
-    details.appendChild(logo);
-    details.appendChild(title);
-
-    if (status.responseTime) {
-        const responseTime = document.createElement('p');
-        responseTime.className = 'response-time';
-        responseTime.textContent = `Response time: ${status.responseTime}ms`;
-        details.appendChild(responseTime);
-    }
-
-    if (status.lastCheck) {
-        const lastCheck = document.createElement('p');
-        lastCheck.className = 'last-update';
-        lastCheck.textContent = `Last checked: ${timeAgo(status.lastCheck)}`;
-        details.appendChild(lastCheck);
-    }
-
-    if (status.error) {
-        const error = document.createElement('p');
-        error.className = 'error-message';
-        error.textContent = status.error;
-        details.appendChild(error);
-    }
-
-    card.appendChild(indicator);
-    card.appendChild(details);
+    card.innerHTML = `
+        <div class="status-indicator" style="background-color: ${statusColor}"></div>
+        <div class="status-details">
+            <img src="${site.logo}" 
+                 alt="${site.name} logo" 
+                 class="status-logo"
+                 onerror="this.onerror=null; this.src='apple-touch-icon.png';">
+            <h3>
+                <a href="${site.url}" target="_blank" rel="noopener">${site.name}</a>
+            </h3>
+            <p class="status-text">${statusText}</p>
+            ${status.responseTime ? `
+                <p class="response-time">Response: ${status.responseTime}ms</p>
+            ` : ''}
+            <p class="last-update">Last check: ${new Date(status.lastCheck).toLocaleString()}</p>
+            ${githubStatus ? `
+                <p class="github-stats">
+                    ⭐ ${githubStatus.stars} · 
+                    Last updated: ${new Date(githubStatus.lastUpdate).toLocaleDateString()}
+                </p>
+            ` : ''}
+            ${status.error ? `<p class="error-message">${status.error}</p>` : ''}
+            <div class="badges">
+                <a href="https://github.com/${site.github}" target="_blank" rel="noopener">
+                    <img class="badge" 
+                         src="https://img.shields.io/github/last-commit/${site.github}" 
+                         alt="Last Commit">
+                </a>
+            </div>
+        </div>
+    `;
 
     return card;
 }
 
-// Update status grid
+// Function to update all statuses
 async function updateStatuses() {
+    if (!statusGrid) return;
+
     try {
         statusGrid.innerHTML = '<div class="loading">Checking statuses...</div>';
 
-        const statuses = await Promise.all(
-            sites.map(async site => {
-                const status = await checkSiteStatus(site);
-                return { site, status };
-            })
-        );
+        const statusPromises = sites.map(async site => {
+            // Check if we have a recent cached status (less than 5 minutes old)
+            const cachedStatus = statusCache.get(site.url);
+            const now = Date.now();
+            if (cachedStatus && (now - new Date(cachedStatus.lastCheck).getTime() < 300000)) {
+                return { site, status: cachedStatus };
+            }
 
-        statusGrid.innerHTML = '';
-        statuses.forEach(({ site, status }) => {
-            statusGrid.appendChild(createStatusCard(site, status));
+            const status = await checkSiteStatus(site);
+            const githubStatus = await checkGitHubStatus(site.github);
+
+            // Cache the result
+            statusCache.set(site.url, status);
+
+            return { site, status, githubStatus };
         });
 
-        lastUpdateSpan.textContent = new Date().toLocaleString();
+        const results = await Promise.allSettled(statusPromises);
 
-        // Store status data for offline use
-        if ('caches' in window) {
-            const cache = await caches.open('status-data');
-            await cache.put('/status-data', new Response(JSON.stringify(statuses)));
+        statusGrid.innerHTML = '';
+        results.forEach(result => {
+            if (result.status === 'fulfilled') {
+                const { site, status, githubStatus } = result.value;
+                statusGrid.appendChild(createStatusCard(site, status, githubStatus));
+            }
+        });
+
+        if (lastUpdateSpan) {
+            lastUpdateSpan.textContent = new Date().toLocaleString();
         }
     } catch (error) {
         console.error('Error updating statuses:', error);
         statusGrid.innerHTML = `
             <div class="error-message">
-                Failed to load status data: ${error.message}
+                Failed to check statuses. Please try again later.
+                <br>
+                Error: ${error.message}
             </div>
         `;
     }
 }
 
-// Initialize
+// Initialize status checks
 document.addEventListener('DOMContentLoaded', () => {
     updateStatuses();
     // Update every 5 minutes
@@ -167,7 +230,10 @@ window.addEventListener('offline', () => {
     document.body.classList.add('offline');
 });
 
-// Export for worker
+// Export for use in other scripts
 if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { updateStatuses };
+    module.exports = {
+        checkSiteStatus,
+        updateStatuses
+    };
 }
