@@ -6,6 +6,22 @@
     --border-radius: 10px;
     --transition-speed: 0.3s;
     --box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    --hover-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    --footer-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    --badge-background: #f8f9fa;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --primary-color: #6666ff;
+        --text-color: #e0e0e0;
+        --background-color: #1a1a1a;
+        --card-background: #2d2d2d;
+        --box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        --hover-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+        --footer-shadow: 0 -2px 5px rgba(0, 0, 0, 0.3);
+        --badge-background: #3d3d3d;
+    }
 }
 
 body {
@@ -15,6 +31,7 @@ body {
     background-color: var(--background-color);
     color: var(--text-color);
     line-height: 1.6;
+    transition: background-color var(--transition-speed), color var(--transition-speed);
 }
 
 .site-header {
@@ -22,6 +39,7 @@ body {
     padding: 1rem;
     text-align: center;
     box-shadow: var(--box-shadow);
+    transition: background-color var(--transition-speed), box-shadow var(--transition-speed);
 }
 
 .main-nav ul {
@@ -34,6 +52,7 @@ body {
     color: var(--primary-color);
     text-decoration: none;
     font-weight: 500;
+    transition: color var(--transition-speed);
 }
 
 .nav-link:hover {
@@ -59,16 +78,20 @@ body {
     padding: 1.5rem;
     text-align: center;
     box-shadow: var(--box-shadow);
-    transition: transform var(--transition-speed);
+    transition: transform var(--transition-speed),
+                background-color var(--transition-speed),
+                box-shadow var(--transition-speed);
 }
 
 .zoom-effect:hover {
     transform: translateY(-5px);
+    box-shadow: var(--hover-shadow);
 }
 
 .site-link {
     text-decoration: none;
     color: var(--text-color);
+    transition: color var(--transition-speed);
 }
 
 .site-logo {
@@ -76,12 +99,21 @@ body {
     height: 100px;
     object-fit: contain;
     margin-bottom: 1rem;
+    transition: filter var(--transition-speed);
+}
+
+/* Add this if you want to adjust logo brightness in dark mode */
+@media (prefers-color-scheme: dark) {
+    .site-logo {
+        filter: brightness(0.9);
+    }
 }
 
 .site-name {
     margin: 0;
     font-size: 1.2rem;
     color: var(--text-color);
+    transition: color var(--transition-speed);
 }
 
 .badges {
@@ -94,19 +126,26 @@ body {
 
 .badge {
     height: 20px;
+    background-color: var(--badge-background);
+    border-radius: 4px;
+    padding: 2px;
+    transition: background-color var(--transition-speed);
 }
 
 .site-footer {
     background-color: var(--card-background);
     padding: 1rem;
     text-align: center;
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--footer-shadow);
     margin-top: 2rem;
+    transition: background-color var(--transition-speed),
+                box-shadow var(--transition-speed);
 }
 
 .footer-content a {
     color: var(--primary-color);
     text-decoration: none;
+    transition: color var(--transition-speed);
 }
 
 .footer-content a:hover {
