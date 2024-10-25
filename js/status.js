@@ -1,88 +1,13 @@
-// status.js - Complete version with all functionality
+// status.js
 const statusGrid = document.getElementById('statusGrid');
 const lastUpdateSpan = document.getElementById('lastUpdate');
-
-// Import sites from main.js if not already available
-if (typeof sites === 'undefined') {
-    const sites = [
-        {
-            name: 'TheLaboratory.cc',
-            url: 'https://thelaboratory.cc',
-            github: 'stirlo/thelaboratory.cc',
-            logo: 'apple-touch-icon.png'
-        },
-        {
-            name: 'stirlo.space',
-            url: 'https://stirlo.space',
-            github: 'stirlo/stirlo.space',
-            logo: 'stirlo.space-512x512.png'
-        },
-        {
-            name: 'TFP.la',
-            url: 'https://tfp.la',
-            github: 'stirlo/tfp.la',
-            logo: 'tfp-green-512.png'
-        },
-        {
-            name: 'OurSquadIs.top',
-            url: 'https://oursquadis.top',
-            github: 'stirlo/oursquadis.top',
-            logo: 'oursquadis.top-512x512.png'
-        },
-        {
-            name: 'InfiniteReality.cc',
-            url: 'https://infinitereality.cc',
-            github: 'https://github.com/jailbreaktheuniverse',
-            logo: 'infinitereality.cc-384x384.png'
-        },
-        {
-            name: 'Stirlo.be',
-            url: 'https://stirlo.be',
-            github: 'stirlo/stirlo.be',
-            logo: 'stirlo.be-512x512.png'
-        },
-        {
-            name: 'JPT-flipperzero',
-            url: 'https://github.com/stirlo/JPT-flipperzero/',
-            github: 'stirlo/JPT-flipperzero',
-            logo: 'JPT-flipper-512x512.png'
-        },
-        {
-            name: 'Adhan-Flipperzero',
-            url: 'https://github.com/stirlo/adhan/',
-            github: 'stirlo/adhan',
-            logo: 'adhan-flipper-512x512.png'
-        },
-        {
-            name: 'Adhan Swift/Web',
-            url: 'https://stirlo.github.io/adhan-swift/',
-            github: 'stirlo/adhan-swift',
-            logo: 'adhan-swift-512x512.png'
-        },
-        {
-            name: 'Plaintext to ICS Converter',
-            url: 'https://stirlo.github.io/txt_to_ICS_Prayer_Times/',
-            github: 'stirlo/txt_to_ICS_Prayer_Times',
-            logo: 'alarm-clock.svg'
-        },
-        {
-            name: 'The Goss Room',
-            url: 'https://thegossroom.com',
-            github: 'stirlo/thegossroom.com',
-            logo: 'thegossroom-512x512.png'
-        }
-    ];
-}
 
 // Cache for storing status results
 const statusCache = new Map();
 
-// Function to check if a site is reachable
 async function checkSiteStatus(site) {
     try {
         const startTime = performance.now();
-
-        // Try to fetch the favicon first as it's typically allowed by CORS
         const faviconUrl = new URL('/favicon.ico', site.url).href;
         const response = await fetch(faviconUrl, {
             mode: 'no-cors',
@@ -107,7 +32,6 @@ async function checkSiteStatus(site) {
     }
 }
 
-// Function to check GitHub repository status
 async function checkGitHubStatus(github) {
     try {
         const response = await fetch(`https://api.github.com/repos/${github}`);
@@ -121,7 +45,6 @@ async function checkGitHubStatus(github) {
     }
 }
 
-// Function to create a status card for each site
 function createStatusCard(site, status, githubStatus = null) {
     const card = document.createElement('div');
     card.className = 'status-card';
@@ -164,7 +87,6 @@ function createStatusCard(site, status, githubStatus = null) {
     return card;
 }
 
-// Function to update all statuses
 async function updateStatuses() {
     if (!statusGrid) return;
 
@@ -172,30 +94,35 @@ async function updateStatuses() {
         statusGrid.innerHTML = '<div class="loading">Checking statuses...</div>';
 
         const statusPromises = sites.map(async site => {
-            // Check if we have a recent cached status (less than 5 minutes old)
             const cachedStatus = statusCache.get(site.url);
             const now = Date.now();
             if (cachedStatus && (now - new Date(cachedStatus.lastCheck).getTime() < 300000)) {
-                return { site, status: cachedStatus };
+                const githubStatus = await checkGitHubStatus(site.github);
+                return { site, status: cachedStatus, githubStatus };
             }
 
             const status = await checkSiteStatus(site);
             const githubStatus = await checkGitHubStatus(site.github);
-
-            // Cache the result
             statusCache.set(site.url, status);
-
             return { site, status, githubStatus };
         });
 
         const results = await Promise.allSettled(statusPromises);
 
+        // Sort results by last GitHub update
+        const validResults = results
+            .filter(result => result.status === 'fulfilled')
+            .map(result => result.value)
+            .sort((a, b) => {
+                if (a.githubStatus && b.githubStatus) {
+                    return new Date(b.githubStatus.lastUpdate) - new Date(a.githubStatus.lastUpdate);
+                }
+                return 0;
+            });
+
         statusGrid.innerHTML = '';
-        results.forEach(result => {
-            if (result.status === 'fulfilled') {
-                const { site, status, githubStatus } = result.value;
-                statusGrid.appendChild(createStatusCard(site, status, githubStatus));
-            }
+        validResults.forEach(({ site, status, githubStatus }) => {
+            statusGrid.appendChild(createStatusCard(site, status, githubStatus));
         });
 
         if (lastUpdateSpan) {
