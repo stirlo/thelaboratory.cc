@@ -3,6 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Dark/Light mode meta tags -->
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="#f5f5f5" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#1a1a1a" media="(prefers-color-scheme: dark)">
+
     <title>Site Status - The Laboratory</title>
     <link rel="stylesheet" href="/css/style.css">
     <style>
@@ -20,7 +26,8 @@
             border-radius: var(--border-radius);
             padding: 15px;
             box-shadow: var(--box-shadow);
-            transition: box-shadow var(--transition-speed);
+            transition: background-color var(--transition-speed),
+                        box-shadow var(--transition-speed);
         }
 
         .status-card:hover {
@@ -81,6 +88,8 @@
             text-align: center;
             box-shadow: var(--box-shadow);
             margin-bottom: 2rem;
+            transition: background-color var(--transition-speed),
+                        box-shadow var(--transition-speed);
         }
 
         header h1 {
@@ -110,6 +119,8 @@
             text-align: center;
             box-shadow: var(--footer-shadow);
             margin-top: 2rem;
+            transition: background-color var(--transition-speed),
+                        box-shadow var(--transition-speed);
         }
 
         footer p {
@@ -133,6 +144,33 @@
 
             .status-card {
                 margin: 10px;
+            }
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .status-card {
+                background-color: var(--card-background);
+            }
+
+            .status-indicator {
+                filter: brightness(1.2);
+            }
+
+            .status-card img {
+                filter: brightness(0.9);
+            }
+
+            .error-message {
+                color: #ff4d4d;
+            }
+
+            .status-details h3,
+            .response-time,
+            .last-update,
+            .github-stats,
+            .last-update-container,
+            .loading {
+                color: var(--text-color);
             }
         }
     </style>
