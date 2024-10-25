@@ -16,10 +16,22 @@
         .status-card {
             display: flex;
             align-items: center;
-            background: var(--card-bg);
+            background: var(--card-background);
             border-radius: var(--border-radius);
             padding: 15px;
-            box-shadow: var(--card-shadow);
+            box-shadow: var(--box-shadow);
+            transition: box-shadow var(--transition-speed);
+        }
+
+        .status-card:hover {
+            box-shadow: var(--hover-shadow);
+        }
+
+        .status-card img {
+            width: 25px;
+            height: 25px;
+            object-fit: contain;
+            margin-right: 15px;
         }
 
         .status-indicator {
@@ -31,16 +43,24 @@
 
         .status-details {
             flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         .status-details h3 {
             margin: 0 0 5px 0;
+            font-size: 1rem;
+            color: var(--text-color);
         }
 
-        .response-time, .last-update, .github-stats {
+        .response-time, 
+        .last-update, 
+        .github-stats {
             margin: 5px 0;
             font-size: 0.9em;
             opacity: 0.8;
+            color: var(--text-color);
         }
 
         .error-message {
@@ -52,6 +72,68 @@
             padding: 10px;
             font-size: 0.9em;
             opacity: 0.8;
+            color: var(--text-color);
+        }
+
+        header {
+            background-color: var(--card-background);
+            padding: 1rem;
+            text-align: center;
+            box-shadow: var(--box-shadow);
+            margin-bottom: 2rem;
+        }
+
+        header h1 {
+            margin: 0;
+            color: var(--text-color);
+        }
+
+        header a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        header a:hover {
+            text-decoration: underline;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-color);
+        }
+
+        footer {
+            background-color: var(--card-background);
+            padding: 1rem;
+            text-align: center;
+            box-shadow: var(--footer-shadow);
+            margin-top: 2rem;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .status-grid {
+                grid-template-columns: 1fr;
+                padding: 10px;
+            }
+
+            .status-card {
+                margin: 10px;
+            }
         }
     </style>
 </head>
