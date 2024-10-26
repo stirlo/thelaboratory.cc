@@ -4,29 +4,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Laboratory</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/png" href="apple-touch-icon.png">
+
+    <!-- Resource Hints -->
+    <link rel="preload" href="/js/sites.js" as="script">
+    <link rel="preload" href="/js/main.js" as="script">
+    <link rel="preload" href="/css/style.css" as="style">
+    <link rel="preload" href="/assets/images/apple-touch-icon.png" as="image">
+
+    <!-- DNS Prefetch -->
+    <link rel="dns-prefetch" href="//api.github.com">
+    <link rel="dns-prefetch" href="//img.shields.io">
+    <link rel="dns-prefetch" href="//github.com">
+    <link rel="dns-prefetch" href="//stirlo.github.io">
+
+    <!-- Preconnect -->
+    <link rel="preconnect" href="https://api.github.com" crossorigin>
+    <link rel="preconnect" href="https://img.shields.io" crossorigin>
+
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="icon" type="image/png" href="/assets/images/apple-touch-icon.png">
+
+    <!-- Meta tags -->
     <meta name="description" content="A collection of web projects and experiments">
     <meta property="og:title" content="The Laboratory">
     <meta property="og:description" content="A collection of web projects and experiments">
-    <meta property="og:image" content="apple-touch-icon.png">
+    <meta property="og:image" content="/assets/images/apple-touch-icon.png">
+
+    <!-- PWA Support -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#ffffff">
 </head>
 <body>
     <header class="site-header">
         <h1>The Laboratory</h1>
-        <p>A collection of web projects and experiments</p>
         <nav>
             <a href="status.html">Status Page</a>
         </nav>
     </header>
 
     <main>
-        <div id="sitesContainer" class="grid-container">
-            <!-- Sites will be dynamically loaded here -->
+        <div id="sitesContainer">
+            <!-- Sites will be loaded dynamically -->
         </div>
     </main>
 
-   <footer>
+    <footer>
         <p>
             <a href="LICENSE">©</a> <span id="currentYear"></span> 
             <a href="https://tfp.la">TFP</a> | 
@@ -34,6 +56,17 @@
             <a href="https://thelaboratory.cc/thankyou.html">Thank You</a>
         </p>
     </footer>
+
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/service-worker.js')
+                .then(registration => console.debug('ServiceWorker registered'))
+                .catch(error => console.error('ServiceWorker error:', error));
+        }
+    </script>
+
+    <!-- Core Scripts -->
     <script src="/js/sites.js"></script>
     <script src="/js/main.js"></script>
 </body>
