@@ -4,141 +4,130 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Site Status - The Laboratory</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/png" href="apple-touch-icon.png">
+
+    <!-- Resource Hints -->
+    <link rel="preload" href="/js/sites.js" as="script">
+    <link rel="preload" href="/js/status.js" as="script">
+    <link rel="preload" href="/css/style.css" as="style">
+    <link rel="preload" href="/assets/images/status/green_light.svg" as="image">
+    <link rel="preload" href="/assets/images/status/red_light.svg" as="image">
+
+    <!-- DNS Prefetch -->
+    <link rel="dns-prefetch" href="//api.github.com">
+    <link rel="dns-prefetch" href="//img.shields.io">
+    <link rel="dns-prefetch" href="//github.com">
+    <link rel="dns-prefetch" href="//stirlo.github.io">
+
+    <!-- Preconnect -->
+    <link rel="preconnect" href="https://api.github.com" crossorigin>
+    <link rel="preconnect" href="https://img.shields.io" crossorigin>
+
+    <!-- Favicons and Icons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/icons/favicon-16x16.png">
+    <link rel="mask-icon" href="/assets/images/icons/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="/assets/images/icons/favicon.ico">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Meta tags -->
     <meta name="description" content="Status page for The Laboratory projects">
-    <style>
-        .status-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-            padding: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="msapplication-config" content="/assets/meta/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
 
-        .status-card {
-            display: flex;
-            align-items: center;
-            background: var(--card-background);
-            border-radius: var(--border-radius);
-            padding: 15px;
-            box-shadow: var(--box-shadow);
-            position: relative;
-            overflow: hidden;
-        }
+    <!-- Open Graph -->
+    <meta property="og:title" content="Site Status - The Laboratory">
+    <meta property="og:description" content="Status page for The Laboratory projects">
+    <meta property="og:image" content="/assets/images/icons/apple-touch-icon.png">
+    <meta property="og:url" content="https://thelaboratory.cc/status.html">
 
-        .status-card:hover {
-            box-shadow: var(--hover-shadow);
-        }
-
-        .status-indicator {
-            width: 8px;
-            height: 100%;
-            position: absolute;
-            left: 0;
-            top: 0;
-        }
-
-        .status-card img {
-            width: 40px;
-            height: 40px;
-            object-fit: contain;
-            margin-right: 15px;
-        }
-
-        .status-details {
-            flex: 1;
-        }
-
-        .status-text {
-            font-weight: 500;
-            margin: 5px 0;
-        }
-
-        .response-time, .last-update, .github-stats {
-            font-size: 0.9em;
-            color: var(--text-color);
-            opacity: 0.8;
-            margin: 2px 0;
-        }
-
-        .error-message {
-            color: var(--error-color, #dc3545);
-            font-size: 0.9em;
-            margin: 5px 0;
-        }
-
-        .loading {
-            text-align: center;
-            padding: 20px;
-            font-style: italic;
-            color: var(--text-color);
-        }
-
-        .badges {
-            margin-top: 10px;
-        }
-
-        .badge {
-            height: 20px;
-            margin-right: 5px;
-        }
-
-        body.offline {
-            position: relative;
-        }
-
-        body.offline::before {
-            content: "You are offline";
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: #dc3545;
-            color: white;
-            text-align: center;
-            padding: 5px;
-            z-index: 1000;
-        }
-
-        @media (prefers-color-scheme: dark) {
-            .status-card img {
-                filter: brightness(0.9);
-            }
-
-            .error-message {
-                color: var(--error-color, #ff4d4d);
-            }
-        }
-    </style>
+    <!-- PWA Support -->
+    <link rel="manifest" href="/manifest.json">
 </head>
-<body>
+<body class="status-page">
     <header class="site-header">
-        <h1>Site Status</h1>
-        <p>Last updated: <span id="lastUpdate">Loading...</span></p>
-        <nav>
-            <a href="index.html">Back to Home</a>
-        </nav>
+        <div class="header-content">
+            <h1>Site Status</h1>
+            <nav>
+                <a href="index.html" class="nav-link">Back to Home</a>
+            </nav>
+        </div>
+        <div class="status-info">
+            <p class="update-time">Last updated: <span id="lastUpdate">Loading...</span></p>
+            <p class="auto-update-info">Status automatically updates every 5 minutes</p>
+        </div>
     </header>
 
-    <main>
+    <main class="status-container">
+        <div class="status-legend">
+            <div class="legend-item">
+                <img src="/assets/images/status/green_light.svg" alt="Online indicator" class="status-icon">
+                <span>Online</span>
+            </div>
+            <div class="legend-item">
+                <img src="/assets/images/status/red_light.svg" alt="Offline indicator" class="status-icon">
+                <span>Offline</span>
+            </div>
+        </div>
+
         <div id="statusGrid" class="status-grid">
-            <!-- Status cards will be dynamically loaded here -->
+            <div class="loading-container">
+                <div class="loading-spinner"></div>
+                <p>Checking status of all sites...</p>
+            </div>
+        </div>
+
+        <div class="github-info">
+            <p>GitHub Repository Status:</p>
+            <div class="badge-legend">
+                <span>⭐ Stars</span>
+                <span>🔄 Forks</span>
+                <span>⚠️ Issues</span>
+            </div>
         </div>
     </main>
 
-   <footer>
-        <p>
-            <a href="LICENSE">©</a> <span id="currentYear"></span> 
-            <a href="https://tfp.la">TFP</a> | 
-            <a href="https://thelaboratory.cc">The Laboratory</a> | 
-            <a href="https://thelaboratory.cc/thankyou.html">Thank You</a>
-        </p>
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>
+                <a href="LICENSE">©</a> <span id="currentYear"></span> 
+                <a href="https://tfp.la">TFP</a> | 
+                <a href="https://thelaboratory.cc">The Laboratory</a> | 
+                <a href="https://thelaboratory.cc/thankyou.html">Thank You</a>
+            </p>
+            <div class="footer-links">
+                <a href="https://github.com/stirlo" target="_blank" rel="noopener">GitHub</a>
+            </div>
+        </div>
     </footer>
 
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/service-worker.js')
+                .then(registration => console.debug('ServiceWorker registered'))
+                .catch(error => console.error('ServiceWorker error:', error));
+        }
+    </script>
+
+    <!-- Core Scripts -->
     <script src="/js/sites.js"></script>
     <script src="/js/main.js"></script>
     <script src="/js/status.js"></script>
+
+    <!-- Offline Detection -->
+    <script>
+        window.addEventListener('offline', () => {
+            document.body.classList.add('offline');
+            document.getElementById('offlineAlert').style.display = 'block';
+        });
+        window.addEventListener('online', () => {
+            document.body.classList.remove('offline');
+            document.getElementById('offlineAlert').style.display = 'none';
+        });
+    </script>
 </body>
 </html>
