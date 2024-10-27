@@ -3,129 +3,158 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TFP Thanks You</title>
-    <meta name="title" content="TFP">
+    <title>The Laboratory - Thank You</title>
+
+    <!-- Critical Resources -->
+    <link rel="preload" href="/assets/css/style.css" as="style">
+    <link rel="preload" href="/assets/js/thankyou.js" as="script">
+
+    <!-- Meta -->
     <meta name="description" content="Thanks to everyone for providing such excellent tools for us to work with...">
+    <meta name="theme-color" content="#f5f5f5" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#1a1a1a" media="(prefers-color-scheme: dark)">
+    <meta name="color-scheme" content="light dark">
 
-    <!-- Open Graph / Facebook -->
+    <!-- Social Meta -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://tfp.la/">
-    <meta property="og:title" content="TFP">
+    <meta property="og:url" content="https://thelaboratory.cc/thankyou.html">
+    <meta property="og:title" content="The Laboratory - Thank You">
     <meta property="og:description" content="Thanks to everyone for providing such excellent tools for us to work with...">
-    <meta property="og:image" content="https://thelaboratory.cc/thankyou/android-chrome-512x512.png">
+    <meta property="og:image" content="https://thelaboratory.cc/assets/images/icons/android-chrome-512x512.png">
+    <meta property="og:image:width" content="512">
+    <meta property="og:image:height" content="512">
 
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://tfp.la/">
-    <meta property="twitter:title" content="TFP">
-    <meta property="twitter:description" content="Thanks to everyone for providing such excellent tools for us to work with...">
-    <meta property="twitter:image" content="https://thelaboratory.cc/thankyou/android-chrome-512x512.png">
+    <!-- Icons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/icons/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/assets/images/icons/safari-pinned-tab.svg" color="#3333bb">
+    <meta name="msapplication-TileColor" content="#3333bb">
+    <meta name="msapplication-TileImage" content="/assets/images/icons/mstile-144x144.png">
 
-    <!-- Favicon and App Icons -->
-    <link rel="apple-touch-icon" sizes="180x180" href="/thankyou/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/thankyou/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/thankyou/favicon-16x16.png">
-    <link rel="manifest" href="/thankyou/site.webmanifest">
-    <link rel="mask-icon" href="/thankyou/safari-pinned-tab.svg" color="#f2059f">
-    <meta name="msapplication-TileColor" content="#f2059f">
-    <meta name="theme-color" content="#ffffff">
+    <link rel="stylesheet" href="/assets/css/style.css">
 
-    <!-- Stylesheets -->
-     <style>
-        .container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
-            align-items: center;
-        }
-        .website {
-            margin: 20px;
-            text-align: center;
-            flex-basis: 30%; /* Adjust this value to control the size */
-        }
-        .website img {
-            width: 100px; /* Adjust based on your image sizes */
-            height: 100px; /* Maintain aspect ratio */
-        }
-      .zoom-effect {
- 		 transition: transform 0.3s ease;
-	  display: inline-block;
-	}
-
-	.website:hover {
-	  transform: scale(1.1); /* Adjust the scale value to control the zoom level */
-	}
-        /* Light mode styles */
+    <style>
         @media (prefers-color-scheme: light) {
-            body {
-                background-color: #fff;
-                color: #000;
-            }
-        
-            header, footer {
-                background-color: #f0f0f0;
-                color: #333;
-            }
-        
-            nav ul li a {
-                color: #333;
-            }
-        
-            form button {
-                background-color: #007bff;
-                color: #fff;
-                border: none;
+            :root {
+                --card-bg: #ffffff;
+                --link-color: #3333bb;
+                --border-color: #eaeaea;
             }
         }
-        
-        /* Dark mode styles */
+
         @media (prefers-color-scheme: dark) {
-            body {
-                background-color: #121212;
-                color: #e0e0e0;
+            :root {
+                --card-bg: #2d2d2d;
+                --link-color: #8080ff;
+                --border-color: #404040;
             }
-        
-            header, footer {
-                background-color: #333;
-                color: #fff;
-            }
-        
-            nav ul li a {
-                color: #fff;
-            }
-        
-            form button {
-                background-color: #007bff;
-                color: #fff;
-                border: none;
-            }
+        }
+
+        .content-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: clamp(1rem, 5vw, 2rem);
+        }
+
+        .contributors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+            gap: clamp(1rem, 3vw, 2rem);
+            margin: 2rem 0;
+        }
+
+        .contributor-card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 4px rgb(0 0 0 / 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .contributor-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .contributor-card h3 {
+            margin: 0 0 1rem;
+        }
+
+        .contributor-card a {
+            color: var(--link-color);
+            text-decoration: none;
+        }
+
+        .contributor-card a:hover {
+            text-decoration: underline;
+        }
+
+        .thank-you-list {
+            list-style: none;
+            padding: 0;
+            margin: 2rem 0;
+        }
+
+        .thank-you-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--border-color);
         }
     </style>
 </head>
 
 <body>
-    <header>
-        
+    <header class="site-header">
+        <h1>Thank You</h1>
+        <nav class="main-nav">
+            <ul>
+                <li><a href="/" class="nav-link">Back to Home</a></li>
+            </ul>
+        </nav>
     </header>
 
-    <main>
+    <main class="main-content">
         <div class="content-container">
-            <h2>Thank You</h2>
-            <p>We’d like to give our thanks to all the excellent tools, services, and people who helped us make this project a reality</p>
-            <ul id="thankYouList">
-                <!-- This list will be populated by JavaScript -->
+            <h2>Our Gratitude</h2>
+            <p>We'd like to express our sincere thanks to all the excellent tools, services, and people who helped make this project possible.</p>
+
+            <div id="contributorsList" class="contributors-grid" aria-live="polite">
+                <!-- Dynamic content -->
+            </div>
+
+            <h3>Additional Thanks</h3>
+            <ul id="thankYouList" class="thank-you-list" aria-live="polite">
+                <!-- Dynamic content -->
             </ul>
         </div>
     </main>
 
-    <footer>
-        <p>
-            <a href="LICENSE">&copy;</a> <span id="currentYear"></span> 
-            <a href="https://tfp.la">TFP</a> and 
-            <a href="https://thelaboratory.cc">The Laboratory</a>
-        </p>
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>
+                <a href="/LICENSE">&copy;</a> <span id="currentYear"></span> 
+                <a href="https://tfp.la">TFP</a> &nbsp;|&nbsp; 
+                <a href="https://thelaboratory.cc">The Laboratory</a>
+            </p>
+        </div>
     </footer>
 
-    <script src="thankyou.js"></script>
+    <!-- Service Worker -->
+    <script>
+    if ('serviceWorker' in navigator && window.location.protocol === 'https:') {
+        navigator.serviceWorker
+            .register('/sw.js', { 
+                scope: '/',
+                updateViaCache: 'none'
+            })
+            .then(registration => {
+                console.log('[SW] Registration successful, scope:', registration.scope);
+                setInterval(() => registration.update(), 3600000);
+            })
+            .catch(error => console.error('[SW] Registration failed:', error));
+    }
+    </script>
+
+    <script src="/assets/js/thankyou.js" defer></script>
 </body>
 </html>

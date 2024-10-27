@@ -2,69 +2,72 @@
     "name": "The Laboratory",
     "short_name": "Lab",
     "description": "Sites and Apps we are working on or maintaining...",
-    "start_url": "/",
+    "start_url": "/?source=pwa",
+    "scope": "/",
     "display": "standalone",
+    "display_override": ["window-controls-overlay"],
     "background_color": "#ffffff",
     "theme_color": "#3333bb",
     "orientation": "any",
     "icons": [
         {
-            "src": "/android-chrome-192x192.png",
+            "src": "/assets/images/icons/android-chrome-192x192.png",
             "sizes": "192x192",
             "type": "image/png",
             "purpose": "any maskable"
         },
         {
-            "src": "/android-chrome-512x512.png",
+            "src": "/assets/images/icons/android-chrome-512x512.png",
             "sizes": "512x512",
             "type": "image/png",
             "purpose": "any maskable"
         },
         {
-            "src": "/apple-touch-icon.png",
+            "src": "/assets/images/icons/apple-touch-icon.png",
             "sizes": "180x180",
-            "type": "image/png"
-        },
-        {
-            "src": "/favicon-32x32.png",
-            "sizes": "32x32",
-            "type": "image/png"
-        },
-        {
-            "src": "/favicon-16x16.png",
-            "sizes": "16x16",
-            "type": "image/png"
+            "type": "image/png",
+            "purpose": "any"
         }
     ],
     "shortcuts": [
         {
             "name": "Status",
             "url": "/status.html",
-            "description": "Check site statuses"
+            "description": "Check site statuses",
+            "icons": [
+                {
+                    "src": "/assets/images/icons/status-96x96.png",
+                    "sizes": "96x96"
+                }
+            ]
         }
     ],
     "categories": ["development", "utilities"],
     "screenshots": [
         {
-            "src": "/screenshot-wide.png",
+            "src": "/assets/images/screenshots/screenshot-wide.png",
             "sizes": "1920x1080",
             "type": "image/png",
-            "form_factor": "wide"
+            "form_factor": "wide",
+            "label": "Homepage of The Laboratory"
         },
         {
-            "src": "/screenshot-narrow.png",
+            "src": "/assets/images/screenshots/screenshot-narrow.png",
             "sizes": "1080x1920",
             "type": "image/png",
-            "form_factor": "narrow"
+            "form_factor": "narrow",
+            "label": "Mobile view of The Laboratory"
         }
     ],
     "prefer_related_applications": false,
-    "related_applications": [],
     "handle_links": "preferred",
     "launch_handler": {
         "client_mode": ["navigate-existing", "auto"]
     },
     "edge_side_panel": {
         "preferred_width": 400
-    }
+    },
+    "id": "thelaboratory-cc-v1",
+    "lang": "en",
+    "dir": "ltr"
 }

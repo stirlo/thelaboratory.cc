@@ -1,0 +1,35 @@
+# _headers
+/*
+  Cache-Control: public, max-age=0, must-revalidate
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: interest-cohort=()
+  Service-Worker-Allowed: /
+
+# Service Worker specific
+/sw.js
+  Cache-Control: public, max-age=0, must-revalidate
+  Content-Type: application/javascript
+  Service-Worker-Allowed: /
+
+# Static assets
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Manifest and config files
+/site.webmanifest
+  Cache-Control: public, max-age=0, must-revalidate
+  Content-Type: application/manifest+json
+
+/meta/browserconfig.xml
+  Cache-Control: public, max-age=0, must-revalidate
+  Content-Type: application/xml
+
+# Remove redundant rules since /js and /css are under /assets
+# /js/*
+#   Cache-Control: public, max-age=31536000, immutable
+# 
+# /css/*
+#   Cache-Control: public, max-age=31536000, immutable
