@@ -15,9 +15,9 @@ document.addEventListener('DOMContentLoaded', () => {
             url: "https://shields.io",
             description: "Repository badges"
         }
-        // Add more contributors as needed
     ];
 
+    // Handle contributors cards
     const contributorsList = document.getElementById('contributorsList');
     if (contributorsList) {
         contributors.forEach(contributor => {
@@ -37,14 +37,19 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Handle thank you list
     const thankYouList = document.getElementById('thankYouList');
     if (thankYouList) {
         fetch('/assets/data/thankyou.txt')
             .then(response => response.text())
             .then(data => {
-                const items = data.split('\n').filter(line => line.trim() !== '');
+                const items = data.split('\n')
+                    .filter(line => line.trim() !== '')
+                    .sort((a, b) => a.localeCompare(b)); // Sort alphabetically
+
                 items.forEach(item => {
                     const li = document.createElement('li');
+                    // Match pattern: "Product by [Company](URL)"
                     const match = item.match(/(.*) by \[(.*)\]\((.*)\)/);
 
                     if (match) {
@@ -70,6 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
     }
 
+    // Set current year in footer
     const yearElement = document.getElementById('currentYear');
     if (yearElement) {
         yearElement.textContent = new Date().getFullYear();
