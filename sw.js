@@ -9,6 +9,7 @@ const STATIC_ASSETS = [
     '/thankyou.html',
     '/offline.html',
     '/assets/css/style.css',
+    '/assets/js/main.js',
     '/assets/js/sites.js',
     '/assets/js/status.js',
     '/assets/js/thankyou.js',
