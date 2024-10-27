@@ -1,7 +1,8 @@
 const CACHE_NAME = 'laboratory-v3';
 const OFFLINE_URL = '/offline.html';
 
-const CACHED_ASSETS = [
+// Static assets that rarely change
+const STATIC_ASSETS = [
     '/',
     '/index.html',
     '/status.html',
@@ -16,37 +17,30 @@ const CACHED_ASSETS = [
     '/assets/images/icons/apple-touch-icon.png'
 ];
 
-const CACHE_STRATEGIES = {
-    cacheFirst: [
-        '/assets/images/',
-        '/assets/css/',
-        '/assets/fonts/',
-        'favicon',
-        '.ico',
-        '.png',
-        '.jpg',
-        '.jpeg',
-        '.webp',
-        '.css',
-        '.woff2'
-    ],
-    networkFirst: [
-        '/status',
-        '/api/',
-        'github.com'
-    ]
-};
+// Fast cache-first patterns
+const CACHE_FIRST_PATTERNS = [
+    '/assets/images/',
+    '/assets/css/',
+    '.ico',
+    '.png',
+    '.jpg',
+    '.webp',
+    '.css',
+    '.woff2'
+];
 
 self.addEventListener('install', event => {
     event.waitUntil(
         caches.open(CACHE_NAME)
             .then(cache => {
-                console.log('[SW] Caching app shell and assets');
-                return cache.addAll(CACHED_ASSETS)
-                    .catch(error => {
-                        console.error('[SW] Cache addAll error:', error);
-                        return Promise.resolve();
-                    });
+                // Fast parallel caching
+                return Promise.allSettled(
+                    STATIC_ASSETS.map(url => 
+                        cache.add(url).catch(err => 
+                            console.warn(`[SW] Failed to cache ${url}:`, err)
+                        )
+                    )
+                );
             })
             .then(() => self.skipWaiting())
     );
@@ -55,108 +49,76 @@ self.addEventListener('install', event => {
 self.addEventListener('activate', event => {
     event.waitUntil(
         Promise.all([
+            // Clean old caches
             caches.keys()
-                .then(cacheNames => {
-                    return Promise.all(
-                        cacheNames
-                            .filter(cacheName => cacheName !== CACHE_NAME)
-                            .map(cacheName => caches.delete(cacheName))
-                    );
-                }),
+                .then(keys => Promise.all(
+                    keys.filter(key => key !== CACHE_NAME)
+                        .map(key => caches.delete(key))
+                )),
             self.clients.claim()
         ])
     );
 });
 
 function shouldCacheFirst(url) {
-    return CACHE_STRATEGIES.cacheFirst.some(pattern => url.includes(pattern));
-}
-
-function shouldNetworkFirst(url) {
-    return CACHE_STRATEGIES.networkFirst.some(pattern => url.includes(pattern));
-}
-
-async function cacheFirstStrategy(request) {
-    const cachedResponse = await caches.match(request);
-    if (cachedResponse) {
-        return cachedResponse;
-    }
-    try {
-        const response = await fetch(request);
-        if (response.ok) {
-            const cache = await caches.open(CACHE_NAME);
-            cache.put(request, response.clone());
-        }
-        return response;
-    } catch (error) {
-        return new Response('Network error happened', {
-            status: 408,
-            headers: { 'Content-Type': 'text/plain' },
-        });
-    }
-}
-
-async function networkFirstStrategy(request) {
-    try {
-        const response = await fetch(request);
-        if (response.ok) {
-            const cache = await caches.open(CACHE_NAME);
-            cache.put(request, response.clone());
-        }
-        return response;
-    } catch (error) {
-        const cachedResponse = await caches.match(request);
-        if (cachedResponse) {
-            return cachedResponse;
-        }
-        return caches.match(OFFLINE_URL);
-    }
+    return CACHE_FIRST_PATTERNS.some(pattern => url.includes(pattern));
 }
 
 self.addEventListener('fetch', event => {
     if (event.request.method !== 'GET') return;
 
     const url = new URL(event.request.url);
-
-    // Skip non-HTTP(S) requests and browser-extension requests
     if (!url.protocol.startsWith('http')) return;
 
-    // Handle same-origin requests only
-    if (url.origin !== self.location.origin) {
-        if (!event.request.url.includes('github.com')) return;
+    // Handle different strategies based on URL
+    if (shouldCacheFirst(url.pathname)) {
+        // Cache-first for static assets
+        event.respondWith(
+            caches.match(event.request)
+                .then(response => response || 
+                    fetch(event.request)
+                        .then(response => {
+                            if (response.ok) {
+                                caches.open(CACHE_NAME)
+                                    .then(cache => cache.put(event.request, response.clone()));
+                            }
+                            return response;
+                        })
+                )
+        );
+    } else {
+        // Network-first for everything else
+        event.respondWith(
+            fetch(event.request)
+                .then(response => {
+                    if (response.ok) {
+                        caches.open(CACHE_NAME)
+                            .then(cache => cache.put(event.request, response.clone()));
+                    }
+                    return response;
+                })
+                .catch(() => 
+                    caches.match(event.request)
+                        .then(response => response || 
+                            (event.request.mode === 'navigate' ? 
+                                caches.match(OFFLINE_URL) : 
+                                new Response('Network error', {status: 408}))
+                        )
+                )
+        );
     }
-
-    event.respondWith(
-        (async () => {
-            try {
-                if (shouldCacheFirst(url.pathname)) {
-                    return await cacheFirstStrategy(event.request);
-                }
-                if (shouldNetworkFirst(url.pathname)) {
-                    return await networkFirstStrategy(event.request);
-                }
-                // Default to network-first for everything else
-                return await networkFirstStrategy(event.request);
-            } catch (error) {
-                console.error('[SW] Fetch handler error:', error);
-                return caches.match(OFFLINE_URL);
-            }
-        })()
-    );
 });
 
-// Handle service worker updates
+// Handle updates
 self.addEventListener('message', event => {
-    if (event.data === 'skipWaiting') {
-        self.skipWaiting();
-    }
+    if (event.data === 'skipWaiting') self.skipWaiting();
 });
 
 // Error handling
 self.addEventListener('error', event => {
-    console.error('[SW] Service Worker error:', event.error);
+    console.warn('[SW] Error:', event.error);
 });
 
 self.addEventListener('unhandledrejection', event => {
-    console.error('[SW] Unhandled promise rejection:', event.reason);
+    console.warn('[SW] Unhandled rejection:', event.reason);
 });
