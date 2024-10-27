@@ -1,231 +1,223 @@
-// Service Worker for The Laboratory
-const CACHE_NAME = 'laboratory-v1';
-const DYNAMIC_CACHE = 'laboratory-dynamic-v1';
+// unified-sw.js - Enhanced Service Worker for The Laboratory
+const CACHE_VERSION = 'v3';
+const CACHE_NAME = `laboratory-${CACHE_VERSION}`;
+const RUNTIME_CACHE = 'laboratory-runtime';
 
-// Assets to cache on install
-const ASSETS = [
+const CACHED_ASSETS = [
+    // Core files
     '/',
     '/index.html',
     '/status.html',
-    '/css/style.css',
-    '/js/main.js',
-    '/js/status.js',
-    // Images
-    '/apple-touch-icon.png',
-    '/stirlo.space-512x512.png',
-    '/tfp-green-512.png',
-    '/oursquadis.top-512x512.png',
-    '/infinitereality.cc-384x384.png',
-    '/stirlo.be-512x512.png',
-    '/JPT-flipper-512x512.png',
-    '/adhan-flipper-512x512.png',
-    '/adhan-swift-512x512.png',
-    '/alarm-clock.svg',
-    '/thegossroom-512x512.png',
-    // Add any additional assets here
+
+    // JavaScript files
+    '/assets/js/main.js',
+    '/assets/js/sites.js',
+    '/assets/js/status.js',
+    '/assets/js/thankyou.js',
+
+    // CSS files
+    '/assets/css/style.css',
+
+    // Project logos and images
+    '/assets/images/projects/zmanim_ICS.png',
+    '/assets/images/projects/adhan-flipper-512x512.png',
+    '/assets/images/projects/adhan-swift-512x512.png',
+    '/assets/images/projects/infinitereality.cc-384x384.png',
+    '/assets/images/projects/JPT-flipper-512x512.png',
+    '/assets/images/projects/oursquadis.top-512x512.png',
+    '/assets/images/projects/stirlo.be-512x512.png',
+    '/assets/images/projects/stirlo.space-512x512.png',
+    '/assets/images/projects/tfp-green-512.png',
+    '/assets/images/projects/thegossroom-512x512.png',
+    '/assets/images/projects/alarm-clock.svg',
+    '/assets/images/projects/apple-touch-icon.png'
 ];
 
-// Install event - triggered when the service worker is first installed
+// Install event with improved error handling
 self.addEventListener('install', event => {
-    console.log('[Service Worker] Installing Service Worker...', event);
+    console.log('[SW] Installing new version...');
     event.waitUntil(
         caches.open(CACHE_NAME)
             .then(cache => {
-                console.log('[Service Worker] Caching app shell');
-                return cache.addAll(ASSETS).catch(error => {
-                    console.error('[Service Worker] Cache addAll failed:', error);
-                    throw error;
-                });
+                console.log('[SW] Caching app shell and assets');
+                return cache.addAll(CACHED_ASSETS);
             })
-            .then(() => {
-                console.log('[Service Worker] Skip waiting on install');
-                return self.skipWaiting();
-            })
+            .then(() => self.skipWaiting())
             .catch(error => {
-                console.error('[Service Worker] Install failed:', error);
+                console.error('[SW] Install failed:', error);
+                throw error;
             })
     );
 });
 
-// Activate event - triggered when the service worker is activated
+// Activate event with clean up
 self.addEventListener('activate', event => {
-    console.log('[Service Worker] Activating Service Worker...', event);
+    console.log('[SW] Activating new version...');
     event.waitUntil(
         Promise.all([
             // Clean up old caches
             caches.keys().then(cacheNames => {
                 return Promise.all(
-                    cacheNames.map(cacheName => {
-                        if (cacheName !== CACHE_NAME && cacheName !== DYNAMIC_CACHE) {
-                            console.log('[Service Worker] Deleting old cache:', cacheName);
-                            return caches.delete(cacheName);
-                        }
-                    })
+                    cacheNames
+                        .filter(name => (name.startsWith('laboratory-') || name === RUNTIME_CACHE) && name !== CACHE_NAME)
+                        .map(name => {
+                            console.log('[SW] Deleting old cache:', name);
+                            return caches.delete(name);
+                        })
                 );
             }),
-            // Take control of all clients
-            self.clients.claim().then(() => {
-                console.log('[Service Worker] Claiming clients');
-            })
-        ]).catch(error => {
-            console.error('[Service Worker] Activation failed:', error);
-        })
+            // Take control immediately
+            self.clients.claim()
+        ])
     );
 });
 
-// Fetch event - triggered when the web app makes a request
+// Enhanced fetch event handler
 self.addEventListener('fetch', event => {
-    console.log('[Service Worker] Fetching:', event.request.url);
+    const url = new URL(event.request.url);
 
-    // Handle different types of requests
-    if (event.request.url.includes('/status-data')) {
-        // Handle status data requests separately
-        handleStatusDataFetch(event);
-    } else if (event.request.url.includes('github.com') || 
-               event.request.url.includes('shields.io')) {
-        // Handle GitHub and badge requests with network-first strategy
-        handleAPIFetch(event);
-    } else {
-        // Handle regular asset requests with cache-first strategy
-        handleAssetFetch(event);
+    // Handle API requests (GitHub)
+    if (url.hostname === 'api.github.com') {
+        event.respondWith(handleApiRequest(event.request));
+        return;
     }
+
+    // Handle badge requests (shields.io)
+    if (url.hostname.includes('shields.io')) {
+        event.respondWith(handleBadgeRequest(event.request));
+        return;
+    }
+
+    // Handle status data requests
+    if (url.pathname.includes('/status-data')) {
+        event.respondWith(handleStatusDataRequest(event.request));
+        return;
+    }
+
+    // Handle static assets
+    if (CACHED_ASSETS.includes(url.pathname)) {
+        event.respondWith(handleStaticAsset(event.request));
+        return;
+    }
+
+    // Default handling
+    event.respondWith(handleDefaultRequest(event.request));
 });
 
-// Handle status data requests
-function handleStatusDataFetch(event) {
-    event.respondWith(
-        fetch(event.request)
-            .then(response => {
-                // Clone the response before caching
-                const clonedResponse = response.clone();
-                caches.open(DYNAMIC_CACHE).then(cache => {
-                    cache.put(event.request, clonedResponse);
-                });
-                return response;
-            })
-            .catch(() => {
-                return caches.match(event.request);
-            })
-    );
+// Handle API requests with network-first strategy
+async function handleApiRequest(request) {
+    try {
+        const response = await fetch(request);
+        const cache = await caches.open(RUNTIME_CACHE);
+        await cache.put(request, response.clone());
+        return response;
+    } catch (error) {
+        const cachedResponse = await caches.match(request);
+        return cachedResponse || new Response('API data unavailable offline', { status: 503 });
+    }
 }
 
-// Handle API requests (GitHub, shields.io)
-function handleAPIFetch(event) {
-    event.respondWith(
-        fetch(event.request)
-            .then(response => {
-                // Clone and cache fresh data
-                const clonedResponse = response.clone();
-                caches.open(DYNAMIC_CACHE).then(cache => {
-                    cache.put(event.request, clonedResponse);
-                });
-                return response;
-            })
-            .catch(() => {
-                return caches.match(event.request);
-            })
-    );
+// Handle badge requests with stale-while-revalidate strategy
+async function handleBadgeRequest(request) {
+    const cache = await caches.open(RUNTIME_CACHE);
+    const cachedResponse = await cache.match(request);
+
+    const fetchPromise = fetch(request)
+        .then(response => {
+            cache.put(request, response.clone());
+            return response;
+        });
+
+    return cachedResponse || fetchPromise;
 }
 
-// Handle regular asset requests
-function handleAssetFetch(event) {
-    event.respondWith(
-        caches.match(event.request)
-            .then(response => {
-                if (response) {
-                    console.log('[Service Worker] Found in cache:', event.request.url);
-                    return response;
-                }
-
-                console.log('[Service Worker] Fetching resource:', event.request.url);
-                return fetch(event.request)
-                    .then(response => {
-                        // Check if we received a valid response
-                        if (!response || response.status !== 200 || response.type !== 'basic') {
-                            return response;
-                        }
-
-                        // Clone the response
-                        const responseToCache = response.clone();
-                        caches.open(DYNAMIC_CACHE)
-                            .then(cache => {
-                                cache.put(event.request, responseToCache);
-                                console.log('[Service Worker] Resource cached:', event.request.url);
-                            });
-
-                        return response;
-                    })
-                    .catch(error => {
-                        console.error('[Service Worker] Fetch failed:', error);
-                        // You might want to return a custom offline page here
-                        return new Response('Offline content not available');
-                    });
-            })
-    );
+// Handle status data with network-first strategy
+async function handleStatusDataRequest(request) {
+    try {
+        const response = await fetch(request);
+        const cache = await caches.open(RUNTIME_CACHE);
+        await cache.put(request, response.clone());
+        return response;
+    } catch (error) {
+        return caches.match(request);
+    }
 }
 
-// Background sync event
+// Handle static assets with cache-first strategy
+async function handleStaticAsset(request) {
+    const cachedResponse = await caches.match(request);
+    if (cachedResponse) {
+        return cachedResponse;
+    }
+
+    try {
+        const response = await fetch(request);
+        if (response.ok) {
+            const cache = await caches.open(CACHE_NAME);
+            await cache.put(request, response.clone());
+        }
+        return response;
+    } catch (error) {
+        console.error('[SW] Static asset fetch failed:', error);
+        return new Response('Asset unavailable offline', { status: 503 });
+    }
+}
+
+// Handle default requests with network-first strategy
+async function handleDefaultRequest(request) {
+    try {
+        const response = await fetch(request);
+        if (response.ok && (response.type === 'basic' || response.type === 'cors')) {
+            const cache = await caches.open(RUNTIME_CACHE);
+            await cache.put(request, response.clone());
+        }
+        return response;
+    } catch (error) {
+        const cachedResponse = await caches.match(request);
+        return cachedResponse || new Response('Content unavailable offline', { status: 503 });
+    }
+}
+
+// Background sync support
 self.addEventListener('sync', event => {
-    console.log('[Service Worker] Background sync:', event.tag);
     if (event.tag === 'status-update') {
         event.waitUntil(
-            updateStatuses()
-                .catch(error => {
-                    console.error('[Service Worker] Background sync failed:', error);
+            fetch('/status-data')
+                .then(response => {
+                    if (response.ok) {
+                        return caches.open(RUNTIME_CACHE)
+                            .then(cache => cache.put('/status-data', response));
+                    }
                 })
+                .catch(console.error)
         );
     }
 });
 
-// Push notification event
+// Push notification support
 self.addEventListener('push', event => {
-    console.log('[Service Worker] Push received:', event);
     const options = {
         body: event.data.text(),
-        icon: '/apple-touch-icon.png',
-        badge: '/apple-touch-icon.png'
+        icon: '/assets/images/projects/apple-touch-icon.png',
+        badge: '/assets/images/projects/apple-touch-icon.png'
     };
 
     event.waitUntil(
         self.registration.showNotification('The Laboratory', options)
-            .catch(error => {
-                console.error('[Service Worker] Push notification failed:', error);
-            })
     );
 });
 
-// Notification click event
+// Notification click handler
 self.addEventListener('notificationclick', event => {
-    console.log('[Service Worker] Notification click:', event);
     event.notification.close();
-
-    event.waitUntil(
-        clients.openWindow('/')
-            .catch(error => {
-                console.error('[Service Worker] Open window failed:', error);
-            })
-    );
+    event.waitUntil(clients.openWindow('/'));
 });
 
-// Helper function to update statuses
-async function updateStatuses() {
-    try {
-        const cache = await caches.open(DYNAMIC_CACHE);
-        const response = await fetch('/status-data');
-        await cache.put('/status-data', response.clone());
-        return response;
-    } catch (error) {
-        console.error('[Service Worker] Update statuses failed:', error);
-        throw error;
-    }
-}
-
-// Log any unhandled errors
+// Error handling
 self.addEventListener('error', event => {
-    console.error('[Service Worker] Unhandled error:', event.error);
+    console.error('[SW] Unhandled error:', event.error);
 });
 
-// Log any unhandled promise rejections
 self.addEventListener('unhandledrejection', event => {
-    console.error('[Service Worker] Unhandled promise rejection:', event.reason);
+    console.error('[SW] Unhandled promise rejection:', event.reason);
 });
