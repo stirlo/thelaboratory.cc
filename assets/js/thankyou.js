@@ -1,4 +1,3 @@
-// /assets/js/thankyou.js
 document.addEventListener('DOMContentLoaded', () => {
     const contributors = [
         {
@@ -19,7 +18,6 @@ document.addEventListener('DOMContentLoaded', () => {
         // Add more contributors as needed
     ];
 
-    // Handle contributors list
     const contributorsList = document.getElementById('contributorsList');
     if (contributorsList) {
         contributors.forEach(contributor => {
@@ -39,7 +37,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Handle thank you list from txt file
     const thankYouList = document.getElementById('thankYouList');
     if (thankYouList) {
         fetch('/assets/data/thankyou.txt')
@@ -73,7 +70,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
     }
 
-    // Set current year in footer
     const yearElement = document.getElementById('currentYear');
     if (yearElement) {
         yearElement.textContent = new Date().getFullYear();
