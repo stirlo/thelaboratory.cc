@@ -1,45 +1,65 @@
-// /js/status.js
+// /assets/js/status.js
 const statusGrid = document.getElementById('statusGrid');
 const lastUpdateSpan = document.getElementById('lastUpdate');
 const statusCache = new Map();
+const githubRateLimit = new Map();
+
+async function checkGitHubStatus(github) {
+    if (!github) return null;
+
+    const now = Date.now();
+    const lastCheck = githubRateLimit.get(github);
+    if (lastCheck && (now - lastCheck < 600000)) { // 10 minutes
+        return statusCache.get(`github_${github}`);
+    }
+
+    try {
+        const response = await fetch(`https://api.github.com/repos/${github}`);
+        if (!response.ok) throw new Error(`GitHub API: ${response.status}`);
+
+        const data = await response.json();
+        const result = {
+            stars: data.stargazers_count,
+            lastUpdate: data.updated_at
+        };
+
+        githubRateLimit.set(github, now);
+        statusCache.set(`github_${github}`, result);
+        return result;
+    } catch (error) {
+        console.warn(`GitHub API error for ${github}:`, error);
+        return null;
+    }
+}
 
 async function checkSiteStatus(site) {
+    const timeout = new Promise((_, reject) => 
+        setTimeout(() => reject(new Error('Timeout')), 5000)
+    );
+
     try {
         const startTime = performance.now();
-        const response = await fetch(site.url, {
-            mode: 'no-cors',
-            cache: 'no-cache',
-            timeout: 5000
-        });
+        const result = await Promise.race([
+            fetch(site.url, {
+                mode: 'no-cors',
+                cache: 'no-cache'
+            }),
+            timeout
+        ]);
 
         const endTime = performance.now();
-        const responseTime = Math.round(endTime - startTime);
-
         return {
             status: 'online',
-            responseTime: responseTime,
+            responseTime: Math.round(endTime - startTime),
             lastCheck: new Date().toISOString()
         };
     } catch (error) {
         console.error(`Error checking ${site.url}:`, error);
         return {
             status: 'offline',
-            error: error.message || 'Site unreachable',
+            error: error.message === 'Timeout' ? 'Site timeout' : 'Site unreachable',
             lastCheck: new Date().toISOString()
         };
-    }
-}
-
-async function checkGitHubStatus(github) {
-    try {
-        const response = await fetch(`https://api.github.com/repos/${github}`);
-        const data = await response.json();
-        return {
-            stars: data.stargazers_count,
-            lastUpdate: data.updated_at
-        };
-    } catch (error) {
-        return null;
     }
 }
 
@@ -71,13 +91,15 @@ function createStatusCard(site, status, githubStatus = null) {
                 </p>
             ` : ''}
             ${status.error ? `<p class="error-message">${status.error}</p>` : ''}
-            <div class="badges">
-                <a href="https://github.com/${site.github}" target="_blank" rel="noopener">
-                    <img class="badge" 
-                         src="https://img.shields.io/github/last-commit/${site.github}" 
-                         alt="Last Commit">
-                </a>
-            </div>
+            ${site.github ? `
+                <div class="badges">
+                    <a href="https://github.com/${site.github}" target="_blank" rel="noopener">
+                        <img class="badge" 
+                             src="https://img.shields.io/github/last-commit/${site.github}" 
+                             alt="Last Commit">
+                    </a>
+                </div>
+            ` : ''}
         </div>
     `;
 
@@ -94,12 +116,12 @@ async function updateStatuses() {
             const cachedStatus = statusCache.get(site.url);
             const now = Date.now();
             if (cachedStatus && (now - new Date(cachedStatus.lastCheck).getTime() < 300000)) {
-                const githubStatus = await checkGitHubStatus(site.github);
+                const githubStatus = site.github ? await checkGitHubStatus(site.github) : null;
                 return { site, status: cachedStatus, githubStatus };
             }
 
             const status = await checkSiteStatus(site);
-            const githubStatus = await checkGitHubStatus(site.github);
+            const githubStatus = site.github ? await checkGitHubStatus(site.github) : null;
             statusCache.set(site.url, status);
             return { site, status, githubStatus };
         });
@@ -116,9 +138,11 @@ async function updateStatuses() {
             });
 
         statusGrid.innerHTML = '';
+        const fragment = document.createDocumentFragment();
         validResults.forEach(({ site, status, githubStatus }) => {
-            statusGrid.appendChild(createStatusCard(site, status, githubStatus));
+            fragment.appendChild(createStatusCard(site, status, githubStatus));
         });
+        statusGrid.appendChild(fragment);
 
         if (lastUpdateSpan) {
             lastUpdateSpan.textContent = new Date().toLocaleString();
@@ -135,11 +159,13 @@ async function updateStatuses() {
     }
 }
 
+// Initialize status checks
 document.addEventListener('DOMContentLoaded', () => {
     updateStatuses();
-    setInterval(updateStatuses, 300000);
+    setInterval(updateStatuses, 300000); // Every 5 minutes
 });
 
+// Handle online/offline events
 window.addEventListener('online', () => {
     document.body.classList.remove('offline');
     updateStatuses();
