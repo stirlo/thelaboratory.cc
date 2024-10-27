@@ -10,10 +10,6 @@
     <link rel="preload" href="/assets/js/sites.js" as="script">
     <link rel="preload" href="/assets/js/status.js" as="script">
 
-    <!-- Status Images -->
-    <link rel="preload" href="/assets/images/status/green_light.svg" as="image" type="image/svg+xml">
-    <link rel="preload" href="/assets/images/status/red_light.svg" as="image" type="image/svg+xml">
-
     <!-- DNS Prefetch and Preconnect -->
     <link rel="dns-prefetch" href="//api.github.com">
     <link rel="dns-prefetch" href="//img.shields.io">
@@ -63,29 +59,30 @@
     </header>
 
     <main class="status-container">
-        <div class="status-legend" aria-label="Status indicators">
+        <div class="status-legend">
             <div class="legend-item">
-                <img src="/assets/images/status/green_light.svg" alt="Online indicator" class="status-icon" width="16" height="16">
+                <div class="status-indicator online"></div>
                 <span>Online</span>
             </div>
             <div class="legend-item">
-                <img src="/assets/images/status/red_light.svg" alt="Offline indicator" class="status-icon" width="16" height="16">
+                <div class="status-indicator offline"></div>
                 <span>Offline</span>
             </div>
         </div>
 
-        <div id="statusGrid" class="status-grid" aria-live="polite">
+        <div id="statusGrid" class="status-grid">
             <div class="loading-container">
-                <div class="loading-spinner" role="status"></div>
+                <div class="loading-spinner"></div>
                 <p>Checking status of all sites...</p>
             </div>
         </div>
 
         <div class="github-info">
-            <p>GitHub Repository Status:</p>
+            <p>GitHub Repository Information:</p>
             <div class="badge-legend">
-                <span>⭐ Stars</span>
-                <span>🔄 Last Update</span>
+                <span title="Repository Stars">⭐ Stars</span>
+                <span title="Last Repository Update">🔄 Last Update</span>
+                <span title="Response Time">⚡ Response Time</span>
             </div>
         </div>
     </main>
@@ -113,27 +110,25 @@
                 updateViaCache: 'none'
             })
             .then(registration => {
-                console.log('[SW] Registration successful, scope:', registration.scope);
+                console.log('[SW] Registration successful');
                 setInterval(() => registration.update(), 3600000);
             })
             .catch(error => console.error('[SW] Registration failed:', error));
     }
     </script>
 
-    <!-- Core Scripts -->
-    <script src="/assets/js/sites.js" defer></script>
-    <script src="/assets/js/status.js" defer></script>
-
-    <!-- Offline Detection -->
+    <!-- Initialize namespace -->
     <script>
-    (() => {
-        const updateOfflineStatus = () => {
-            document.body.classList.toggle('offline', !navigator.onLine);
-        };
-        window.addEventListener('online', updateOfflineStatus);
-        window.addEventListener('offline', updateOfflineStatus);
-        updateOfflineStatus(); // Initial check
-    })();
+    window.laboratorySites = window.laboratorySites || {};
+    </script>
+
+    <!-- Core Scripts -->
+    <script src="/assets/js/sites.js"></script>
+    <script src="/assets/js/status.js"></script>
+
+    <!-- Initialize current year -->
+    <script>
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
     </script>
 </body>
 </html>
