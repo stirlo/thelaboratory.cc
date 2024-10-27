@@ -3,13 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Laboratory</title>
 
-    <!-- Resource Hints -->
-    <link rel="preload" href="/js/sites.js" as="script">
-    <link rel="preload" href="/js/main.js" as="script">
-    <link rel="preload" href="/css/style.css" as="style">
-    <link rel="preload" href="/assets/images/apple-touch-icon.png" as="image">
+    <!-- Resource Hints - Updated paths -->
+    <link rel="preload" href="/assets/js/sites.js" as="script">
+    <link rel="preload" href="/assets/js/main.js" as="script">
+    <link rel="preload" href="/assets/css/style.css" as="style">
+    <link rel="preload" href="/assets/images/projects/apple-touch-icon.png" as="image">
 
     <!-- DNS Prefetch -->
     <link rel="dns-prefetch" href="//api.github.com">
@@ -21,53 +20,79 @@
     <link rel="preconnect" href="https://api.github.com" crossorigin>
     <link rel="preconnect" href="https://img.shields.io" crossorigin>
 
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="icon" type="image/png" href="/assets/images/apple-touch-icon.png">
+    <!-- Dark/Light mode meta tags -->
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="#f5f5f5" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#1a1a1a" media="(prefers-color-scheme: dark)">
+
+    <!-- Favicon and app icons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/projects/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/icons/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/assets/images/icons/safari-pinned-tab.svg" color="#3333bb">
+    <meta name="msapplication-TileColor" content="#3333bb">
 
     <!-- Meta tags -->
     <meta name="description" content="A collection of web projects and experiments">
     <meta property="og:title" content="The Laboratory">
     <meta property="og:description" content="A collection of web projects and experiments">
-    <meta property="og:image" content="/assets/images/apple-touch-icon.png">
+    <meta property="og:url" content="https://thelaboratory.cc" />
+    <meta property="og:image" content="https://thelaboratory.cc/assets/images/projects/apple-touch-icon.png">
+    <meta property="og:image:width" content="512" />
+    <meta property="og:image:height" content="512" />
 
-    <!-- PWA Support -->
-    <link rel="manifest" href="/manifest.json">
-    <meta name="theme-color" content="#ffffff">
-</head>
-<body>
-    <header class="site-header">
-        <h1>The Laboratory</h1>
-        <nav>
-            <a href="status.html">Status Page</a>
-        </nav>
-    </header>
-
-    <main>
-        <div id="sitesContainer">
-            <!-- Sites will be loaded dynamically -->
-        </div>
-    </main>
-
-    <footer>
-        <p>
-            <a href="LICENSE">©</a> <span id="currentYear"></span> 
-            <a href="https://tfp.la">TFP</a> | 
-            <a href="https://thelaboratory.cc">The Laboratory</a> | 
-            <a href="https://thelaboratory.cc/thankyou.html">Thank You</a>
-        </p>
-    </footer>
+    <title>The Laboratory</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
 
     <!-- Service Worker Registration -->
     <script>
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/service-worker.js')
-                .then(registration => console.debug('ServiceWorker registered'))
-                .catch(error => console.error('ServiceWorker error:', error));
-        }
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker
+            .register('/sw.js', { 
+                scope: '/',
+                updateViaCache: 'none'
+            })
+            .then(registration => {
+                console.log('[SW] Registration successful');
+                setInterval(() => registration.update(), 3600000);
+            })
+            .catch(error => console.error('[SW] Registration failed:', error));
+    }
     </script>
+</head>
+
+<body>
+    <header class="site-header">
+        <h1>The Laboratory</h1>
+        <nav class="main-nav">
+            <ul>
+                <li><a href="/status.html" class="nav-link">Status Page</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <section class="projects-section">
+            <div id="sitesContainer" class="container grid-container">
+                <!-- Dynamic content will be inserted here by main.js -->
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>
+                <a href="/LICENSE">&copy;</a> <span id="currentYear"></span> 
+                <a href="https://tfp.la">TFP</a> &nbsp;|&nbsp; 
+                <a href="https://thelaboratory.cc">The Laboratory</a> &nbsp;|&nbsp; 
+                <a href="/thankyou.html">many thanks to</a>
+            </p>
+        </div>
+    </footer>
 
     <!-- Core Scripts -->
-    <script src="/js/sites.js"></script>
-    <script src="/js/main.js"></script>
+    <script src="/assets/js/sites.js"></script>
+    <script src="/assets/js/main.js"></script>
 </body>
 </html>
