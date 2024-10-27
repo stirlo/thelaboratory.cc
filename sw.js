@@ -1,8 +1,10 @@
-// sw.js
+
+// /sw.js
 const CACHE_VERSION = 'v3';
 const CACHE_NAME = `laboratory-${CACHE_VERSION}`;
 const RUNTIME_CACHE = 'laboratory-runtime';
 
+// Add Microsoft Tiles to cached assets
 const CACHED_ASSETS = [
     // HTML
     '/',
@@ -43,17 +45,26 @@ const CACHED_ASSETS = [
     '/assets/images/icons/favicon-32x32.png',
     '/assets/images/icons/favicon-16x16.png',
     '/assets/images/icons/safari-pinned-tab.svg',
+    '/assets/images/icons/mstile-70x70.png',
+    '/assets/images/icons/mstile-144x144.png',
+    '/assets/images/icons/mstile-150x150.png',
+    '/assets/images/icons/mstile-310x150.png',
+    '/assets/images/icons/mstile-310x310.png',
+    '/assets/images/icons/favicon.ico',
 
     // Manifest
     '/site.webmanifest'
 ];
 
-// [Rest of the service worker code remains the same as provided in the previous message]
+// Optimized request handling
+const API_HOSTS = {
+    GITHUB: 'api.github.com',
+    SHIELDS: 'shields.io'
+};
 
-
-// Install event with improved error handling
+// Install event with improved error handling and logging
 self.addEventListener('install', event => {
-    console.log('[SW] Installing new version...');
+    console.log('[SW] Installing version', CACHE_VERSION);
     event.waitUntil(
         caches.open(CACHE_NAME)
             .then(cache => {
