@@ -1,20 +1,34 @@
-// /assets/js/status.js
+// status.js
 const statusGrid = document.getElementById('statusGrid');
 const lastUpdateSpan = document.getElementById('lastUpdate');
 const statusCache = new Map();
 const githubRateLimit = new Map();
 
+const CONFIG = {
+    GITHUB_CACHE_TIME: 600000,    // 10 minutes
+    STATUS_CACHE_TIME: 300000,    // 5 minutes
+    FETCH_TIMEOUT: 5000,          // 5 seconds
+    UPDATE_INTERVAL: 300000       // 5 minutes
+};
+
 async function checkGitHubStatus(github) {
     if (!github) return null;
 
     const now = Date.now();
+    const cacheKey = `github_${github}`;
     const lastCheck = githubRateLimit.get(github);
-    if (lastCheck && (now - lastCheck < 600000)) { // 10 minutes
-        return statusCache.get(`github_${github}`);
+
+    if (lastCheck && (now - lastCheck < CONFIG.GITHUB_CACHE_TIME)) {
+        return statusCache.get(cacheKey);
     }
 
     try {
-        const response = await fetch(`https://api.github.com/repos/${github}`);
+        const response = await fetch(`https://api.github.com/repos/${github}`, {
+            headers: {
+                'Accept': 'application/vnd.github.v3+json'
+            }
+        });
+
         if (!response.ok) throw new Error(`GitHub API: ${response.status}`);
 
         const data = await response.json();
@@ -24,7 +38,7 @@ async function checkGitHubStatus(github) {
         };
 
         githubRateLimit.set(github, now);
-        statusCache.set(`github_${github}`, result);
+        statusCache.set(cacheKey, result);
         return result;
     } catch (error) {
         console.warn(`GitHub API error for ${github}:`, error);
@@ -33,31 +47,30 @@ async function checkGitHubStatus(github) {
 }
 
 async function checkSiteStatus(site) {
-    const timeout = new Promise((_, reject) => 
-        setTimeout(() => reject(new Error('Timeout')), 5000)
-    );
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), CONFIG.FETCH_TIMEOUT);
 
     try {
         const startTime = performance.now();
-        const result = await Promise.race([
-            fetch(site.url, {
-                mode: 'no-cors',
-                cache: 'no-cache'
-            }),
-            timeout
-        ]);
+        const response = await fetch(site.url, {
+            mode: 'no-cors',
+            cache: 'no-cache',
+            signal: controller.signal
+        });
 
+        clearTimeout(timeoutId);
         const endTime = performance.now();
+
         return {
             status: 'online',
             responseTime: Math.round(endTime - startTime),
             lastCheck: new Date().toISOString()
         };
     } catch (error) {
-        console.error(`Error checking ${site.url}:`, error);
+        clearTimeout(timeoutId);
         return {
             status: 'offline',
-            error: error.message === 'Timeout' ? 'Site timeout' : 'Site unreachable',
+            error: error.name === 'AbortError' ? 'Site timeout' : 'Site unreachable',
             lastCheck: new Date().toISOString()
         };
     }
@@ -70,36 +83,40 @@ function createStatusCard(site, status, githubStatus = null) {
     const statusColor = status.status === 'online' ? '#28a745' : '#dc3545';
     const statusText = status.status === 'online' ? 'Online' : 'Offline';
 
+    const githubStatsHtml = githubStatus ? `
+        <p class="github-stats">
+            ⭐ ${githubStatus.stars} · 
+            Last updated: ${new Date(githubStatus.lastUpdate).toLocaleDateString()}
+        </p>
+    ` : '';
+
+    const githubBadgesHtml = site.github ? `
+        <div class="badges">
+            <a href="https://github.com/${site.github}" target="_blank" rel="noopener">
+                <img class="badge" 
+                     src="https://img.shields.io/github/last-commit/${site.github}" 
+                     alt="Last Commit"
+                     loading="lazy">
+            </a>
+        </div>
+    ` : '';
+
     card.innerHTML = `
         <div class="status-indicator" style="background-color: ${statusColor}"></div>
         <img src="${site.logo}" 
              alt="${site.name} logo" 
-             onerror="this.onerror=null; this.src='apple-touch-icon.png';">
+             loading="lazy"
+             onerror="this.onerror=null; this.src='/assets/images/icons/apple-touch-icon.png';">
         <div class="status-details">
             <h3>
-                <a href="${site.url}" target="_blank" rel="noopener">${site.name}</a>
+                <a href="${site.url}" target="_blank" rel="noopener noreferrer">${site.name}</a>
             </h3>
             <p class="status-text">${statusText}</p>
-            ${status.responseTime ? `
-                <p class="response-time">Response: ${status.responseTime}ms</p>
-            ` : ''}
+            ${status.responseTime ? `<p class="response-time">Response: ${status.responseTime}ms</p>` : ''}
             <p class="last-update">Last check: ${new Date(status.lastCheck).toLocaleString()}</p>
-            ${githubStatus ? `
-                <p class="github-stats">
-                    ⭐ ${githubStatus.stars} · 
-                    Last updated: ${new Date(githubStatus.lastUpdate).toLocaleDateString()}
-                </p>
-            ` : ''}
+            ${githubStatsHtml}
             ${status.error ? `<p class="error-message">${status.error}</p>` : ''}
-            ${site.github ? `
-                <div class="badges">
-                    <a href="https://github.com/${site.github}" target="_blank" rel="noopener">
-                        <img class="badge" 
-                             src="https://img.shields.io/github/last-commit/${site.github}" 
-                             alt="Last Commit">
-                    </a>
-                </div>
-            ` : ''}
+            ${githubBadgesHtml}
         </div>
     `;
 
@@ -112,16 +129,20 @@ async function updateStatuses() {
     try {
         statusGrid.innerHTML = '<div class="loading">Checking statuses...</div>';
 
-        const statusPromises = window.sites.map(async site => {
+        const statusPromises = window.laboratorySites.sites.map(async site => {
             const cachedStatus = statusCache.get(site.url);
             const now = Date.now();
-            if (cachedStatus && (now - new Date(cachedStatus.lastCheck).getTime() < 300000)) {
+
+            if (cachedStatus && (now - new Date(cachedStatus.lastCheck).getTime() < CONFIG.STATUS_CACHE_TIME)) {
                 const githubStatus = site.github ? await checkGitHubStatus(site.github) : null;
                 return { site, status: cachedStatus, githubStatus };
             }
 
-            const status = await checkSiteStatus(site);
-            const githubStatus = site.github ? await checkGitHubStatus(site.github) : null;
+            const [status, githubStatus] = await Promise.all([
+                checkSiteStatus(site),
+                site.github ? checkGitHubStatus(site.github) : null
+            ]);
+
             statusCache.set(site.url, status);
             return { site, status, githubStatus };
         });
@@ -137,11 +158,12 @@ async function updateStatuses() {
                 return 0;
             });
 
-        statusGrid.innerHTML = '';
         const fragment = document.createDocumentFragment();
         validResults.forEach(({ site, status, githubStatus }) => {
             fragment.appendChild(createStatusCard(site, status, githubStatus));
         });
+
+        statusGrid.innerHTML = '';
         statusGrid.appendChild(fragment);
 
         if (lastUpdateSpan) {
@@ -159,18 +181,37 @@ async function updateStatuses() {
     }
 }
 
-// Initialize status checks
-document.addEventListener('DOMContentLoaded', () => {
+// Initialize and set up event listeners
+function initialize() {
     updateStatuses();
-    setInterval(updateStatuses, 300000); // Every 5 minutes
+    setInterval(updateStatuses, CONFIG.UPDATE_INTERVAL);
+
+    window.addEventListener('online', () => {
+        document.body.classList.remove('offline');
+        updateStatuses();
+    });
+
+    window.addEventListener('offline', () => {
+        document.body.classList.add('offline');
+    });
+}
+
+// Start when DOM is ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initialize);
+} else {
+    initialize();
+}
+
+// Error boundaries
+window.addEventListener('error', (event) => {
+    if (event.error?.message?.includes('status')) {
+        console.error('Status page error:', event.error);
+    }
 });
 
-// Handle online/offline events
-window.addEventListener('online', () => {
-    document.body.classList.remove('offline');
-    updateStatuses();
-});
-
-window.addEventListener('offline', () => {
-    document.body.classList.add('offline');
+window.addEventListener('unhandledrejection', (event) => {
+    if (event.reason?.message?.includes('status')) {
+        console.error('Status promise rejection:', event.reason);
+    }
 });
