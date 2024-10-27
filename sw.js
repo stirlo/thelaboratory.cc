@@ -1,250 +1,160 @@
+const CACHE_NAME = 'laboratory-v3';
+const OFFLINE_URL = '/offline.html';
 
-// /sw.js
-const CACHE_VERSION = 'v3';
-const CACHE_NAME = `laboratory-${CACHE_VERSION}`;
-const RUNTIME_CACHE = 'laboratory-runtime';
-
-// Add Microsoft Tiles to cached assets
 const CACHED_ASSETS = [
-    // HTML
     '/',
     '/index.html',
     '/status.html',
     '/thankyou.html',
-
-    // JavaScript
-    '/assets/js/main.js',
+    '/offline.html',
+    '/assets/css/style.css',
     '/assets/js/sites.js',
     '/assets/js/status.js',
     '/assets/js/thankyou.js',
-
-    // CSS
-    '/assets/css/style.css',
-
-    // Data
-    '/assets/data/thankyou.txt',
-
-    // Project Images
-    '/assets/images/projects/zmanim_ICS.png',
-    '/assets/images/projects/adhan-flipper-512x512.png',
-    '/assets/images/projects/adhan-swift-512x512.png',
-    '/assets/images/projects/infinitereality.cc-384x384.png',
-    '/assets/images/projects/JPT-flipper-512x512.png',
-    '/assets/images/projects/oursquadis.top-512x512.png',
-    '/assets/images/projects/stirlo.be-512x512.png',
-    '/assets/images/projects/stirlo.space-512x512.png',
-    '/assets/images/projects/tfp-green-512.png',
-    '/assets/images/projects/thegossroom-512x512.png',
-    '/assets/images/projects/alarm-clock.svg',
-    '/assets/images/projects/apple-touch-icon.png',
-
-    // Icons
-    '/assets/images/icons/android-chrome-192x192.png',
-    '/assets/images/icons/android-chrome-512x512.png',
-    '/assets/images/icons/apple-touch-icon.png',
-    '/assets/images/icons/favicon-32x32.png',
-    '/assets/images/icons/favicon-16x16.png',
-    '/assets/images/icons/safari-pinned-tab.svg',
-    '/assets/images/icons/mstile-70x70.png',
-    '/assets/images/icons/mstile-144x144.png',
-    '/assets/images/icons/mstile-150x150.png',
-    '/assets/images/icons/mstile-310x150.png',
-    '/assets/images/icons/mstile-310x310.png',
+    '/site.webmanifest',
     '/assets/images/icons/favicon.ico',
-
-    // Manifest
-    '/site.webmanifest'
+    '/assets/images/icons/apple-touch-icon.png'
 ];
 
-// Optimized request handling
-const API_HOSTS = {
-    GITHUB: 'api.github.com',
-    SHIELDS: 'shields.io'
+const CACHE_STRATEGIES = {
+    cacheFirst: [
+        '/assets/images/',
+        '/assets/css/',
+        '/assets/fonts/',
+        'favicon',
+        '.ico',
+        '.png',
+        '.jpg',
+        '.jpeg',
+        '.webp',
+        '.css',
+        '.woff2'
+    ],
+    networkFirst: [
+        '/status',
+        '/api/',
+        'github.com'
+    ]
 };
 
-// Install event with improved error handling and logging
 self.addEventListener('install', event => {
-    console.log('[SW] Installing version', CACHE_VERSION);
     event.waitUntil(
         caches.open(CACHE_NAME)
             .then(cache => {
                 console.log('[SW] Caching app shell and assets');
-                return cache.addAll(CACHED_ASSETS);
+                return cache.addAll(CACHED_ASSETS)
+                    .catch(error => {
+                        console.error('[SW] Cache addAll error:', error);
+                        return Promise.resolve();
+                    });
             })
             .then(() => self.skipWaiting())
-            .catch(error => {
-                console.error('[SW] Install failed:', error);
-                throw error;
-            })
     );
 });
 
-// Activate event with clean up
 self.addEventListener('activate', event => {
-    console.log('[SW] Activating new version...');
     event.waitUntil(
         Promise.all([
-            // Clean up old caches
-            caches.keys().then(cacheNames => {
-                return Promise.all(
-                    cacheNames
-                        .filter(name => (name.startsWith('laboratory-') || name === RUNTIME_CACHE) && name !== CACHE_NAME)
-                        .map(name => {
-                            console.log('[SW] Deleting old cache:', name);
-                            return caches.delete(name);
-                        })
-                );
-            }),
-            // Take control immediately
+            caches.keys()
+                .then(cacheNames => {
+                    return Promise.all(
+                        cacheNames
+                            .filter(cacheName => cacheName !== CACHE_NAME)
+                            .map(cacheName => caches.delete(cacheName))
+                    );
+                }),
             self.clients.claim()
         ])
     );
 });
 
-// Enhanced fetch event handler
-self.addEventListener('fetch', event => {
-    const url = new URL(event.request.url);
-
-    // Handle API requests (GitHub)
-    if (url.hostname === 'api.github.com') {
-        event.respondWith(handleApiRequest(event.request));
-        return;
-    }
-
-    // Handle badge requests (shields.io)
-    if (url.hostname.includes('shields.io')) {
-        event.respondWith(handleBadgeRequest(event.request));
-        return;
-    }
-
-    // Handle status data requests
-    if (url.pathname.includes('/status-data')) {
-        event.respondWith(handleStatusDataRequest(event.request));
-        return;
-    }
-
-    // Handle static assets
-    if (CACHED_ASSETS.includes(url.pathname)) {
-        event.respondWith(handleStaticAsset(event.request));
-        return;
-    }
-
-    // Default handling
-    event.respondWith(handleDefaultRequest(event.request));
-});
-
-// Handle API requests with network-first strategy
-async function handleApiRequest(request) {
-    try {
-        const response = await fetch(request);
-        const cache = await caches.open(RUNTIME_CACHE);
-        await cache.put(request, response.clone());
-        return response;
-    } catch (error) {
-        const cachedResponse = await caches.match(request);
-        return cachedResponse || new Response('API data unavailable offline', { status: 503 });
-    }
+function shouldCacheFirst(url) {
+    return CACHE_STRATEGIES.cacheFirst.some(pattern => url.includes(pattern));
 }
 
-// Handle badge requests with stale-while-revalidate strategy
-async function handleBadgeRequest(request) {
-    const cache = await caches.open(RUNTIME_CACHE);
-    const cachedResponse = await cache.match(request);
-
-    const fetchPromise = fetch(request)
-        .then(response => {
-            cache.put(request, response.clone());
-            return response;
-        });
-
-    return cachedResponse || fetchPromise;
+function shouldNetworkFirst(url) {
+    return CACHE_STRATEGIES.networkFirst.some(pattern => url.includes(pattern));
 }
 
-// Handle status data with network-first strategy
-async function handleStatusDataRequest(request) {
-    try {
-        const response = await fetch(request);
-        const cache = await caches.open(RUNTIME_CACHE);
-        await cache.put(request, response.clone());
-        return response;
-    } catch (error) {
-        return caches.match(request);
-    }
-}
-
-// Handle static assets with cache-first strategy
-async function handleStaticAsset(request) {
+async function cacheFirstStrategy(request) {
     const cachedResponse = await caches.match(request);
     if (cachedResponse) {
         return cachedResponse;
     }
-
     try {
         const response = await fetch(request);
         if (response.ok) {
             const cache = await caches.open(CACHE_NAME);
-            await cache.put(request, response.clone());
+            cache.put(request, response.clone());
         }
         return response;
     } catch (error) {
-        console.error('[SW] Static asset fetch failed:', error);
-        return new Response('Asset unavailable offline', { status: 503 });
+        return new Response('Network error happened', {
+            status: 408,
+            headers: { 'Content-Type': 'text/plain' },
+        });
     }
 }
 
-// Handle default requests with network-first strategy
-async function handleDefaultRequest(request) {
+async function networkFirstStrategy(request) {
     try {
         const response = await fetch(request);
-        if (response.ok && (response.type === 'basic' || response.type === 'cors')) {
-            const cache = await caches.open(RUNTIME_CACHE);
-            await cache.put(request, response.clone());
+        if (response.ok) {
+            const cache = await caches.open(CACHE_NAME);
+            cache.put(request, response.clone());
         }
         return response;
     } catch (error) {
         const cachedResponse = await caches.match(request);
-        return cachedResponse || new Response('Content unavailable offline', { status: 503 });
+        if (cachedResponse) {
+            return cachedResponse;
+        }
+        return caches.match(OFFLINE_URL);
     }
 }
 
-// Background sync support
-self.addEventListener('sync', event => {
-    if (event.tag === 'status-update') {
-        event.waitUntil(
-            fetch('/status-data')
-                .then(response => {
-                    if (response.ok) {
-                        return caches.open(RUNTIME_CACHE)
-                            .then(cache => cache.put('/status-data', response));
-                    }
-                })
-                .catch(console.error)
-        );
+self.addEventListener('fetch', event => {
+    if (event.request.method !== 'GET') return;
+
+    const url = new URL(event.request.url);
+
+    // Skip non-HTTP(S) requests and browser-extension requests
+    if (!url.protocol.startsWith('http')) return;
+
+    // Handle same-origin requests only
+    if (url.origin !== self.location.origin) {
+        if (!event.request.url.includes('github.com')) return;
     }
-});
 
-// Push notification support
-self.addEventListener('push', event => {
-    const options = {
-        body: event.data.text(),
-        icon: '/assets/images/projects/apple-touch-icon.png',
-        badge: '/assets/images/projects/apple-touch-icon.png'
-    };
-
-    event.waitUntil(
-        self.registration.showNotification('The Laboratory', options)
+    event.respondWith(
+        (async () => {
+            try {
+                if (shouldCacheFirst(url.pathname)) {
+                    return await cacheFirstStrategy(event.request);
+                }
+                if (shouldNetworkFirst(url.pathname)) {
+                    return await networkFirstStrategy(event.request);
+                }
+                // Default to network-first for everything else
+                return await networkFirstStrategy(event.request);
+            } catch (error) {
+                console.error('[SW] Fetch handler error:', error);
+                return caches.match(OFFLINE_URL);
+            }
+        })()
     );
 });
 
-// Notification click handler
-self.addEventListener('notificationclick', event => {
-    event.notification.close();
-    event.waitUntil(clients.openWindow('/'));
+// Handle service worker updates
+self.addEventListener('message', event => {
+    if (event.data === 'skipWaiting') {
+        self.skipWaiting();
+    }
 });
 
 // Error handling
 self.addEventListener('error', event => {
-    console.error('[SW] Unhandled error:', event.error);
+    console.error('[SW] Service Worker error:', event.error);
 });
 
 self.addEventListener('unhandledrejection', event => {
