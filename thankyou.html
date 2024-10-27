@@ -4,48 +4,64 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Laboratory - Thank You</title>
-    <meta name="description" content="Thanks to everyone for providing such excellent tools for us to work with...">
 
-    <!-- Resource Hints -->
-    <link rel="preload" href="/assets/js/thankyou.js" as="script">
+    <!-- Critical Resources -->
     <link rel="preload" href="/assets/css/style.css" as="style">
+    <link rel="preload" href="/assets/js/thankyou.js" as="script">
 
-    <!-- Open Graph / Facebook -->
+    <!-- Meta -->
+    <meta name="description" content="Thanks to everyone for providing such excellent tools for us to work with...">
+    <meta name="theme-color" content="#f5f5f5" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#1a1a1a" media="(prefers-color-scheme: dark)">
+    <meta name="color-scheme" content="light dark">
+
+    <!-- Social Meta -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://thelaboratory.cc/">
+    <meta property="og:url" content="https://thelaboratory.cc/thankyou.html">
     <meta property="og:title" content="The Laboratory - Thank You">
     <meta property="og:description" content="Thanks to everyone for providing such excellent tools for us to work with...">
     <meta property="og:image" content="https://thelaboratory.cc/assets/images/icons/android-chrome-512x512.png">
+    <meta property="og:image:width" content="512">
+    <meta property="og:image:height" content="512">
 
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://thelaboratory.cc/">
-    <meta property="twitter:title" content="The Laboratory - Thank You">
-    <meta property="twitter:description" content="Thanks to everyone for providing such excellent tools for us to work with...">
-    <meta property="twitter:image" content="https://thelaboratory.cc/assets/images/icons/android-chrome-512x512.png">
-
-    <!-- Favicon and App Icons -->
+    <!-- Icons -->
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/icons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/icons/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
     <link rel="mask-icon" href="/assets/images/icons/safari-pinned-tab.svg" color="#3333bb">
     <meta name="msapplication-TileColor" content="#3333bb">
-    <meta name="theme-color" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/assets/images/icons/mstile-144x144.png">
 
     <link rel="stylesheet" href="/assets/css/style.css">
 
     <style>
+        @media (prefers-color-scheme: light) {
+            :root {
+                --card-bg: #ffffff;
+                --link-color: #3333bb;
+                --border-color: #eaeaea;
+            }
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --card-bg: #2d2d2d;
+                --link-color: #8080ff;
+                --border-color: #404040;
+            }
+        }
+
         .content-container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 2rem;
+            padding: clamp(1rem, 5vw, 2rem);
         }
 
         .contributors-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+            gap: clamp(1rem, 3vw, 2rem);
             margin: 2rem 0;
         }
 
@@ -53,7 +69,7 @@
             background: var(--card-bg);
             border-radius: 8px;
             padding: 1.5rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 4px rgb(0 0 0 / 0.1);
             transition: transform 0.3s ease;
         }
 
@@ -62,7 +78,7 @@
         }
 
         .contributor-card h3 {
-            margin: 0 0 1rem 0;
+            margin: 0 0 1rem;
         }
 
         .contributor-card a {
@@ -84,21 +100,6 @@
             padding: 0.5rem 0;
             border-bottom: 1px solid var(--border-color);
         }
-
-        /* Light/Dark mode variables */
-        :root {
-            --card-bg: #ffffff;
-            --link-color: #3333bb;
-            --border-color: #eaeaea;
-        }
-
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --card-bg: #2d2d2d;
-                --link-color: #8080ff;
-                --border-color: #404040;
-            }
-        }
     </style>
 </head>
 
@@ -117,13 +118,13 @@
             <h2>Our Gratitude</h2>
             <p>We'd like to express our sincere thanks to all the excellent tools, services, and people who helped make this project possible.</p>
 
-            <div id="contributorsList" class="contributors-grid">
-                <!-- Contributor cards will be inserted here -->
+            <div id="contributorsList" class="contributors-grid" aria-live="polite">
+                <!-- Dynamic content -->
             </div>
 
             <h3>Additional Thanks</h3>
-            <ul id="thankYouList" class="thank-you-list">
-                <!-- Thank you items will be inserted here -->
+            <ul id="thankYouList" class="thank-you-list" aria-live="polite">
+                <!-- Dynamic content -->
             </ul>
         </div>
     </main>
@@ -138,22 +139,22 @@
         </div>
     </footer>
 
-    <!-- Service Worker Registration -->
+    <!-- Service Worker -->
     <script>
-    if ('serviceWorker' in navigator) {
+    if ('serviceWorker' in navigator && window.location.protocol === 'https:') {
         navigator.serviceWorker
             .register('/sw.js', { 
                 scope: '/',
                 updateViaCache: 'none'
             })
             .then(registration => {
-                console.log('[SW] Registration successful');
+                console.log('[SW] Registration successful, scope:', registration.scope);
                 setInterval(() => registration.update(), 3600000);
             })
             .catch(error => console.error('[SW] Registration failed:', error));
     }
     </script>
 
-    <script src="/assets/js/thankyou.js"></script>
+    <script src="/assets/js/thankyou.js" defer></script>
 </body>
 </html>
