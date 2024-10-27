@@ -1,24 +1,28 @@
-// unified-sw.js - Enhanced Service Worker for The Laboratory
+// sw.js
 const CACHE_VERSION = 'v3';
 const CACHE_NAME = `laboratory-${CACHE_VERSION}`;
 const RUNTIME_CACHE = 'laboratory-runtime';
 
 const CACHED_ASSETS = [
-    // Core files
+    // HTML
     '/',
     '/index.html',
     '/status.html',
+    '/thankyou.html',
 
-    // JavaScript files
+    // JavaScript
     '/assets/js/main.js',
     '/assets/js/sites.js',
     '/assets/js/status.js',
     '/assets/js/thankyou.js',
 
-    // CSS files
+    // CSS
     '/assets/css/style.css',
 
-    // Project logos and images
+    // Data
+    '/assets/data/thankyou.txt',
+
+    // Project Images
     '/assets/images/projects/zmanim_ICS.png',
     '/assets/images/projects/adhan-flipper-512x512.png',
     '/assets/images/projects/adhan-swift-512x512.png',
@@ -30,8 +34,22 @@ const CACHED_ASSETS = [
     '/assets/images/projects/tfp-green-512.png',
     '/assets/images/projects/thegossroom-512x512.png',
     '/assets/images/projects/alarm-clock.svg',
-    '/assets/images/projects/apple-touch-icon.png'
+    '/assets/images/projects/apple-touch-icon.png',
+
+    // Icons
+    '/assets/images/icons/android-chrome-192x192.png',
+    '/assets/images/icons/android-chrome-512x512.png',
+    '/assets/images/icons/apple-touch-icon.png',
+    '/assets/images/icons/favicon-32x32.png',
+    '/assets/images/icons/favicon-16x16.png',
+    '/assets/images/icons/safari-pinned-tab.svg',
+
+    // Manifest
+    '/site.webmanifest'
 ];
+
+// [Rest of the service worker code remains the same as provided in the previous message]
+
 
 // Install event with improved error handling
 self.addEventListener('install', event => {
