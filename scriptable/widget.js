@@ -3,12 +3,19 @@
 // @ts-ignore
 // icon-color: deep-gray; icon-glyph: signal;
 
+// Configuration constants
 const CACHE_KEY_PREFIX = 'site_status_'
 const CACHE_DURATION = 5 * 60 * 1000 // 5 minutes in milliseconds
-const CHECK_INTERVAL = 15 * 60 // 15 minutes
 const BACKGROUND_REFRESH_KEY = 'last_background_refresh'
 const NOTIFICATION_CACHE_KEY = 'site_status_notifications'
 const NOTIFICATION_COOLDOWN = 30 * 60 * 1000 // 30 minutes in milliseconds
+
+// Battery-optimized check intervals
+const CHECK_INTERVAL_BATTERY = 20 * 60 // 20 minutes when on battery
+const CHECK_INTERVAL_CHARGING = 10 * 60 // 10 minutes when charging
+const ACTIVE_HOURS_START = 7
+const ACTIVE_HOURS_END = 23
+const BATTERY_THRESHOLD = 0.4 // 40% battery threshold
 
 const sites = [
     {
@@ -102,6 +109,7 @@ class StatusWidget {
 
         this.widget.refreshAfterDate = new Date(Date.now() + CACHE_DURATION)
     }
+
     getSizeConfig() {
         switch (config.widgetFamily) {
             case 'accessoryCircular':
@@ -227,6 +235,31 @@ class StatusWidget {
         }
     }
 
+    async shouldPerformCheck() {
+        // Always check if charging
+        if (Device.isCharging()) {
+            return true
+        }
+
+        const hour = new Date().getHours()
+
+        // Check active hours when on battery
+        if (hour < ACTIVE_HOURS_START || hour > ACTIVE_HOURS_END) {
+            return false
+        }
+
+        try {
+            const battery = Device.batteryLevel()
+            if (battery <= BATTERY_THRESHOLD) {
+                await this.sendStatusNotification(`Checks paused - battery at ${Math.round(battery * 100)}%`)
+                return false
+            }
+            return true
+        } catch (e) {
+            return true
+        }
+    }
+
     async getGitHubStatus(github) {
         const cacheKey = `${CACHE_KEY_PREFIX}github_${github}`
         const cached = this.getCachedData(cacheKey)
@@ -341,17 +374,6 @@ class StatusWidget {
         return this.widget
     }
 
-    async checkLastRefresh() {
-        const lastRefresh = Keychain.get(BACKGROUND_REFRESH_KEY)
-        const now = Date.now()
-
-        if (!lastRefresh || (now - parseInt(lastRefresh)) > (CHECK_INTERVAL * 1000)) {
-            Keychain.set(BACKGROUND_REFRESH_KEY, now.toString())
-            return true
-        }
-        return false
-    }
-
     async notifySiteOffline(url) {
         const site = sites.find(s => s.url === url)
         if (!site) return
@@ -377,6 +399,14 @@ class StatusWidget {
         await notification.schedule()
     }
 
+    async sendStatusNotification(message) {
+        const notification = new Notification()
+        notification.title = "Site Status Monitor"
+        notification.body = message
+        notification.sound = "default"
+        await notification.schedule()
+    }
+
     async getNotificationState() {
         try {
             const state = Keychain.get(NOTIFICATION_CACHE_KEY)
@@ -398,36 +428,64 @@ class StatusWidget {
 }
 
 async function setupAutomation() {
-    const schedule = new Timer()
-    schedule.repeats = true
-    schedule.interval = CHECK_INTERVAL
+    let currentSchedule = null
 
-    schedule.schedule(async () => {
-        const widget = new StatusWidget()
-        if (await widget.checkLastRefresh()) {
-            Script.setWidget(await widget.createWidget())
+    async function scheduleCheck() {
+        const isCharging = Device.isCharging()
+        const interval = isCharging ? CHECK_INTERVAL_CHARGING : CHECK_INTERVAL_BATTERY
+
+        if (currentSchedule) {
+            currentSchedule.invalidate()
         }
-    })
+
+        currentSchedule = new Timer()
+        currentSchedule.timeInterval = interval
+        currentSchedule.repeats = true
+
+        currentSchedule.schedule(async () => {
+            try {
+                const widget = new StatusWidget()
+                const shouldRun = await widget.shouldPerformCheck()
+
+                if (shouldRun) {
+                    await widget.createWidget()
+                    Script.setWidget(widget.widget)
+                }
+
+                // Reschedule if charging state changed
+                if (isCharging !== Device.isCharging()) {
+                    await scheduleCheck()
+                }
+            } catch (error) {
+                console.error("Check failed:", error)
+            }
+        })
+    }
+
+    await scheduleCheck()
+
+    const widget = new StatusWidget()
+    await widget.sendStatusNotification(
+        `Monitoring started - checking every ${Device.isCharging() ? '10' : '20'} minutes`
+    )
 }
 
 async function run() {
     const widget = new StatusWidget()
 
-    if (config.runsInWidget) {
+    if (args.queryParameters.source === "shortcut") {
+        // Called from Shortcuts automation
+        await setupAutomation()
+    } else if (config.runsInWidget) {
         Script.setWidget(await widget.createWidget())
     } else {
+        // Manual run from app
         await setupAutomation()
-        await (await widget.createWidget()).presentMedium()
+        await widget.createWidget()
+        await widget.widget.presentMedium()
     }
 
     Script.complete()
-}
-
-async function debugRun() {
-    const widget = new StatusWidget()
-    console.log("Starting debug run...")
-    await widget.createWidget()
-    console.log("Debug run complete")
 }
 
 // Choose which run mode to use
