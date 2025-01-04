@@ -1,36 +1,6 @@
 {
   "devices": {
     "macs": {
-      "m1mini": {
-        "device_name": "M1 TFPSERVER",
-        "device_type": "mac",
-        "system_info": {
-          "os_version": "15.2",
-          "build_number": "24C101",
-          "chip": "M1",
-          "temperature": 0.0,
-          "battery": {
-            "percentage": 100,
-            "charging": false
-          }
-        },
-        "last_updated": "2025-01-04T09:47:13Z"
-      },
-      "m3air": {
-        "device_name": "m3FIFTEEN",
-        "device_type": "mac",
-        "system_info": {
-          "os_version": "15.2",
-          "build_number": "24C101",
-          "chip": "M3",
-          "temperature": 0.0,
-          "battery": {
-            "percentage": 76,
-            "charging": false
-          }
-        },
-        "last_updated": "2025-01-04T09:45:11Z"
-      },
       "M1 TFPSERVER": {
         "device_name": "M1 TFPSERVER",
         "device_type": "mac",
