@@ -1,7 +1,6 @@
 // User configuration - edit these if automatic detection fails
 const USER_DEVICE_NAME = "" // Leave empty to use automatic detection
 const USER_DEVICE_MODEL = "" // Leave empty to use automatic detection
-
 // Configuration
 const GITHUB_TOKEN = "" // Add your PAT when deploying
 const GITHUB_REPO = "stirlo/thelaboratory.cc"
@@ -18,11 +17,10 @@ function getDeviceModel() {
 
     try {
         const model = Device.model()
-        const identifier = Device.identifier()
-        return `${model} (${identifier})`
+        return model || "Unknown Model"
     } catch (error) {
         log("WARN", `Could not get device model: ${error}`)
-        return "Unknown"
+        return "Unknown Model"
     }
 }
 
@@ -57,10 +55,11 @@ async function getGithubFile() {
 
     try {
         const response = await req.loadJSON()
+        log("DEBUG", `GitHub API Response: ${JSON.stringify(response)}`)
 
-        // If file doesn't exist or is empty
-        if (!response || !response.content) {
-            log("INFO", "Creating new data structure")
+        // Handle 404 or empty response
+        if (response.message === "Not Found" || !response) {
+            log("INFO", "File not found, creating initial structure")
             return {
                 data: {
                     devices: {
@@ -74,19 +73,38 @@ async function getGithubFile() {
             }
         }
 
-        // Try to parse existing data
-        try {
-            const content = Data.fromBase64String(response.content)
-            const jsonStr = content.toRawString()
-            const parsedData = JSON.parse(jsonStr)
-            log("INFO", "Successfully parsed existing data")
-            return { 
-                data: parsedData, 
-                sha: response.sha 
+        // If we have content, try to decode and parse it
+        if (response.content) {
+            try {
+                // Remove any newlines from base64 string
+                const cleanContent = response.content.replace(/\n/g, '')
+                const decodedContent = atob(cleanContent)
+                const parsedData = JSON.parse(decodedContent)
+
+                log("INFO", "Successfully parsed existing data")
+                log("DEBUG", `Parsed data: ${JSON.stringify(parsedData)}`)
+
+                return {
+                    data: parsedData,
+                    sha: response.sha
+                }
+            } catch (parseError) {
+                log("ERROR", `Parse error: ${parseError}`)
+                // Create new structure if parse fails
+                return {
+                    data: {
+                        devices: {
+                            macs: {},
+                            ipads: {},
+                            iphones: {}
+                        },
+                        last_updated: Date.now()
+                    },
+                    sha: response.sha
+                }
             }
-        } catch (parseError) {
-            log("ERROR", `Parse error: ${parseError}`)
-            // Return initial structure if parsing fails
+        } else {
+            log("INFO", "No content found, creating initial structure")
             return {
                 data: {
                     devices: {
@@ -96,7 +114,7 @@ async function getGithubFile() {
                     },
                     last_updated: Date.now()
                 },
-                sha: response.sha
+                sha: null
             }
         }
     } catch (error) {
@@ -104,6 +122,53 @@ async function getGithubFile() {
         throw error
     }
 }
+
+async function updateGithubFile(content, sha) {
+    if (!GITHUB_TOKEN) {
+        throw new Error("GitHub token not configured")
+    }
+
+    log("INFO", "Preparing GitHub update...")
+    const url = `https://api.github.com/repos/${GITHUB_REPO}/contents/${GITHUB_PATH}`
+    const req = new Request(url)
+    req.method = 'PUT'
+    req.headers = {
+        'Authorization': `token ${GITHUB_TOKEN}`,
+        'Accept': 'application/vnd.github.v3+json',
+        'Content-Type': 'application/json'
+    }
+
+    try {
+        const stringContent = JSON.stringify(content, null, 2)
+        log("DEBUG", `Content to update: ${stringContent}`)
+
+        const body = {
+            message: `Update device status: ${Device.name()}`,
+            content: btoa(stringContent)
+        }
+
+        if (sha) {
+            body.sha = sha
+            log("DEBUG", `Using SHA: ${sha}`)
+        }
+
+        req.body = JSON.stringify(body)
+        log("INFO", "Sending update request...")
+
+        const response = await req.loadJSON()
+
+        if (response.content) {
+            log("SUCCESS", "GitHub update successful")
+            return true
+        } else {
+            throw new Error("Invalid response from GitHub")
+        }
+    } catch (error) {
+        log("ERROR", `GitHub update error: ${error}`)
+        throw error
+    }
+}
+
 
 async function updateDeviceStatus() {
     try {
@@ -114,15 +179,18 @@ async function updateDeviceStatus() {
         log("INFO", `Device: ${deviceName} (${deviceModel})`)
         log("INFO", `Battery: ${Math.round(Device.batteryLevel() * 100)}%, Charging: ${Device.isCharging()}`)
 
+        // First get existing data
+        const { data: existingData, sha } = await getGithubFile()
+        log("INFO", "Retrieved existing GitHub data")
+
+        // Create new device info
         const deviceInfo = {
             device_name: deviceName,
             device_type: Device.isPad() ? "ipad" : "iphone",
             device_model: deviceModel,
             system_info: {
                 os_version: Device.systemVersion(),
-                build_number: Device.buildNumber,
-                model_identifier: Device.identifier(),
-                temperature: 0,
+                model: deviceModel,
                 battery: {
                     percentage: Math.round(Device.batteryLevel() * 100),
                     charging: Device.isCharging()
@@ -134,26 +202,24 @@ async function updateDeviceStatus() {
             last_updated: new Date().toISOString()
         }
 
-        const { data, sha } = await getGithubFile()
-        log("INFO", "Got existing GitHub data")
-
-        // Ensure structure exists but preserve existing data
-        if (!data.devices) {
-            data.devices = {}
+        // Create updated data structure while preserving existing data
+        const updatedData = {
+            devices: {
+                macs: { ...(existingData?.devices?.macs || {}) },
+                ipads: { ...(existingData?.devices?.ipads || {}) },
+                iphones: { ...(existingData?.devices?.iphones || {}) }
+            },
+            last_updated: Date.now()
         }
-        if (!data.devices.macs) data.devices.macs = {}
-        if (!data.devices.ipads) data.devices.ipads = {}
-        if (!data.devices.iphones) data.devices.iphones = {}
 
         // Update appropriate category
         const deviceType = Device.isPad() ? "ipads" : "iphones"
+        updatedData.devices[deviceType][deviceName] = deviceInfo
+
         log("INFO", `Updating ${deviceType} category with device: ${deviceName}`)
-        data.devices[deviceType][deviceName] = deviceInfo
+        log("DEBUG", `Final data structure: ${JSON.stringify(updatedData, null, 2)}`)
 
-        // Update timestamp
-        data.last_updated = Date.now()
-
-        const success = await updateGithubFile(data, sha)
+        const success = await updateGithubFile(updatedData, sha)
         if (!success) {
             throw new Error("Failed to update GitHub")
         }
@@ -162,10 +228,9 @@ async function updateDeviceStatus() {
 
     } catch (error) {
         log("ERROR", `Update failed: ${error.message}`)
+        throw error
     }
 }
-
-// Rest of the code remains the same...
 
 // Run update
 await updateDeviceStatus()
