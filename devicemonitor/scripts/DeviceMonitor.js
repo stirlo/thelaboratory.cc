@@ -4,14 +4,24 @@ const GITHUB_REPO = "stirlo/thelaboratory.cc"
 const GITHUB_PATH = "devicemonitor/data/devices.json"
 
 // Battery thresholds
-const BATTERY_CRITICAL_LIMIT = 20
-const BATTERY_LOW_LIMIT = 40
-const BATTERY_HIGH_LIMIT = 75
-const BATTERY_FULL_LIMIT = 100
-const CHECK_INTERVAL_CHARGING = 5
-const CHECK_INTERVAL_NORMAL = 20
+const BATTERY_CRITICAL = 20
+const BATTERY_LOW = 40
+const BATTERY_HIGH = 75
+const BATTERY_FULL = 100
+const CHECK_INTERVAL_CHARGING = 5 * 60 * 1000  // 5 minutes in ms
+const CHECK_INTERVAL_NORMAL = 20 * 60 * 1000   // 20 minutes in ms
+
+// SF Symbols for notifications
+const SYMBOLS = {
+    CRITICAL: "exclamationmark.triangle.fill",
+    LOW: "battery.25",
+    HIGH: "battery.75.bolt",
+    FULL: "battery.100.bolt",
+    ERROR: "xmark.circle.fill"
+}
 
 async function getGithubFile() {
+    console.log("Fetching device data from GitHub...")
     const url = `https://api.github.com/repos/${GITHUB_REPO}/contents/${GITHUB_PATH}`
     const req = new Request(url)
     req.headers = {
@@ -22,12 +32,13 @@ async function getGithubFile() {
     try {
         const response = await req.loadJSON()
         const content = atob(response.content)
+        console.log("GitHub data fetched successfully")
         return {
             data: JSON.parse(content),
             sha: response.sha
         }
     } catch (error) {
-        // If file doesn't exist, return empty structure
+        console.log(`GitHub fetch error: ${error.message}`)
         return {
             data: {
                 last_updated: new Date().toISOString(),
@@ -43,6 +54,7 @@ async function getGithubFile() {
 }
 
 async function updateGithubFile(content, sha) {
+    console.log("Updating GitHub with new device status...")
     const url = `https://api.github.com/repos/${GITHUB_REPO}/contents/${GITHUB_PATH}`
     const req = new Request(url)
     req.headers = {
@@ -58,13 +70,23 @@ async function updateGithubFile(content, sha) {
     }
 
     req.body = JSON.stringify(body)
-    return await req.loadJSON()
+    try {
+        await req.loadJSON()
+        console.log("GitHub update successful")
+        return true
+    } catch (error) {
+        console.log(`GitHub update failed: ${error.message}`)
+        return false
+    }
 }
 
-function notify(title, message, critical = false) {
+function notify(title, message, symbol = null, critical = false) {
     let notification = new Notification()
     notification.title = title
     notification.body = message
+    if (symbol) {
+        notification.addAction(symbol, "", "")
+    }
     if (critical) {
         notification.sound = 'default'
         notification.threadIdentifier = 'critical-battery'
@@ -73,59 +95,71 @@ function notify(title, message, critical = false) {
 }
 
 async function updateDeviceStatus() {
-   const deviceInfo = {
-    device_name: Device.name(),
-    device_type: Device.isPad() ? "ipad" : "iphone",
-    system_info: {
-        os_version: Device.systemVersion(),
-        build_number: Device.buildNumber, // Changed from Device.buildNumber() to Device.buildNumber
-        battery: {
-            percentage: Math.round(Device.batteryLevel() * 100),
-            charging: Device.isCharging()
-        }
-    },
-    last_updated: new Date().toISOString()
-}
-
-    // Check battery levels
-    const batteryLevel = deviceInfo.system_info.battery.percentage
-    const isCharging = deviceInfo.system_info.battery.charging
-
-    if (!isCharging && batteryLevel <= BATTERY_CRITICAL_LIMIT) {
-        notify("🚨 OMG CHARGE NOWWW!", 
-              `${deviceInfo.device_name} at ${batteryLevel}%`, 
-              true)
-    } else if (!isCharging && batteryLevel <= BATTERY_LOW_LIMIT) {
-        notify("Battery Getting Low", 
-              `${deviceInfo.device_name} at ${batteryLevel}%`)
-    } else if (isCharging && batteryLevel >= BATTERY_FULL_LIMIT) {
-        notify("Device is Full now!", 
-              `${deviceInfo.device_name} at ${batteryLevel}%`)
-    } else if (isCharging && batteryLevel >= BATTERY_HIGH_LIMIT) {
-        notify("Battery Almost Full", 
-              `${deviceInfo.device_name} at ${batteryLevel}%`)
+    console.log("Starting device update...")
+    const deviceInfo = {
+        device_name: Device.name(),
+        device_type: Device.isPad() ? "ipad" : "iphone",
+        system_info: {
+            os_version: Device.systemVersion(),
+            build_number: Device.buildNumber,
+            battery: {
+                percentage: Math.round(Device.batteryLevel() * 100),
+                charging: Device.isCharging()
+            }
+        },
+        last_updated: new Date().toISOString()
     }
 
-    // Update GitHub
     try {
         const { data, sha } = await getGithubFile()
         const deviceType = Device.isPad() ? "ipads" : "iphones"
+        if (!data.devices[deviceType]) {
+            data.devices[deviceType] = {}
+        }
         data.devices[deviceType][Device.name()] = deviceInfo
         data.last_updated = new Date().toISOString()
-        await updateGithubFile(data, sha)
+
+        if (await updateGithubFile(data, sha)) {
+            // Check all devices' battery levels
+            Object.values(data.devices).forEach(category => {
+                Object.entries(category).forEach(([name, info]) => {
+                    const battery = info.system_info.battery
+                    if (!battery.charging && battery.percentage <= BATTERY_CRITICAL) {
+                        notify("Critical Battery Alert", 
+                              `${name}: ${battery.percentage}%`,
+                              SYMBOLS.CRITICAL, true)
+                    } else if (!battery.charging && battery.percentage <= BATTERY_LOW) {
+                        notify("Low Battery", 
+                              `${name}: ${battery.percentage}%`,
+                              SYMBOLS.LOW)
+                    } else if (battery.charging && battery.percentage >= BATTERY_FULL) {
+                        notify("Battery Full", 
+                              `${name}: ${battery.percentage}%`,
+                              SYMBOLS.FULL)
+                    } else if (battery.charging && battery.percentage >= BATTERY_HIGH) {
+                        notify("Battery Almost Full", 
+                              `${name}: ${battery.percentage}%`,
+                              SYMBOLS.HIGH)
+                    }
+                })
+            })
+        }
+
+        // Schedule next run
+        const nextInterval = Device.isCharging() ? 
+            CHECK_INTERVAL_CHARGING : 
+            CHECK_INTERVAL_NORMAL
+
+        let scheduleNotification = new Notification()
+        scheduleNotification.scriptName = Script.name()
+        scheduleNotification.setTriggerDate(new Date(Date.now() + nextInterval))
+        scheduleNotification.schedule()
+
+        console.log(`Next check scheduled in ${Device.isCharging() ? '5' : '20'} minutes`)
     } catch (error) {
-        notify("Update Error", error.message)
+        console.log(`Update failed: ${error.message}`)
+        notify("Update Error", error.message, SYMBOLS.ERROR)
     }
-
-    // Schedule next run
-    const interval = Device.isCharging() ? 
-        CHECK_INTERVAL_CHARGING * 60 : 
-        CHECK_INTERVAL_NORMAL * 60
-
-    let scheduleNotification = new Notification()
-    scheduleNotification.scriptName = Script.name()
-    scheduleNotification.setTriggerDate(new Date(Date.now() + interval * 1000))
-    scheduleNotification.schedule()
 }
 
 // Run update
