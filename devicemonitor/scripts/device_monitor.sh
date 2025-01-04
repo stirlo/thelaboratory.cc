@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # Configuration
-GITHUB_TOKEN="YOUR_GITHUB_PAT"
-GITHUB_REPO="YOUR_USERNAME/YOUR_REPO"
-GITHUB_PATH="data/devices.json"
+GITHUB_TOKEN="" # Add your PAT when deploying
+GITHUB_REPO="stirlo/thelaboratory.cc"
+GITHUB_PATH="devicemonitor/data/devices.json"
 TEMP_FILE="/tmp/devices.json"
 
 # Battery thresholds
