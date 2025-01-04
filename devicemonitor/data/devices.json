@@ -1,41 +1,25 @@
 {
   "devices": {
-    "macs": {
-      "M1 TFPSERVER": {
-        "device_name": "M1 TFPSERVER",
-        "device_type": "mac",
+    "macs": {},
+    "ipads": {},
+    "iphones": {
+      "iPhone": {
+        "device_name": "iPhone",
+        "device_type": "iphone",
         "system_info": {
-          "os_version": "15.2",
-          "build_number": "24C101",
+          "os_version": "18.2",
           "temperature": 0,
           "battery": {
-            "percentage": 100,
-            "charging": true
+            "percentage": 65,
+            "charging": false
           },
           "storage": {
-            "boot_drive": 1
+            "boot_drive": 0
           }
         },
-        "last_updated": "2025-01-04T13:28:16Z"
-      },
-      "m3FIFTEEN": {
-        "device_name": "m3FIFTEEN",
-        "device_type": "mac",
-        "system_info": {
-          "os_version": "15.2",
-          "build_number": "24C101",
-          "temperature": 0,
-          "battery": {
-            "percentage": 73,
-            "charging": true
-          },
-          "storage": {
-            "boot_drive": 1
-          }
-        },
-        "last_updated": "2025-01-04T13:04:51Z"
+        "last_updated": "2025-01-04T13:53:32.349Z"
       }
     }
   },
-  "last_updated": 1735997296.777715
+  "last_updated": 1735998812817
 }
