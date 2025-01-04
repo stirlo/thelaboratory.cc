@@ -3,24 +3,24 @@
     "macs": {},
     "ipads": {},
     "iphones": {
-      "iPhone": {
-        "device_name": "iPhone",
+      "MiniProductRed13": {
+        "device_name": "MiniProductRed13",
         "device_type": "iphone",
-        "device_model": "iPhone",
+        "device_model": "Mini 13",
         "system_info": {
-          "os_version": "18.2",
-          "model": "iPhone",
+          "os_version": "18.3",
+          "model": "Mini 13",
           "battery": {
-            "percentage": 60,
+            "percentage": 50,
             "charging": false
           },
           "storage": {
             "boot_drive": 0
           }
         },
-        "last_updated": "2025-01-04T14:18:15.268Z"
+        "last_updated": "2025-01-04T14:21:31.137Z"
       }
     }
   },
-  "last_updated": 1736000295737
+  "last_updated": 1736000491752
 }
