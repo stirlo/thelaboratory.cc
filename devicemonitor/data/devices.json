@@ -1,1 +1,25 @@
-
+{
+  "devices": {
+    "macs": {},
+    "ipads": {},
+    "iphones": {
+      "iPhone": {
+        "device_name": "iPhone",
+        "device_type": "iphone",
+        "system_info": {
+          "os_version": "18.2",
+          "temperature": 0,
+          "battery": {
+            "percentage": 65,
+            "charging": false
+          },
+          "storage": {
+            "boot_drive": 0
+          }
+        },
+        "last_updated": "2025-01-04T13:53:32.349Z"
+      }
+    }
+  },
+  "last_updated": 1735998812817
+}
