@@ -3,7 +3,7 @@ const GITHUB_TOKEN = "" // Add your PAT when deploying
 const GITHUB_REPO = "stirlo/thelaboratory.cc"
 const GITHUB_PATH = "devicemonitor/data/devices.json"
 
-// Battery thresholds and intervals
+// Battery thresholds
 const BATTERY_THRESHOLDS = {
     CRITICAL: 20,
     LOW: 40,
@@ -76,24 +76,16 @@ async function updateGithubFile(content, sha) {
     }
 }
 
-function notify(title, message, symbol = null) {
-    let notification = new Notification()
-    notification.title = title
-    notification.body = message
-    if (symbol) {
-        notification.addAction(symbol, "", "")
-    }
-    notification.schedule()
-}
-
 async function updateDeviceStatus() {
-    // Get current device info
+    console.log("Starting device update...")
+
+    // Match the Mac format for consistency
     const deviceInfo = {
         device_name: Device.name(),
         device_type: Device.isPad() ? "ipad" : "iphone",
         system_info: {
             os_version: Device.systemVersion(),
-            build_number: Device.buildNumber(),
+            build_number: Device.buildNumber, // Fixed: removed parentheses
             temperature: 0,
             battery: {
                 percentage: Math.round(Device.batteryLevel() * 100),
@@ -107,21 +99,24 @@ async function updateDeviceStatus() {
     }
 
     try {
-        // Get existing data from GitHub
         const { data, sha } = await getGithubFile()
 
-        // Update appropriate section
+        // Ensure all device type categories exist
+        if (!data.devices) data.devices = {}
+        if (!data.devices.macs) data.devices.macs = {}
+        if (!data.devices.ipads) data.devices.ipads = {}
+        if (!data.devices.iphones) data.devices.iphones = {}
+
+        // Update the appropriate category based on device type
         const deviceType = Device.isPad() ? "ipads" : "iphones"
-        if (!data.devices[deviceType]) {
-            data.devices[deviceType] = {}
-        }
         data.devices[deviceType][Device.name()] = deviceInfo
 
-        // Update timestamp
+        // Update the last_updated timestamp
         data.last_updated = Date.now()
 
-        // Send update to GitHub
         if (await updateGithubFile(data, sha)) {
+            console.log(`Successfully updated ${deviceType} data for ${Device.name()}`)
+
             // Check battery levels and notify if needed
             const battery = deviceInfo.system_info.battery
             if (!battery.charging && battery.percentage <= BATTERY_THRESHOLDS.CRITICAL) {
@@ -141,23 +136,21 @@ async function updateDeviceStatus() {
                       `${Device.name()}: ${battery.percentage}%`,
                       "battery.75.bolt")
             }
-
-            // Schedule next check based on charging status
-            const nextInterval = battery.charging ? 
-                CHECK_INTERVALS.CHARGING : 
-                CHECK_INTERVALS.NORMAL
-
-            let scheduleNotification = new Notification()
-            scheduleNotification.scriptName = Script.name()
-            scheduleNotification.setTriggerDate(new Date(Date.now() + nextInterval))
-            scheduleNotification.schedule()
-
-            console.log(`Next check scheduled in ${battery.charging ? '5' : '20'} minutes`)
         }
     } catch (error) {
         console.log(`Update failed: ${error.message}`)
         notify("Update Error", error.message, "xmark.circle.fill")
     }
+}
+
+function notify(title, message, symbol = null) {
+    let notification = new Notification()
+    notification.title = title
+    notification.body = message
+    if (symbol) {
+        notification.addAction(symbol, "", "")
+    }
+    notification.schedule()
 }
 
 // Run update
