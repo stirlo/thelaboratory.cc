@@ -73,19 +73,19 @@ function notify(title, message, critical = false) {
 }
 
 async function updateDeviceStatus() {
-    const deviceInfo = {
-        device_name: Device.name(),
-        device_type: Device.isPad() ? "ipad" : "iphone",
-        system_info: {
-            os_version: Device.systemVersion(),
-            build_number: Device.buildNumber(),
-            battery: {
-                percentage: Math.round(Device.batteryLevel() * 100),
-                charging: Device.isCharging()
-            }
-        },
-        last_updated: new Date().toISOString()
-    }
+   const deviceInfo = {
+    device_name: Device.name(),
+    device_type: Device.isPad() ? "ipad" : "iphone",
+    system_info: {
+        os_version: Device.systemVersion(),
+        build_number: Device.buildNumber, // Changed from Device.buildNumber() to Device.buildNumber
+        battery: {
+            percentage: Math.round(Device.batteryLevel() * 100),
+            charging: Device.isCharging()
+        }
+    },
+    last_updated: new Date().toISOString()
+}
 
     // Check battery levels
     const batteryLevel = deviceInfo.system_info.battery.percentage
