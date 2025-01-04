@@ -28,16 +28,16 @@
           "os_version": "18.2",
           "model": "iPhone",
           "battery": {
-            "percentage": 55,
+            "percentage": 50,
             "charging": false
           },
           "storage": {
             "boot_drive": 0
           }
         },
-        "last_updated": "2025-01-04T14:37:54.732Z"
+        "last_updated": "2025-01-04T14:53:45.656Z"
       }
     }
   },
-  "last_updated": 1736001474732
+  "last_updated": 1736002425656
 }
