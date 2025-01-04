@@ -24,20 +24,21 @@
       "iPhone": {
         "device_name": "iPhone",
         "device_type": "iphone",
+        "device_model": "iPhone",
         "system_info": {
-          "os_version": "18.2",
-          "temperature": 0,
+          "os_version": "18.3",
+          "model": "iPhone",
           "battery": {
-            "percentage": 65,
+            "percentage": 45,
             "charging": false
           },
           "storage": {
             "boot_drive": 0
           }
         },
-        "last_updated": "2025-01-04T13:53:32.349Z"
+        "last_updated": "2025-01-04T15:05:24.146Z"
       }
     }
   },
-  "last_updated": 1736003092.23765
+  "last_updated": 1736003124147
 }
