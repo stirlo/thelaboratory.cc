@@ -3,7 +3,34 @@ const GITHUB_TOKEN = "" // Add your PAT when deploying
 const GITHUB_REPO = "stirlo/thelaboratory.cc"
 const GITHUB_PATH = "devicemonitor/data/devices.json"
 
-// Notification helper function
+// Battery thresholds
+const BATTERY_ALERTS = {
+    CRITICAL: {
+        threshold: 20,
+        requiresNotCharging: true,
+        symbol: "exclamationmark.triangle.fill",
+        title: "Critical Battery"
+    },
+    LOW: {
+        threshold: 40,
+        requiresNotCharging: true,
+        symbol: "battery.25",
+        title: "Low Battery"
+    },
+    HIGH: {
+        threshold: 75,
+        requiresCharging: true,
+        symbol: "battery.75.bolt",
+        title: "Battery Almost Full"
+    },
+    FULL: {
+        threshold: 100,
+        requiresCharging: true,
+        symbol: "battery.100.bolt",
+        title: "Battery Full"
+    }
+}
+
 function notify(title, message, symbol = null) {
     let notification = new Notification()
     notification.title = title
@@ -46,9 +73,6 @@ async function getGithubFile() {
         }
     } catch (error) {
         console.error(`GitHub fetch error: ${error.message}`)
-        if (error.message.includes("token")) {
-            throw new Error("GitHub authentication failed - check your token")
-        }
         throw error
     }
 }
@@ -93,7 +117,6 @@ async function updateDeviceStatus() {
     try {
         console.log("Starting device update process...")
 
-        // Check GitHub token first
         if (!GITHUB_TOKEN) {
             throw new Error("Please configure your GitHub token at the top of the script")
         }
@@ -116,4 +139,39 @@ async function updateDeviceStatus() {
             last_updated: new Date().toISOString()
         }
 
-        console.log("
+        console.log("Device info prepared:", JSON.stringify(deviceInfo, null, 2))
+
+        const { data, sha } = await getGithubFile()
+        console.log("Got existing GitHub data")
+
+        // Ensure structure exists
+        if (!data.devices) {
+            data.devices = {}
+        }
+        if (!data.devices.macs) data.devices.macs = {}
+        if (!data.devices.ipads) data.devices.ipads = {}
+        if (!data.devices.iphones) data.devices.iphones = {}
+
+        // Update appropriate category
+        const deviceType = Device.isPad() ? "ipads" : "iphones"
+        console.log(`Updating ${deviceType} category with device: ${Device.name()}`)
+        data.devices[deviceType][Device.name()] = deviceInfo
+
+        // Update timestamp
+        data.last_updated = Date.now()
+
+        const success = await updateGithubFile(data, sha)
+        if (!success) {
+            throw new Error("Failed to update GitHub")
+        }
+
+        console.log("Update completed successfully")
+
+    } catch (error) {
+        console.error("Update failed:", error.message)
+        notify("Update Error", error.message, "xmark.circle.fill")
+    }
+}
+
+// Run update
+await updateDeviceStatus()
