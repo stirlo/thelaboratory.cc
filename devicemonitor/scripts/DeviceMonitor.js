@@ -11,15 +11,6 @@ const BATTERY_FULL = 100
 const CHECK_INTERVAL_CHARGING = 5 * 60 * 1000  // 5 minutes in ms
 const CHECK_INTERVAL_NORMAL = 20 * 60 * 1000   // 20 minutes in ms
 
-// SF Symbols for notifications
-const SYMBOLS = {
-    CRITICAL: "exclamationmark.triangle.fill",
-    LOW: "battery.25",
-    HIGH: "battery.75.bolt",
-    FULL: "battery.100.bolt",
-    ERROR: "xmark.circle.fill"
-}
-
 async function getGithubFile() {
     console.log("Fetching device data from GitHub...")
     const url = `https://api.github.com/repos/${GITHUB_REPO}/contents/${GITHUB_PATH}`
@@ -41,12 +32,12 @@ async function getGithubFile() {
         console.log(`GitHub fetch error: ${error.message}`)
         return {
             data: {
-                last_updated: new Date().toISOString(),
                 devices: {
                     macs: {},
                     ipads: {},
                     iphones: {}
-                }
+                },
+                last_updated: Date.now()
             },
             sha: null
         }
@@ -80,20 +71,6 @@ async function updateGithubFile(content, sha) {
     }
 }
 
-function notify(title, message, symbol = null, critical = false) {
-    let notification = new Notification()
-    notification.title = title
-    notification.body = message
-    if (symbol) {
-        notification.addAction(symbol, "", "")
-    }
-    if (critical) {
-        notification.sound = 'default'
-        notification.threadIdentifier = 'critical-battery'
-    }
-    notification.schedule()
-}
-
 async function updateDeviceStatus() {
     console.log("Starting device update...")
     const deviceInfo = {
@@ -102,9 +79,13 @@ async function updateDeviceStatus() {
         system_info: {
             os_version: Device.systemVersion(),
             build_number: Device.buildNumber,
+            temperature: 0,
             battery: {
                 percentage: Math.round(Device.batteryLevel() * 100),
                 charging: Device.isCharging()
+            },
+            storage: {
+                boot_drive: 0
             }
         },
         last_updated: new Date().toISOString()
@@ -113,53 +94,50 @@ async function updateDeviceStatus() {
     try {
         const { data, sha } = await getGithubFile()
         const deviceType = Device.isPad() ? "ipads" : "iphones"
+
         if (!data.devices[deviceType]) {
             data.devices[deviceType] = {}
         }
         data.devices[deviceType][Device.name()] = deviceInfo
-        data.last_updated = new Date().toISOString()
+        data.last_updated = Date.now()
 
         if (await updateGithubFile(data, sha)) {
-            // Check all devices' battery levels
-            Object.values(data.devices).forEach(category => {
-                Object.entries(category).forEach(([name, info]) => {
-                    const battery = info.system_info.battery
-                    if (!battery.charging && battery.percentage <= BATTERY_CRITICAL) {
-                        notify("Critical Battery Alert", 
-                              `${name}: ${battery.percentage}%`,
-                              SYMBOLS.CRITICAL, true)
-                    } else if (!battery.charging && battery.percentage <= BATTERY_LOW) {
-                        notify("Low Battery", 
-                              `${name}: ${battery.percentage}%`,
-                              SYMBOLS.LOW)
-                    } else if (battery.charging && battery.percentage >= BATTERY_FULL) {
-                        notify("Battery Full", 
-                              `${name}: ${battery.percentage}%`,
-                              SYMBOLS.FULL)
-                    } else if (battery.charging && battery.percentage >= BATTERY_HIGH) {
-                        notify("Battery Almost Full", 
-                              `${name}: ${battery.percentage}%`,
-                              SYMBOLS.HIGH)
-                    }
-                })
-            })
+            console.log(`Successfully updated ${deviceType} data for ${Device.name()}`)
+
+            // Schedule next run based on charging status
+            const nextInterval = Device.isCharging() ? 
+                CHECK_INTERVAL_CHARGING : 
+                CHECK_INTERVAL_NORMAL
+
+            // Only notify for important battery events
+            if (!deviceInfo.system_info.battery.charging) {
+                if (deviceInfo.system_info.battery.percentage <= BATTERY_CRITICAL) {
+                    notify("Critical Battery", `${Device.name()} battery at ${deviceInfo.system_info.battery.percentage}%`, "exclamationmark.triangle.fill")
+                } else if (deviceInfo.system_info.battery.percentage <= BATTERY_LOW) {
+                    notify("Low Battery", `${Device.name()} battery at ${deviceInfo.system_info.battery.percentage}%`, "battery.25")
+                }
+            } else if (deviceInfo.system_info.battery.charging) {
+                if (deviceInfo.system_info.battery.percentage >= BATTERY_FULL) {
+                    notify("Battery Full", `${Device.name()} is fully charged`, "battery.100.bolt")
+                } else if (deviceInfo.system_info.battery.percentage >= BATTERY_HIGH) {
+                    notify("Battery Almost Full", `${Device.name()} at ${deviceInfo.system_info.battery.percentage}%`, "battery.75.bolt")
+                }
+            }
         }
-
-        // Schedule next run
-        const nextInterval = Device.isCharging() ? 
-            CHECK_INTERVAL_CHARGING : 
-            CHECK_INTERVAL_NORMAL
-
-        let scheduleNotification = new Notification()
-        scheduleNotification.scriptName = Script.name()
-        scheduleNotification.setTriggerDate(new Date(Date.now() + nextInterval))
-        scheduleNotification.schedule()
-
-        console.log(`Next check scheduled in ${Device.isCharging() ? '5' : '20'} minutes`)
     } catch (error) {
         console.log(`Update failed: ${error.message}`)
-        notify("Update Error", error.message, SYMBOLS.ERROR)
+        notify("Update Error", error.message, "xmark.circle.fill")
     }
+}
+
+function notify(title, message, symbol = null) {
+    let notification = new Notification()
+    notification.title = title
+    notification.body = message
+    if (symbol) {
+        notification.addAction(symbol, "", "")
+    }
+    notification.schedule()
 }
 
 // Run update
