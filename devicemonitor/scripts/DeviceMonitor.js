@@ -1,13 +1,15 @@
 // Configuration
+const GITHUB_TOKEN = "" // Add your PAT when deploying
+const GITHUB_REPO = "stirlo/thelaboratory.cc"
+const GITHUB_PATH = "devicemonitor/data/devices.json"
+
+// Battery thresholds
 const BATTERY_CRITICAL_LIMIT = 20
 const BATTERY_LOW_LIMIT = 40
 const BATTERY_HIGH_LIMIT = 75
 const BATTERY_FULL_LIMIT = 100
 const CHECK_INTERVAL_CHARGING = 5
 const CHECK_INTERVAL_NORMAL = 20
-const GITHUB_TOKEN = 'YOUR_GITHUB_PAT'  // Replace with your GitHub Personal Access Token
-const GITHUB_REPO = 'YOUR_USERNAME/YOUR_REPO'  // e.g., 'username/device-monitor'
-const GITHUB_PATH = 'data/devices.json'
 
 async function getGithubFile() {
     const url = `https://api.github.com/repos/${GITHUB_REPO}/contents/${GITHUB_PATH}`
@@ -50,7 +52,7 @@ async function updateGithubFile(content, sha) {
     req.method = 'PUT'
 
     const body = {
-        message: 'Update device status',
+        message: `Update device status: ${Device.name()}`,
         content: btoa(JSON.stringify(content, null, 2)),
         sha: sha
     }
@@ -76,6 +78,7 @@ async function updateDeviceStatus() {
         device_type: Device.isPad() ? "ipad" : "iphone",
         system_info: {
             os_version: Device.systemVersion(),
+            build_number: Device.buildNumber(),
             battery: {
                 percentage: Math.round(Device.batteryLevel() * 100),
                 charging: Device.isCharging()
