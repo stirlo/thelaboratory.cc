@@ -19,8 +19,25 @@
           }
         },
         "last_updated": "2025-01-04T14:21:31.137Z"
+      },
+      "iPhone": {
+        "device_name": "iPhone",
+        "device_type": "iphone",
+        "device_model": "iPhone",
+        "system_info": {
+          "os_version": "18.2",
+          "model": "iPhone",
+          "battery": {
+            "percentage": 55,
+            "charging": false
+          },
+          "storage": {
+            "boot_drive": 0
+          }
+        },
+        "last_updated": "2025-01-04T14:37:54.732Z"
       }
     }
   },
-  "last_updated": 1736000491752
+  "last_updated": 1736001474732
 }
