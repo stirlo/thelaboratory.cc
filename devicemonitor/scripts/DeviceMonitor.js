@@ -4,19 +4,35 @@ const GITHUB_REPO = "stirlo/thelaboratory.cc"
 const GITHUB_PATH = "devicemonitor/data/devices.json"
 
 // Battery thresholds
-const BATTERY_THRESHOLDS = {
-    CRITICAL: 20,
-    LOW: 40,
-    HIGH: 75,
-    FULL: 100
-}
-const CHECK_INTERVALS = {
-    CHARGING: 5 * 60 * 1000,  // 5 minutes
-    NORMAL: 20 * 60 * 1000    // 20 minutes
+const BATTERY_ALERTS = {
+    CRITICAL: {
+        threshold: 20,
+        requiresNotCharging: true,
+        symbol: "exclamationmark.triangle.fill",
+        title: "Critical Battery"
+    },
+    LOW: {
+        threshold: 40,
+        requiresNotCharging: true,
+        symbol: "battery.25",
+        title: "Low Battery"
+    },
+    HIGH: {
+        threshold: 75,
+        requiresCharging: true,
+        symbol: "battery.75.bolt",
+        title: "Battery Almost Full"
+    },
+    FULL: {
+        threshold: 100,
+        requiresCharging: true,
+        symbol: "battery.100.bolt",
+        title: "Battery Full"
+    }
 }
 
 async function getGithubFile() {
-    console.log("Fetching device data from GitHub...")
+    console.log("Fetching current JSON from GitHub...")
     const url = `https://api.github.com/repos/${GITHUB_REPO}/contents/${GITHUB_PATH}`
     const req = new Request(url)
     req.headers = {
@@ -27,13 +43,13 @@ async function getGithubFile() {
     try {
         const response = await req.loadJSON()
         const content = Data.fromBase64String(response.content).toRawString()
-        console.log("GitHub data fetched successfully")
-        return {
-            data: JSON.parse(content),
-            sha: response.sha
+        console.log("Current JSON structure:", content)
+        return { 
+            data: JSON.parse(content), 
+            sha: response.sha 
         }
     } catch (error) {
-        console.log(`GitHub fetch error: ${error.message}`)
+        console.error("GitHub fetch error:", error)
         return {
             data: {
                 devices: {
@@ -49,15 +65,15 @@ async function getGithubFile() {
 }
 
 async function updateGithubFile(content, sha) {
-    console.log("Updating GitHub with new device status...")
+    console.log("Preparing GitHub update...")
     const url = `https://api.github.com/repos/${GITHUB_REPO}/contents/${GITHUB_PATH}`
     const req = new Request(url)
+    req.method = 'PUT'
     req.headers = {
         'Authorization': `token ${GITHUB_TOKEN}`,
         'Accept': 'application/vnd.github.v3+json',
         'Content-Type': 'application/json'
     }
-    req.method = 'PUT'
 
     const body = {
         message: `Update device status: ${Device.name()}`,
@@ -66,26 +82,39 @@ async function updateGithubFile(content, sha) {
     }
 
     req.body = JSON.stringify(body)
+    console.log("Sending update to GitHub...")
+
     try {
         const response = await req.loadJSON()
         console.log("GitHub update successful")
         return true
     } catch (error) {
-        console.log(`GitHub update error: ${error.message}`)
+        console.error("GitHub update failed:", error)
         return false
     }
 }
 
-async function updateDeviceStatus() {
-    console.log("Starting device update...")
+function notify(title, message, symbol = null) {
+    let notification = new Notification()
+    notification.title = title
+    notification.body = message
+    if (symbol) {
+        notification.addAction(symbol, "", "")
+    }
+    notification.schedule()
+    console.log(`Notification sent: ${title} - ${message}`)
+}
 
-    // Match the Mac format for consistency
+async function updateDeviceStatus() {
+    console.log(`Starting update for device: ${Device.name()} (${Device.isPad() ? "iPad" : "iPhone"})`)
+    console.log(`Battery level: ${Math.round(Device.batteryLevel() * 100)}%, Charging: ${Device.isCharging()}`)
+
     const deviceInfo = {
         device_name: Device.name(),
         device_type: Device.isPad() ? "ipad" : "iphone",
         system_info: {
             os_version: Device.systemVersion(),
-            build_number: Device.buildNumber, // Fixed: removed parentheses
+            build_number: Device.buildNumber,
             temperature: 0,
             battery: {
                 percentage: Math.round(Device.batteryLevel() * 100),
@@ -101,56 +130,56 @@ async function updateDeviceStatus() {
     try {
         const { data, sha } = await getGithubFile()
 
-        // Ensure all device type categories exist
-        if (!data.devices) data.devices = {}
+        // Ensure structure exists
+        if (!data.devices) {
+            console.log("Creating devices structure")
+            data.devices = {}
+        }
+
+        // Ensure device categories exist
         if (!data.devices.macs) data.devices.macs = {}
         if (!data.devices.ipads) data.devices.ipads = {}
         if (!data.devices.iphones) data.devices.iphones = {}
 
-        // Update the appropriate category based on device type
+        // Update appropriate category
         const deviceType = Device.isPad() ? "ipads" : "iphones"
+        console.log(`Updating ${deviceType} category with device: ${Device.name()}`)
         data.devices[deviceType][Device.name()] = deviceInfo
 
-        // Update the last_updated timestamp
+        // Update timestamp
         data.last_updated = Date.now()
 
-        if (await updateGithubFile(data, sha)) {
-            console.log(`Successfully updated ${deviceType} data for ${Device.name()}`)
+        console.log("Prepared update:", JSON.stringify(data, null, 2))
 
-            // Check battery levels and notify if needed
+        if (await updateGithubFile(data, sha)) {
+            console.log("GitHub update successful")
+
+            // Check battery status and send notifications
             const battery = deviceInfo.system_info.battery
-            if (!battery.charging && battery.percentage <= BATTERY_THRESHOLDS.CRITICAL) {
-                notify("Critical Battery", 
+            if (!battery.charging && battery.percentage <= BATTERY_ALERTS.CRITICAL.threshold) {
+                notify(BATTERY_ALERTS.CRITICAL.title,
                       `${Device.name()}: ${battery.percentage}%`,
-                      "exclamationmark.triangle.fill")
-            } else if (!battery.charging && battery.percentage <= BATTERY_THRESHOLDS.LOW) {
-                notify("Low Battery",
+                      BATTERY_ALERTS.CRITICAL.symbol)
+            } else if (!battery.charging && battery.percentage <= BATTERY_ALERTS.LOW.threshold) {
+                notify(BATTERY_ALERTS.LOW.title,
                       `${Device.name()}: ${battery.percentage}%`,
-                      "battery.25")
-            } else if (battery.charging && battery.percentage >= BATTERY_THRESHOLDS.FULL) {
-                notify("Battery Full",
+                      BATTERY_ALERTS.LOW.symbol)
+            } else if (battery.charging && battery.percentage >= BATTERY_ALERTS.FULL.threshold) {
+                notify(BATTERY_ALERTS.FULL.title,
                       `${Device.name()}: ${battery.percentage}%`,
-                      "battery.100.bolt")
-            } else if (battery.charging && battery.percentage >= BATTERY_THRESHOLDS.HIGH) {
-                notify("Battery Almost Full",
+                      BATTERY_ALERTS.FULL.symbol)
+            } else if (battery.charging && battery.percentage >= BATTERY_ALERTS.HIGH.threshold) {
+                notify(BATTERY_ALERTS.HIGH.title,
                       `${Device.name()}: ${battery.percentage}%`,
-                      "battery.75.bolt")
+                      BATTERY_ALERTS.HIGH.symbol)
             }
+        } else {
+            throw new Error("Failed to update GitHub")
         }
     } catch (error) {
-        console.log(`Update failed: ${error.message}`)
-        notify("Update Error", error.message, "xmark.circle.fill")
+        console.error("Update failed:", error)
+        notify("Update Error", `Failed to update device status: ${error.message}`, "xmark.circle.fill")
     }
-}
-
-function notify(title, message, symbol = null) {
-    let notification = new Notification()
-    notification.title = title
-    notification.body = message
-    if (symbol) {
-        notification.addAction(symbol, "", "")
-    }
-    notification.schedule()
 }
 
 // Run update
