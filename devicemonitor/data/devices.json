@@ -36,7 +36,25 @@
         "last_updated": "2025-01-05T07:14:06Z"
       }
     },
-    "ipads": {},
+    "ipads": {
+      "m4eleven": {
+        "device_name": "m4eleven",
+        "device_type": "ipad",
+        "device_model": "iPad Pro 11-inch (M4)",
+        "system_info": {
+          "os_version": "18.2",
+          "model": "iPad Pro 11-inch (M4)",
+          "battery": {
+            "percentage": 25,
+            "charging": false
+          },
+          "storage": {
+            "boot_drive": 0
+          }
+        },
+        "last_updated": "2025-01-05T07:33:52.623Z"
+      }
+    },
     "iphones": {
       "MiniProductRed13": {
         "device_name": "MiniProductRed13",
@@ -74,5 +92,5 @@
       }
     }
   },
-  "last_updated": 1736062113412
+  "last_updated": 1736062432624
 }
