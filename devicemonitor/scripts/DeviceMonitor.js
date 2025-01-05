@@ -1,52 +1,57 @@
-// User configuration - edit these if automatic detection fails
-const USER_DEVICE_NAME = "" // Leave empty to use automatic detection
-const USER_DEVICE_MODEL = "" // Leave empty to use automatic detection
 // Configuration
 const GITHUB_TOKEN = "" // Add your PAT when deploying
 const GITHUB_REPO = "stirlo/thelaboratory.cc"
 const GITHUB_PATH = "devicemonitor/data/devices.json"
 
+// Device Configuration - Set this for each device
+const DEVICE_NAME = "MiniProductRed13" // Set unique device name here
+const DEVICE_MODEL = "iPhone 13 mini"   // Set specific model here
+
+// Thresholds and Intervals
+const BATTERY_LOW = 40
+const BATTERY_CRITICAL = 20
+const BATTERY_READY = 75
+const BATTERY_FULL = 100
+const STORAGE_WARNING = 90
+const CHECK_INTERVAL_CHARGING = 5 * 60 // 5 minutes in seconds
+const CHECK_INTERVAL_BATTERY = 20 * 60 // 20 minutes in seconds
+
 function log(type, message) {
-    const timestamp = new Date().toISOString()
-    console.log(`${timestamp}: [${type}] ${message}`)
-}
-
-// Get device model info
-function getDeviceModel() {
-    if (USER_DEVICE_MODEL) return USER_DEVICE_MODEL
-
-    try {
-        const model = Device.model()
-        return model || "Unknown Model"
-    } catch (error) {
-        log("WARN", `Could not get device model: ${error}`)
-        return "Unknown Model"
+    if (['INFO', 'WARN', 'ERROR', 'SUCCESS'].includes(type.toUpperCase())) {
+        const timestamp = new Date().toISOString()
+        console.log(`${timestamp}: [${type}] ${message}`)
     }
 }
 
-// Get device name
-function getDeviceName() {
-    if (USER_DEVICE_NAME) return USER_DEVICE_NAME
-
+async function sendNotification(title, body, critical = false) {
     try {
-        const name = Device.name()
-        return name || "Unknown Device"
+        log("INFO", `Scheduling notification: ${title} - ${body}`)
+        let notification = new Notification()
+        notification.title = title
+        notification.body = body
+        notification.sound = critical ? "alert" : "default"
+        notification.threadIdentifier = "DeviceMonitor"
+
+        if (title.includes("battery.0") || title.includes("battery.25")) {
+            notification.addAction("battery.circle Settings", "prefs:root=BATTERY_USAGE")
+        }
+        if (title.includes("externaldrive")) {
+            notification.addAction("folder.circle Settings", "prefs:root=STORAGE")
+        }
+
+        await notification.schedule()
+        log("SUCCESS", "Notification scheduled successfully")
     } catch (error) {
-        log("WARN", `Could not get device name: ${error}`)
-        return "Unknown Device"
+        log("ERROR", `Failed to schedule notification: ${error}`)
     }
 }
 
 async function getGithubFile() {
-    log("INFO", "Starting GitHub fetch...")
-
     if (!GITHUB_TOKEN) {
         throw new Error("GitHub token not configured")
     }
 
     const url = `https://api.github.com/repos/${GITHUB_REPO}/contents/${GITHUB_PATH}`
-    log("INFO", `Fetching from URL: ${url}`)
-
     const req = new Request(url)
     req.headers = {
         'Authorization': `token ${GITHUB_TOKEN}`,
@@ -55,11 +60,8 @@ async function getGithubFile() {
 
     try {
         const response = await req.loadJSON()
-        log("DEBUG", `GitHub API Response: ${JSON.stringify(response)}`)
 
-        // Handle 404 or empty response
         if (response.message === "Not Found" || !response) {
-            log("INFO", "File not found, creating initial structure")
             return {
                 data: {
                     devices: {
@@ -73,49 +75,27 @@ async function getGithubFile() {
             }
         }
 
-        // If we have content, try to decode and parse it
         if (response.content) {
-            try {
-                // Remove any newlines from base64 string
-                const cleanContent = response.content.replace(/\n/g, '')
-                const decodedContent = atob(cleanContent)
-                const parsedData = JSON.parse(decodedContent)
+            const cleanContent = response.content.replace(/\n/g, '')
+            const decodedContent = atob(cleanContent)
+            const parsedData = JSON.parse(decodedContent)
 
-                log("INFO", "Successfully parsed existing data")
-                log("DEBUG", `Parsed data: ${JSON.stringify(parsedData)}`)
-
-                return {
-                    data: parsedData,
-                    sha: response.sha
-                }
-            } catch (parseError) {
-                log("ERROR", `Parse error: ${parseError}`)
-                // Create new structure if parse fails
-                return {
-                    data: {
-                        devices: {
-                            macs: {},
-                            ipads: {},
-                            iphones: {}
-                        },
-                        last_updated: Date.now()
-                    },
-                    sha: response.sha
-                }
-            }
-        } else {
-            log("INFO", "No content found, creating initial structure")
             return {
-                data: {
-                    devices: {
-                        macs: {},
-                        ipads: {},
-                        iphones: {}
-                    },
-                    last_updated: Date.now()
-                },
-                sha: null
+                data: parsedData,
+                sha: response.sha
             }
+        }
+
+        return {
+            data: {
+                devices: {
+                    macs: {},
+                    ipads: {},
+                    iphones: {}
+                },
+                last_updated: Date.now()
+            },
+            sha: null
         }
     } catch (error) {
         log("ERROR", `GitHub fetch error: ${error}`)
@@ -128,7 +108,6 @@ async function updateGithubFile(content, sha) {
         throw new Error("GitHub token not configured")
     }
 
-    log("INFO", "Preparing GitHub update...")
     const url = `https://api.github.com/repos/${GITHUB_REPO}/contents/${GITHUB_PATH}`
     const req = new Request(url)
     req.method = 'PUT'
@@ -140,57 +119,99 @@ async function updateGithubFile(content, sha) {
 
     try {
         const stringContent = JSON.stringify(content, null, 2)
-        log("DEBUG", `Content to update: ${stringContent}`)
-
         const body = {
-            message: `Update device status: ${Device.name()}`,
+            message: `Update device status: ${DEVICE_NAME}`,
             content: btoa(stringContent)
         }
 
         if (sha) {
             body.sha = sha
-            log("DEBUG", `Using SHA: ${sha}`)
         }
 
         req.body = JSON.stringify(body)
-        log("INFO", "Sending update request...")
-
         const response = await req.loadJSON()
 
-        if (response.content) {
-            log("SUCCESS", "GitHub update successful")
-            return true
-        } else {
-            throw new Error("Invalid response from GitHub")
-        }
+        return response.content ? true : false
     } catch (error) {
         log("ERROR", `GitHub update error: ${error}`)
         throw error
     }
 }
 
+async function checkAllDevicesAndNotify(existingData) {
+    try {
+        log("INFO", "Starting notification check")
+        const allDevices = [
+            ...Object.values(existingData?.devices?.iphones || {}),
+            ...Object.values(existingData?.devices?.ipads || {}),
+            ...Object.values(existingData?.devices?.macs || {})
+        ]
+
+        for (const device of allDevices) {
+            const battery = device.system_info?.battery
+            if (!battery) continue
+
+            log("INFO", `Checking ${device.device_name}: ${battery.percentage}%, charging: ${battery.charging}`)
+
+            if (!battery.charging) {
+                if (battery.percentage <= BATTERY_CRITICAL) {
+                    log("INFO", `Sending critical battery notification for ${device.device_name}`)
+                    await sendNotification(
+                        "battery.0 Critical Battery",
+                        `${device.device_name} battery critically low at ${battery.percentage}%!`,
+                        true
+                    )
+                } else if (battery.percentage <= BATTERY_LOW) {
+                    log("INFO", `Sending low battery notification for ${device.device_name}`)
+                    await sendNotification(
+                        "battery.25 Low Battery",
+                        `${device.device_name} battery at ${battery.percentage}%`
+                    )
+                }
+            }
+
+            if (battery.charging) {
+                if (battery.percentage >= BATTERY_FULL) {
+                    log("INFO", `Sending fully charged notification for ${device.device_name}`)
+                    await sendNotification(
+                        "battery.100.bolt Fully Charged",
+                        `${device.device_name} is fully charged`
+                    )
+                } else if (battery.percentage >= BATTERY_READY) {
+                    log("INFO", `Sending ready to unplug notification for ${device.device_name}`)
+                    await sendNotification(
+                        "battery.75.bolt Ready to Unplug",
+                        `${device.device_name} is charged enough (${battery.percentage}%)`
+                    )
+                }
+            }
+
+            if (device.system_info?.storage?.boot_drive >= STORAGE_WARNING) {
+                log("INFO", `Sending storage warning for ${device.device_name}`)
+                await sendNotification(
+                    "externaldrive.badge.exclamationmark Storage Alert",
+                    `${device.device_name} storage is ${device.system_info.storage.boot_drive}% full`
+                )
+            }
+        }
+    } catch (error) {
+        log("ERROR", `Notification check failed: ${error}`)
+    }
+}
 
 async function updateDeviceStatus() {
     try {
-        log("INFO", "Starting device update process...")
-        const deviceName = getDeviceName()
-        const deviceModel = getDeviceModel()
-
-        log("INFO", `Device: ${deviceName} (${deviceModel})`)
-        log("INFO", `Battery: ${Math.round(Device.batteryLevel() * 100)}%, Charging: ${Device.isCharging()}`)
-
-        // First get existing data
         const { data: existingData, sha } = await getGithubFile()
-        log("INFO", "Retrieved existing GitHub data")
 
-        // Create new device info
+        await checkAllDevicesAndNotify(existingData)
+
         const deviceInfo = {
-            device_name: deviceName,
+            device_name: DEVICE_NAME,
             device_type: Device.isPad() ? "ipad" : "iphone",
-            device_model: deviceModel,
+            device_model: DEVICE_MODEL,
             system_info: {
                 os_version: Device.systemVersion(),
-                model: deviceModel,
+                model: DEVICE_MODEL,
                 battery: {
                     percentage: Math.round(Device.batteryLevel() * 100),
                     charging: Device.isCharging()
@@ -202,7 +223,6 @@ async function updateDeviceStatus() {
             last_updated: new Date().toISOString()
         }
 
-        // Create updated data structure while preserving existing data
         const updatedData = {
             devices: {
                 macs: { ...(existingData?.devices?.macs || {}) },
@@ -212,25 +232,28 @@ async function updateDeviceStatus() {
             last_updated: Date.now()
         }
 
-        // Update appropriate category
         const deviceType = Device.isPad() ? "ipads" : "iphones"
-        updatedData.devices[deviceType][deviceName] = deviceInfo
-
-        log("INFO", `Updating ${deviceType} category with device: ${deviceName}`)
-        log("DEBUG", `Final data structure: ${JSON.stringify(updatedData, null, 2)}`)
+        updatedData.devices[deviceType][DEVICE_NAME] = deviceInfo
 
         const success = await updateGithubFile(updatedData, sha)
         if (!success) {
             throw new Error("Failed to update GitHub")
         }
 
-        log("SUCCESS", "Update completed successfully")
+        log("SUCCESS", `Update completed successfully for ${DEVICE_NAME}`)
 
     } catch (error) {
-        log("ERROR", `Update failed: ${error.message}`)
+        log("ERROR", `Update failed: ${error}`)
         throw error
     }
 }
 
-// Run update
+async function scheduleNextRun() {
+    const nextRun = Device.isCharging() ? CHECK_INTERVAL_CHARGING : CHECK_INTERVAL_BATTERY
+    log("INFO", `Scheduling next run in ${nextRun} seconds (${Device.isCharging() ? 'charging' : 'battery'})`)
+    Script.setNextTriggerDate(new Date(Date.now() + (nextRun * 1000)))
+}
+
+// Run update and schedule next check
 await updateDeviceStatus()
+await scheduleNextRun()
