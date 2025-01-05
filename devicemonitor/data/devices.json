@@ -106,8 +106,25 @@
           }
         },
         "last_updated": "2025-01-05T07:42:19.472Z"
+      },
+      "m4eleven": {
+        "device_name": "m4eleven",
+        "device_type": "iphone",
+        "device_model": "iPad Pro 11-inch (M4)",
+        "system_info": {
+          "os_version": "18.2",
+          "model": "iPad Pro 11-inch (M4)",
+          "battery": {
+            "percentage": 80,
+            "charging": false
+          },
+          "storage": {
+            "boot_drive": 0
+          }
+        },
+        "last_updated": "2025-01-05T08:00:30.925Z"
       }
     }
   },
-  "last_updated": 1736063897700
+  "last_updated": 1736064030925
 }
