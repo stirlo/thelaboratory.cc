@@ -39,6 +39,12 @@ async function sendNotification(title, body, critical = false) {
             notification.addAction("folder.circle Settings", "prefs:root=STORAGE")
         }
 
+        // Set next check interval based on charging state
+        notification.trigger = {
+            timeInterval: Device.isCharging() ? CHECK_INTERVAL_CHARGING : CHECK_INTERVAL_BATTERY,
+            repeats: false
+        }
+
         await notification.schedule()
         log("SUCCESS", "Notification scheduled successfully")
     } catch (error) {
@@ -155,14 +161,12 @@ async function checkAllDevicesAndNotify(existingData) {
 
             if (!battery.charging) {
                 if (battery.percentage <= BATTERY_CRITICAL) {
-                    log("INFO", `Sending critical battery notification for ${device.device_name}`)
                     await sendNotification(
                         "battery.0 Critical Battery",
                         `${device.device_name} battery critically low at ${battery.percentage}%!`,
                         true
                     )
                 } else if (battery.percentage <= BATTERY_LOW) {
-                    log("INFO", `Sending low battery notification for ${device.device_name}`)
                     await sendNotification(
                         "battery.25 Low Battery",
                         `${device.device_name} battery at ${battery.percentage}%`
@@ -172,13 +176,11 @@ async function checkAllDevicesAndNotify(existingData) {
 
             if (battery.charging) {
                 if (battery.percentage >= BATTERY_FULL) {
-                    log("INFO", `Sending fully charged notification for ${device.device_name}`)
                     await sendNotification(
                         "battery.100.bolt Fully Charged",
                         `${device.device_name} is fully charged`
                     )
                 } else if (battery.percentage >= BATTERY_READY) {
-                    log("INFO", `Sending ready to unplug notification for ${device.device_name}`)
                     await sendNotification(
                         "battery.75.bolt Ready to Unplug",
                         `${device.device_name} is charged enough (${battery.percentage}%)`
@@ -187,7 +189,6 @@ async function checkAllDevicesAndNotify(existingData) {
             }
 
             if (device.system_info?.storage?.boot_drive >= STORAGE_WARNING) {
-                log("INFO", `Sending storage warning for ${device.device_name}`)
                 await sendNotification(
                     "externaldrive.badge.exclamationmark Storage Alert",
                     `${device.device_name} storage is ${device.system_info.storage.boot_drive}% full`
@@ -248,12 +249,5 @@ async function updateDeviceStatus() {
     }
 }
 
-async function scheduleNextRun() {
-    const nextRun = Device.isCharging() ? CHECK_INTERVAL_CHARGING : CHECK_INTERVAL_BATTERY
-    log("INFO", `Scheduling next run in ${nextRun} seconds (${Device.isCharging() ? 'charging' : 'battery'})`)
-    Script.setNextTriggerDate(new Date(Date.now() + (nextRun * 1000)))
-}
-
-// Run update and schedule next check
+// Run update and schedule next notification
 await updateDeviceStatus()
-await scheduleNextRun()
