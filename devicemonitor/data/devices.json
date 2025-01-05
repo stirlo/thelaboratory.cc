@@ -71,8 +71,25 @@
           }
         },
         "last_updated": "2025-01-05T07:23:27.537Z"
+      },
+      "A18p tfp.la/stirling": {
+        "device_name": "A18p tfp.la/stirling",
+        "device_type": "iphone",
+        "device_model": "iPhone 16 Pro",
+        "system_info": {
+          "os_version": "18.2",
+          "model": "iPhone 16 Pro",
+          "battery": {
+            "percentage": 85,
+            "charging": false
+          },
+          "storage": {
+            "boot_drive": 0
+          }
+        },
+        "last_updated": "2025-01-05T07:28:33.412Z"
       }
     }
   },
-  "last_updated": 1736061807537
+  "last_updated": 1736062113412
 }
