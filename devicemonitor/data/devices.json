@@ -88,7 +88,7 @@
             "boot_drive": 0
           }
         },
-        "last_updated": "2025-01-09T08:33:44.811Z"
+        "last_updated": "2025-01-09T08:41:05.028Z"
       },
       "A18p tfp.la/stirling": {
         "device_name": "A18p tfp.la/stirling",
@@ -109,5 +109,5 @@
       }
     }
   },
-  "last_updated": "2025-01-09T08:38:10.129Z"
+  "last_updated": "2025-01-09T08:41:05.028Z"
 }
