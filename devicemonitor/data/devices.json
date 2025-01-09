@@ -82,13 +82,13 @@
           "model": "iPhone 13 mini",
           "battery": {
             "percentage": 90,
-            "charging": true
+            "charging": false
           },
           "storage": {
             "boot_drive": 0
           }
         },
-        "last_updated": "2025-01-09T09:17:04.858Z"
+        "last_updated": "2025-01-09T09:22:54.846Z"
       },
       "A18p tfp.la/stirling": {
         "device_name": "A18p tfp.la/stirling",
@@ -109,5 +109,5 @@
       }
     }
   },
-  "last_updated": "2025-01-09T09:22:50.393Z"
+  "last_updated": "2025-01-09T09:22:54.846Z"
 }
