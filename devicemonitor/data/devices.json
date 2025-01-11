@@ -98,16 +98,16 @@
           "os_version": "18.2.1",
           "model": "iPhone 16 Pro",
           "battery": {
-            "percentage": 75,
-            "charging": true
+            "percentage": 80,
+            "charging": false
           },
           "storage": {
             "boot_drive": 0
           }
         },
-        "last_updated": "2025-01-11T08:47:53.489Z"
+        "last_updated": "2025-01-11T09:21:22.987Z"
       }
     }
   },
-  "last_updated": "2025-01-11T09:09:39.968Z"
+  "last_updated": "2025-01-11T09:21:22.987Z"
 }
