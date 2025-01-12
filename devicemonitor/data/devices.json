@@ -10,7 +10,7 @@
           "temperature": 0,
           "battery": {
             "percentage": 100,
-            "charging": true
+            "charging": false
           },
           "storage": {
             "boot_drive": 1
