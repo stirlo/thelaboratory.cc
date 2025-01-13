@@ -35,6 +35,10 @@ async function fetchDeviceData() {
     return await req.loadJSON()
 }
 
+function isUPSDevice(device) {
+    return device.device_type === 'mac' && device.device_name.includes('M1 TFPSERVER')
+}
+
 async function sendNotification(deviceId, type, title, body, critical = false) {
     const cache = loadNotificationCache()
     const now = Date.now()
@@ -79,40 +83,63 @@ async function checkDevicesAndNotify(devices, jsonLastUpdated) {
         const battery = device.system_info?.battery
         if (!battery) continue
 
-        if (!battery.charging) {
-            if (battery.percentage <= BATTERY_CRITICAL) {
+        if (isUPSDevice(device)) {
+            // UPS-specific notifications
+            if (!battery.on_ac) {
                 await sendNotification(
                     device.device_name,
-                    'critical-battery',
-                    "battery.0 Critical Battery",
-                    `${device.device_name} battery critically low at ${battery.percentage}%!`,
+                    'ups-battery',
+                    "bolt.slash.circle UPS on Battery",
+                    `${device.device_name} is running on UPS power!`,
                     true
                 )
-            } else if (battery.percentage <= BATTERY_LOW) {
+            }
+            if (battery.percentage < BATTERY_FULL) {
                 await sendNotification(
                     device.device_name,
-                    'low-battery',
-                    "battery.25 Low Battery",
-                    `${device.device_name} battery at ${battery.percentage}%`
+                    'ups-warning',
+                    "bolt.circle UPS Not at Full",
+                    `${device.device_name} UPS at ${battery.percentage}%`,
+                    battery.percentage < 95
                 )
             }
-        }
+        } else {
+            // Regular device notifications
+            if (!battery.charging) {
+                if (battery.percentage <= BATTERY_CRITICAL) {
+                    await sendNotification(
+                        device.device_name,
+                        'critical-battery',
+                        "battery.0 Critical Battery",
+                        `${device.device_name} battery critically low at ${battery.percentage}%!`,
+                        true
+                    )
+                } else if (battery.percentage <= BATTERY_LOW) {
+                    await sendNotification(
+                        device.device_name,
+                        'low-battery',
+                        "battery.25 Low Battery",
+                        `${device.device_name} battery at ${battery.percentage}%`
+                    )
+                }
+            }
 
-        if (battery.charging) {
-            if (battery.percentage >= BATTERY_FULL) {
-                await sendNotification(
-                    device.device_name,
-                    'full-battery',
-                    "battery.100.bolt Fully Charged",
-                    `${device.device_name} is fully charged`
-                )
-            } else if (battery.percentage >= BATTERY_READY) {
-                await sendNotification(
-                    device.device_name,
-                    'ready-battery',
-                    "battery.75.bolt Ready to Unplug",
-                    `${device.device_name} is charged enough (${battery.percentage}%)`
-                )
+            if (battery.charging) {
+                if (battery.percentage >= BATTERY_FULL) {
+                    await sendNotification(
+                        device.device_name,
+                        'full-battery',
+                        "battery.100.bolt Fully Charged",
+                        `${device.device_name} is fully charged`
+                    )
+                } else if (battery.percentage >= BATTERY_READY) {
+                    await sendNotification(
+                        device.device_name,
+                        'ready-battery',
+                        "battery.75.bolt Ready to Unplug",
+                        `${device.device_name} is charged enough (${battery.percentage}%)`
+                    )
+                }
             }
         }
 
@@ -148,7 +175,11 @@ function getDeviceSymbol(type, deviceName) {
     }
 }
 
-function getBatterySymbol(percentage, charging) {
+function getBatterySymbol(percentage, charging, device) {
+    if (isUPSDevice(device)) {
+        return charging ? 'bolt.circle' : 'bolt.slash.circle'
+    }
+
     if (charging) {
         return 'battery.100percent.bolt'
     }
@@ -222,7 +253,8 @@ for (let device of devices) {
 
     let batterySymbol = SFSymbol.named(getBatterySymbol(
         device.system_info.battery.percentage,
-        device.system_info.battery.charging
+        device.system_info.battery.charging,
+        device
     ))
 
     if (batterySymbol) {
@@ -230,14 +262,24 @@ for (let device of devices) {
         batteryIcon.imageSize = new Size(20, 12)
 
         // Color based on battery level and charging status
-        if (device.system_info.battery.percentage <= 20) {
-            batteryIcon.tintColor = new Color("#FF3B30")  // Red for low battery
-        } else if (device.system_info.battery.charging) {
-            batteryIcon.tintColor = new Color("#30D158")  // Green for charging
-        } else if (device.system_info.battery.percentage <= 50) {
-            batteryIcon.tintColor = new Color("#FFD60A")  // Yellow for medium battery
+        if (isUPSDevice(device)) {
+            if (!device.system_info.battery.on_ac) {
+                batteryIcon.tintColor = new Color("#FF3B30")  // Red for UPS on battery
+            } else if (device.system_info.battery.percentage < 100) {
+                batteryIcon.tintColor = new Color("#FFD60A")  // Yellow for not full
+            } else {
+                batteryIcon.tintColor = new Color("#30D158")  // Green for full on AC
+            }
         } else {
-            batteryIcon.tintColor = Color.white()  // White for good battery
+            if (device.system_info.battery.percentage <= 20) {
+                batteryIcon.tintColor = new Color("#FF3B30")  // Red for low battery
+            } else if (device.system_info.battery.charging) {
+                batteryIcon.tintColor = new Color("#30D158")  // Green for charging
+            } else if (device.system_info.battery.percentage <= 50) {
+                batteryIcon.tintColor = new Color("#FFD60A")  // Yellow for medium battery
+            } else {
+                batteryIcon.tintColor = Color.white()  // White for good battery
+            }
         }
     }
 
