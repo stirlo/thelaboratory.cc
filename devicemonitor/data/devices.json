@@ -100,15 +100,15 @@
           "model": "iPhone 16 Pro",
           "battery": {
             "percentage": 75,
-            "charging": true
+            "charging": false
           },
           "storage": {
             "boot_drive": 0
           }
         },
-        "last_updated": "2025-01-13T10:55:22.976Z"
+        "last_updated": "2025-01-13T10:56:26.536Z"
       }
     }
   },
-  "last_updated": "2025-01-13T10:55:22.976Z"
+  "last_updated": "2025-01-13T10:56:26.537Z"
 }
