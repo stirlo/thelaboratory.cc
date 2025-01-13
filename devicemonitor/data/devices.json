@@ -10,13 +10,14 @@
           "temperature": 0,
           "battery": {
             "percentage": 100,
-            "charging": true
+            "charging": false,
+            "on_ac": true
           },
           "storage": {
             "boot_drive": 1
           }
         },
-        "last_updated": "2025-01-13T10:10:45Z"
+        "last_updated": "2025-01-13T10:14:52Z"
       },
       "m3FIFTEEN": {
         "device_name": "m3FIFTEEN",
@@ -109,5 +110,5 @@
       }
     }
   },
-  "last_updated": "2025-01-13T10:10:45Z"
+  "last_updated": "2025-01-13T10:14:52Z"
 }
