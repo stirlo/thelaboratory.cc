@@ -23,13 +23,13 @@
           "temperature": 0,
           "battery": {
             "percentage": 98,
-            "charging": true
+            "charging": false
           },
           "storage": {
             "boot_drive": 0
           }
         },
-        "last_updated": "2025-01-14T13:44:07Z"
+        "last_updated": "2025-01-14T13:44:25Z"
       }
     },
     "ipads": {
@@ -109,5 +109,5 @@
       }
     }
   },
-  "last_updated": "2025-01-14T13:44:08Z"
+  "last_updated": "2025-01-14T13:44:26Z"
 }
