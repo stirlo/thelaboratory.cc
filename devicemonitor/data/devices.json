@@ -4,6 +4,7 @@
       "M1 TFPSERVER": {
         "device_name": "M1 TFPSERVER",
         "device_type": "mac",
+        "symbol": "laptopcomputer",
         "system_info": {
           "os_version": "15.2",
           "build_number": "24C101",
@@ -17,7 +18,7 @@
             "boot_drive": 1
           }
         },
-        "last_updated": "2025-01-13T10:15:49Z"
+        "last_updated": "2025-01-14T11:40:48Z"
       },
       "m3FIFTEEN": {
         "device_name": "m3FIFTEEN",
@@ -114,5 +115,5 @@
       }
     }
   },
-  "last_updated": "2025-01-14T11:39:22.510Z"
+  "last_updated": "2025-01-14T11:40:48Z"
 }
