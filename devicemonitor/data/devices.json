@@ -18,24 +18,26 @@
             "boot_drive": 1
           }
         },
-        "last_updated": "2025-01-14T12:02:43Z"
+        "last_updated": "2025-01-14T11:50:59Z"
       },
       "m3FIFTEEN": {
         "device_name": "m3FIFTEEN",
         "device_type": "mac",
+        "symbol": "laptopcomputer",
         "system_info": {
           "os_version": "15.2",
           "build_number": "24C101",
           "temperature": 0,
           "battery": {
-            "percentage": 70,
-            "charging": true
+            "percentage": 100,
+            "charging": false,
+            "on_ac": true
           },
           "storage": {
             "boot_drive": 1
           }
         },
-        "last_updated": "2025-01-05T07:14:06Z"
+        "last_updated": "2025-01-14T12:04:59Z"
       }
     },
     "ipads": {
@@ -115,5 +117,5 @@
       }
     }
   },
-  "last_updated": "2025-01-14T12:02:43Z"
+  "last_updated": "2025-01-14T12:04:59Z"
 }
