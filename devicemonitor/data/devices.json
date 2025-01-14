@@ -22,14 +22,14 @@
           "build_number": "24C101",
           "temperature": 0,
           "battery": {
-            "percentage": 49,
+            "percentage": 98,
             "charging": true
           },
           "storage": {
             "boot_drive": 0
           }
         },
-        "last_updated": "2025-01-14T12:44:14Z"
+        "last_updated": "2025-01-14T13:44:07Z"
       }
     },
     "ipads": {
@@ -109,5 +109,5 @@
       }
     }
   },
-  "last_updated": "2025-01-14T13:37:33.315Z"
+  "last_updated": "2025-01-14T13:44:08Z"
 }
