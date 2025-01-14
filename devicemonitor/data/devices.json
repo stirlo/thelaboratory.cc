@@ -1,23 +1,6 @@
 {
   "devices": {
     "macs": {
-      "m3FIFTEEN": {
-        "device_name": "m3FIFTEEN",
-        "device_type": "mac",
-        "system_info": {
-          "os_version": "15.2",
-          "build_number": "24C101",
-          "temperature": 0,
-          "battery": {
-            "percentage": 43,
-            "charging": false
-          },
-          "storage": {
-            "boot_drive": 0
-          }
-        },
-        "last_updated": "2025-01-14T12:29:05Z"
-      },
       "M1 TFPSERVER": {
         "device_name": "M1 TFPSERVER",
         "device_type": "mac_mini",
@@ -30,6 +13,23 @@
           }
         },
         "last_updated": "2025-01-14T12:34:26Z"
+      },
+      "m3FIFTEEN": {
+        "device_name": "m3FIFTEEN",
+        "device_type": "mac",
+        "system_info": {
+          "os_version": "15.2",
+          "build_number": "24C101",
+          "temperature": 0,
+          "battery": {
+            "percentage": 49,
+            "charging": true
+          },
+          "storage": {
+            "boot_drive": 0
+          }
+        },
+        "last_updated": "2025-01-14T12:44:14Z"
       }
     },
     "ipads": {
@@ -109,5 +109,5 @@
       }
     }
   },
-  "last_updated": "2025-01-14T12:41:04.872Z"
+  "last_updated": "2025-01-14T12:44:15Z"
 }
