@@ -80,14 +80,14 @@
           "os_version": "18.3",
           "model": "iPhone 13 mini",
           "battery": {
-            "percentage": 100,
+            "percentage": 90,
             "charging": false
           },
           "storage": {
             "boot_drive": 0
           }
         },
-        "last_updated": "2025-01-17T03:08:41.306Z"
+        "last_updated": "2025-01-17T03:54:14.396Z"
       },
       "A18p tfp.la/stirling": {
         "device_name": "A18p tfp.la/stirling",
@@ -109,5 +109,5 @@
       }
     }
   },
-  "last_updated": "2025-01-17T03:08:41.307Z"
+  "last_updated": "2025-01-17T03:54:14.396Z"
 }
