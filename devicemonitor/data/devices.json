@@ -42,14 +42,14 @@
           "os_version": "18.2.1",
           "model": "iPad Pro 11-inch (M4)",
           "battery": {
-            "percentage": 50,
-            "charging": false
+            "percentage": 45,
+            "charging": true
           },
           "storage": {
             "boot_drive": 0
           }
         },
-        "last_updated": "2025-01-17T02:19:26.870Z"
+        "last_updated": "2025-01-17T08:31:20.754Z"
       },
       "M1P45Db": {
         "device_name": "M1P45Db",
@@ -109,5 +109,5 @@
       }
     }
   },
-  "last_updated": "2025-01-17T07:23:35.145Z"
+  "last_updated": "2025-01-17T08:31:20.754Z"
 }
