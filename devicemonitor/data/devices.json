@@ -1,5 +1,5 @@
 {
-  "last_updated" : "2025-01-19T08:59:12Z",
+  "last_updated" : "2025-01-19T09:04:12Z",
   "devices" : {
     "macs" : {
       "m3FIFTEEN" : {
@@ -16,13 +16,8 @@
         "device_type" : "mac"
       },
       "M1 TFPSERVER" : {
-        "last_updated" : "2025-01-19T08:59:11Z",
-        "device_name" : "M1 TFPSERVER",
-        "device_type" : "mac_mini",
         "system_info" : {
-          "temperature" : 0,
           "storage" : {
-            "boot_drive" : 0,
             "external_drives" : [
               {
                 "used_space" : 14035920211968,
@@ -31,71 +26,38 @@
                 "total_space" : 16000690905088,
                 "name" : "8T"
               }
-            ]
+            ],
+            "boot_drive" : 0
           },
           "power" : {
-            "ups_connected" : true,
             "on_ac_power" : true,
             "ups_percentage" : 100,
+            "ups_connected" : true,
             "ups_charging" : false,
             "estimated_runtime" : 297
           },
-          "build_number" : "24C101",
-          "os_version" : "Version 15.2 (Build 24C101)",
+          "temperature" : 0,
           "metrics" : {
             "gpu_frequency" : {
 
             },
             "memory_total" : 16,
-            "memory_percentage" : 41,
-            "total_power" : 0.96999999999999997,
+            "memory_percentage" : 41.100000000000001,
+            "total_power" : 1.0800000000000001,
             "cpu_frequency" : {
 
             },
-            "memory_used" : 6.5599999999999996,
-            "cpu_usage" : 64.799999999999997,
-            "cpu_power" : 0.95999999999999996,
+            "memory_used" : 6.5800000000000001,
+            "cpu_usage" : 73.200000000000003,
+            "cpu_power" : 1.0700000000000001,
             "gpu_power" : 0.01
-          }
-        }
-      }
-    },
-    "iphones" : {
-      "MiniProductRed13" : {
-        "device_type" : "iphone",
-        "device_model" : "iPhone 13 mini",
-        "symbol" : "iphone.gen2",
-        "system_info" : {
-          "storage" : {
-            "boot_drive" : 0
           },
-          "model" : "iPhone 13 mini",
-          "os_version" : "18.3",
-          "battery" : {
-            "charging" : true,
-            "percentage" : 80
-          }
+          "os_version" : "Version 15.2 (Build 24C101)",
+          "build_number" : "24C101"
         },
-        "last_updated" : "2025-01-19T08:54:49.848Z",
-        "device_name" : "MiniProductRed13"
-      },
-      "A18p tfp.la\/stirling" : {
-        "system_info" : {
-          "storage" : {
-            "boot_drive" : 0
-          },
-          "model" : "iPhone 16 Pro",
-          "os_version" : "18.2.1",
-          "battery" : {
-            "charging" : false,
-            "percentage" : 60
-          }
-        },
-        "device_model" : "iPhone 16 Pro",
-        "symbol" : "iphone.gen3",
-        "last_updated" : "2025-01-19T07:57:33.119Z",
-        "device_type" : "iphone",
-        "device_name" : "A18p tfp.la\/stirling"
+        "device_type" : "mac_mini",
+        "device_name" : "M1 TFPSERVER",
+        "last_updated" : "2025-01-19T09:04:11Z"
       }
     },
     "ipads" : {
@@ -134,6 +96,44 @@
         "last_updated" : "2025-01-19T08:01:59.696Z",
         "device_type" : "ipad",
         "device_name" : "m4eleven"
+      }
+    },
+    "iphones" : {
+      "MiniProductRed13" : {
+        "device_type" : "iphone",
+        "device_model" : "iPhone 13 mini",
+        "symbol" : "iphone.gen2",
+        "system_info" : {
+          "storage" : {
+            "boot_drive" : 0
+          },
+          "model" : "iPhone 13 mini",
+          "os_version" : "18.3",
+          "battery" : {
+            "charging" : true,
+            "percentage" : 80
+          }
+        },
+        "last_updated" : "2025-01-19T08:54:49.848Z",
+        "device_name" : "MiniProductRed13"
+      },
+      "A18p tfp.la\/stirling" : {
+        "system_info" : {
+          "storage" : {
+            "boot_drive" : 0
+          },
+          "model" : "iPhone 16 Pro",
+          "os_version" : "18.2.1",
+          "battery" : {
+            "charging" : false,
+            "percentage" : 60
+          }
+        },
+        "device_model" : "iPhone 16 Pro",
+        "symbol" : "iphone.gen3",
+        "last_updated" : "2025-01-19T07:57:33.119Z",
+        "device_type" : "iphone",
+        "device_name" : "A18p tfp.la\/stirling"
       }
     }
   }
