@@ -95,22 +95,22 @@
     },
     "iphones": {
       "MiniProductRed13": {
+        "device_name": "MiniProductRed13",
+        "device_type": "iphone",
+        "symbol": "iphone.gen2",
+        "device_model": "iPhone 13 mini",
         "system_info": {
+          "os_version": "18.3",
+          "model": "iPhone 13 mini",
+          "battery": {
+            "percentage": 40,
+            "charging": true
+          },
           "storage": {
             "boot_drive": 0
-          },
-          "model": "iPhone 13 mini",
-          "os_version": "18.3",
-          "battery": {
-            "charging": false,
-            "percentage": 50
           }
         },
-        "device_model": "iPhone 13 mini",
-        "symbol": "iphone.gen2",
-        "last_updated": "2025-01-19T13:30:25.518Z",
-        "device_type": "iphone",
-        "device_name": "MiniProductRed13"
+        "last_updated": "2025-01-19T15:24:05.398Z"
       },
       "A18p tfp.la/stirling": {
         "device_name": "A18p tfp.la/stirling",
@@ -132,5 +132,5 @@
       }
     }
   },
-  "last_updated": "2025-01-19T15:23:41.211Z"
+  "last_updated": "2025-01-19T15:24:05.399Z"
 }
