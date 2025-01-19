@@ -1,4 +1,5 @@
 {
+  "last_updated" : "2025-01-19T23:59:43Z",
   "devices" : {
     "iphones" : {
       "MiniProductRed13" : {
@@ -78,11 +79,11 @@
     },
     "macs" : {
       "M1 TFPSERVER" : {
-        "last_updated" : "2025-01-19T23:54:42Z",
+        "last_updated" : "2025-01-19T23:59:42Z",
         "device_name" : "M1 TFPSERVER",
-        "device_type" : "mac_mini",
         "system_info" : {
           "storage" : {
+            "boot_drive" : 0,
             "external_drives" : [
               {
                 "used_space" : 14040277934080,
@@ -91,35 +92,35 @@
                 "total_space" : 16000690905088,
                 "name" : "8T"
               }
-            ],
-            "boot_drive" : 0
+            ]
           },
+          "temperature" : 0,
           "power" : {
+            "ups_connected" : true,
             "on_ac_power" : true,
             "ups_percentage" : 100,
-            "ups_connected" : true,
             "ups_charging" : false,
             "estimated_runtime" : 297
           },
-          "temperature" : 0,
-          "os_version" : "15.2-24C101",
           "build_number" : "24C101",
           "metrics" : {
             "gpu_frequency" : {
 
             },
             "memory_total" : 16,
-            "memory_percentage" : 40.200000000000003,
-            "total_power" : 1.01,
+            "memory_percentage" : 40.100000000000001,
+            "total_power" : 0.93000000000000005,
             "cpu_frequency" : {
 
             },
-            "memory_used" : 6.4299999999999997,
-            "cpu_usage" : 52.5,
-            "cpu_power" : 1,
+            "memory_used" : 6.4199999999999999,
+            "cpu_usage" : 50.700000000000003,
+            "cpu_power" : 0.93000000000000005,
             "gpu_power" : 0.01
-          }
-        }
+          },
+          "os_version" : "15.2-24C101"
+        },
+        "device_type" : "mac_mini"
       },
       "m3FIFTEEN" : {
         "system_info" : {
@@ -135,6 +136,5 @@
         "device_type" : "mac"
       }
     }
-  },
-  "last_updated" : "2025-01-19T23:54:43Z"
+  }
 }
