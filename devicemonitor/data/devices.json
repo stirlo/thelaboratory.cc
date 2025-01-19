@@ -73,6 +73,24 @@
           }
         },
         "last_updated": "2025-01-19T07:57:03.235Z"
+      },
+      "m4eleven": {
+        "device_name": "m4eleven",
+        "device_type": "ipad",
+        "symbol": "ipad.landscape",
+        "device_model": "iPad Pro 11-inch (M4)",
+        "system_info": {
+          "os_version": "18.2.1",
+          "model": "iPad Pro 11-inch (M4)",
+          "battery": {
+            "percentage": 70,
+            "charging": false
+          },
+          "storage": {
+            "boot_drive": 0
+          }
+        },
+        "last_updated": "2025-01-19T08:01:59.696Z"
       }
     },
     "iphones": {
@@ -96,5 +114,5 @@
       }
     }
   },
-  "last_updated": "2025-01-19T07:57:33.119Z"
+  "last_updated": "2025-01-19T08:01:59.696Z"
 }
