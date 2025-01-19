@@ -1,64 +1,81 @@
 {
-  "devices" : {
-    "macs" : {
-      "m3FIFTEEN" : {
-        "device_type" : "mac",
-        "system_info" : {
-          "build_number" : "24C101",
-          "temperature" : 0,
-          "storage" : {
-            "boot_drive" : 0
+  "devices": {
+    "macs": {
+      "m3FIFTEEN": {
+        "device_type": "mac",
+        "system_info": {
+          "build_number": "24C101",
+          "temperature": 0,
+          "storage": {
+            "boot_drive": 0
           },
-          "os_version" : "15.2"
+          "os_version": "15.2"
         },
-        "last_updated" : "2025-01-19T05:29:12Z",
-        "device_name" : "m3FIFTEEN"
+        "last_updated": "2025-01-19T05:29:12Z",
+        "device_name": "m3FIFTEEN"
       },
-      "M1 TFPSERVER" : {
-        "device_name" : "M1 TFPSERVER",
-        "device_type" : "mac_mini",
-        "system_info" : {
-          "metrics" : {
-            "gpu_frequency" : {
-
-            },
-            "memory_total" : 16,
-            "memory_percentage" : 45.1,
-            "total_power" : 1.45,
-            "cpu_power" : 1.41,
-            "gpu_power" : 0.04,
-            "cpu_usage" : 165.4,
-            "memory_used" : 7.21,
-            "cpu_frequency" : {
-
-            }
+      "M1 TFPSERVER": {
+        "device_name": "M1 TFPSERVER",
+        "device_type": "mac_mini",
+        "system_info": {
+          "metrics": {
+            "gpu_frequency": {},
+            "memory_total": 16,
+            "memory_percentage": 45.1,
+            "total_power": 1.45,
+            "cpu_power": 1.41,
+            "gpu_power": 0.04,
+            "cpu_usage": 165.4,
+            "memory_used": 7.21,
+            "cpu_frequency": {}
           },
-          "power" : {
-            "on_ac_power" : true,
-            "ups_percentage" : 100,
-            "ups_connected" : true,
-            "estimated_runtime" : 127,
-            "ups_charging" : false
+          "power": {
+            "on_ac_power": true,
+            "ups_percentage": 100,
+            "ups_connected": true,
+            "estimated_runtime": 127,
+            "ups_charging": false
           },
-          "os_version" : "Version 15.2 (Build 24C101)",
-          "temperature" : 0,
-          "storage" : {
-            "external_drives" : [
+          "os_version": "Version 15.2 (Build 24C101)",
+          "temperature": 0,
+          "storage": {
+            "external_drives": [
               {
-                "mount_point" : "\/Volumes\/8T",
-                "name" : "8T",
-                "available_space" : 1964770693120,
-                "total_space" : 16000690905088,
-                "used_space" : 14035920211968
+                "mount_point": "/Volumes/8T",
+                "name": "8T",
+                "available_space": 1964770693120,
+                "total_space": 16000690905088,
+                "used_space": 14035920211968
               }
             ],
-            "boot_drive" : 0
+            "boot_drive": 0
           },
-          "build_number" : "24C101"
+          "build_number": "24C101"
         },
-        "last_updated" : "2025-01-19T07:50:57Z"
+        "last_updated": "2025-01-19T07:50:57Z"
+      }
+    },
+    "ipads": {},
+    "iphones": {
+      "A18p tfp.la/stirling": {
+        "device_name": "A18p tfp.la/stirling",
+        "device_type": "iphone",
+        "symbol": "iphone.gen3",
+        "device_model": "iPhone 16 Pro",
+        "system_info": {
+          "os_version": "18.2.1",
+          "model": "iPhone 16 Pro",
+          "battery": {
+            "percentage": 60,
+            "charging": false
+          },
+          "storage": {
+            "boot_drive": 0
+          }
+        },
+        "last_updated": "2025-01-19T07:51:35.105Z"
       }
     }
   },
-  "last_updated" : "2025-01-19T07:50:58Z"
+  "last_updated": "2025-01-19T07:51:35.105Z"
 }
