@@ -1,5 +1,5 @@
 {
-  "last_updated" : "2025-01-19T21:54:43Z",
+  "last_updated" : "2025-01-19T21:59:43Z",
   "devices" : {
     "iphones" : {
       "MiniProductRed13" : {
@@ -41,7 +41,10 @@
     },
     "macs" : {
       "M1 TFPSERVER" : {
+        "device_name" : "M1 TFPSERVER",
+        "last_updated" : "2025-01-19T21:59:42Z",
         "system_info" : {
+          "temperature" : 0,
           "storage" : {
             "external_drives" : [
               {
@@ -54,35 +57,32 @@
             ],
             "boot_drive" : 0
           },
-          "temperature" : 0,
           "power" : {
-            "ups_percentage" : 100,
             "ups_connected" : true,
             "on_ac_power" : true,
             "ups_charging" : false,
+            "ups_percentage" : 100,
             "estimated_runtime" : 297
           },
           "metrics" : {
             "gpu_frequency" : {
 
             },
+            "memory_percentage" : 40.700000000000003,
             "memory_total" : 16,
-            "memory_percentage" : 40.600000000000001,
-            "total_power" : 0.80000000000000004,
-            "memory_used" : 6.5,
+            "total_power" : 0.93999999999999995,
             "cpu_frequency" : {
 
             },
-            "cpu_usage" : 37.799999999999997,
-            "cpu_power" : 0.80000000000000004,
+            "memory_used" : 6.5199999999999996,
+            "cpu_usage" : 80.299999999999997,
+            "cpu_power" : 0.93000000000000005,
             "gpu_power" : 0.01
           },
           "build_number" : "24C101",
           "os_version" : "15.2-24C101"
         },
-        "device_type" : "mac_mini",
-        "device_name" : "M1 TFPSERVER",
-        "last_updated" : "2025-01-19T21:54:43Z"
+        "device_type" : "mac_mini"
       },
       "m3FIFTEEN" : {
         "system_info" : {
