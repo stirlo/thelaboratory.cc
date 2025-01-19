@@ -60,14 +60,14 @@
           "os_version": "18.3",
           "model": "iPad Pro (12.9-inch) (5th generation)",
           "battery": {
-            "percentage": 85,
+            "percentage": 50,
             "charging": false
           },
           "storage": {
             "boot_drive": 0
           }
         },
-        "last_updated": "2025-01-14T12:41:04.872Z"
+        "last_updated": "2025-01-19T07:08:50.199Z"
       }
     },
     "iphones": {
@@ -109,5 +109,5 @@
       }
     }
   },
-  "last_updated": "2025-01-19T07:02:52.361Z"
+  "last_updated": "2025-01-19T07:08:50.199Z"
 }
