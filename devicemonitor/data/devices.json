@@ -1,5 +1,4 @@
 {
-  "last_updated" : "2025-01-20T22:06:28Z",
   "devices" : {
     "ipads" : {
       "M1P45Db" : {
@@ -40,6 +39,50 @@
       }
     },
     "macs" : {
+      "M1 TFPSERVER" : {
+        "device_type" : "mac_mini",
+        "device_name" : "M1 TFPSERVER",
+        "last_updated" : "2025-01-20T22:11:27Z",
+        "system_info" : {
+          "temperature" : 0,
+          "power" : {
+            "ups_charging" : false,
+            "ups_connected" : true,
+            "on_ac_power" : true,
+            "ups_percentage" : 100,
+            "estimated_runtime" : 297
+          },
+          "storage" : {
+            "external_drives" : [
+              {
+                "used_space" : 14042898685952,
+                "available_space" : 1957792219136,
+                "mount_point" : "\/Volumes\/8T",
+                "total_space" : 16000690905088,
+                "name" : "8T"
+              }
+            ],
+            "boot_drive" : 0
+          },
+          "metrics" : {
+            "gpu_frequency" : {
+
+            },
+            "memory_total" : 16,
+            "memory_percentage" : 30.699999999999999,
+            "total_power" : 1.74,
+            "memory_used" : 4.9199999999999999,
+            "cpu_frequency" : {
+
+            },
+            "cpu_usage" : 231.30000000000001,
+            "cpu_power" : 1.73,
+            "gpu_power" : 0.01
+          },
+          "build_number" : "24C101",
+          "os_version" : "15.2-24C101"
+        }
+      },
       "m3FIFTEEN" : {
         "system_info" : {
           "display" : {
@@ -76,50 +119,6 @@
         "last_updated" : "2025-01-20T17:21:09Z",
         "device_name" : "m3FIFTEEN",
         "device_type" : "mac"
-      },
-      "M1 TFPSERVER" : {
-        "device_name" : "M1 TFPSERVER",
-        "device_type" : "mac_mini",
-        "system_info" : {
-          "temperature" : 0,
-          "storage" : {
-            "external_drives" : [
-              {
-                "used_space" : 14042898685952,
-                "available_space" : 1957792219136,
-                "mount_point" : "\/Volumes\/8T",
-                "total_space" : 16000690905088,
-                "name" : "8T"
-              }
-            ],
-            "boot_drive" : 0
-          },
-          "power" : {
-            "ups_charging" : false,
-            "ups_connected" : true,
-            "on_ac_power" : true,
-            "ups_percentage" : 100,
-            "estimated_runtime" : 297
-          },
-          "os_version" : "15.2-24C101",
-          "build_number" : "24C101",
-          "metrics" : {
-            "gpu_frequency" : {
-
-            },
-            "memory_total" : 16,
-            "memory_percentage" : 30.199999999999999,
-            "total_power" : 0.029999999999999999,
-            "memory_used" : 4.8399999999999999,
-            "cpu_frequency" : {
-
-            },
-            "cpu_usage" : 5.9000000000000004,
-            "cpu_power" : 0.029999999999999999,
-            "gpu_power" : 0
-          }
-        },
-        "last_updated" : "2025-01-20T22:06:27Z"
       }
     },
     "iphones" : {
@@ -160,5 +159,6 @@
         "device_type" : "iphone"
       }
     }
-  }
+  },
+  "last_updated" : "2025-01-20T22:11:28Z"
 }
