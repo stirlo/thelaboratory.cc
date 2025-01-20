@@ -1,4 +1,5 @@
 {
+  "last_updated" : "2025-01-20T13:15:37Z",
   "devices" : {
     "ipads" : {
       "M1P45Db" : {
@@ -41,9 +42,9 @@
     "macs" : {
       "M1 TFPSERVER" : {
         "device_type" : "mac_mini",
+        "device_name" : "M1 TFPSERVER",
         "system_info" : {
           "storage" : {
-            "boot_drive" : 0,
             "external_drives" : [
               {
                 "used_space" : 14042898685952,
@@ -52,9 +53,9 @@
                 "total_space" : 16000690905088,
                 "name" : "8T"
               }
-            ]
+            ],
+            "boot_drive" : 0
           },
-          "temperature" : 0,
           "power" : {
             "ups_charging" : false,
             "ups_connected" : true,
@@ -62,26 +63,26 @@
             "on_ac_power" : true,
             "estimated_runtime" : 297
           },
+          "temperature" : 0,
+          "os_version" : "15.2-24C101",
           "metrics" : {
             "gpu_frequency" : {
 
             },
-            "memory_percentage" : 34.799999999999997,
+            "memory_percentage" : 35,
             "memory_total" : 16,
-            "total_power" : 0.20999999999999999,
-            "memory_used" : 5.5700000000000003,
+            "total_power" : 0.16,
+            "memory_used" : 5.5999999999999996,
             "cpu_frequency" : {
 
             },
-            "cpu_usage" : 174.40000000000001,
-            "cpu_power" : 0.20999999999999999,
+            "cpu_usage" : 133.69999999999999,
+            "cpu_power" : 0.16,
             "gpu_power" : 0
           },
-          "os_version" : "15.2-24C101",
           "build_number" : "24C101"
         },
-        "last_updated" : "2025-01-20T13:10:37Z",
-        "device_name" : "M1 TFPSERVER"
+        "last_updated" : "2025-01-20T13:15:37Z"
       },
       "m3FIFTEEN" : {
         "system_info" : {
@@ -159,6 +160,5 @@
         "device_name" : "A18p tfp.la\/stirling"
       }
     }
-  },
-  "last_updated" : "2025-01-20T13:10:38Z"
+  }
 }
