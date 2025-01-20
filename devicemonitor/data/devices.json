@@ -1,43 +1,5 @@
 {
   "devices" : {
-    "ipads" : {
-      "M1P45Db" : {
-        "system_info" : {
-          "storage" : {
-            "boot_drive" : 0
-          },
-          "model" : "iPad Pro (12.9-inch) (5th generation)",
-          "os_version" : "18.3",
-          "battery" : {
-            "charging" : false,
-            "percentage" : 70
-          }
-        },
-        "device_model" : "iPad Pro (12.9-inch) (5th generation)",
-        "symbol" : "ipad",
-        "last_updated" : "2025-01-20T11:23:01.879Z",
-        "device_type" : "ipad",
-        "device_name" : "M1P45Db"
-      },
-      "m4eleven" : {
-        "system_info" : {
-          "storage" : {
-            "boot_drive" : 0
-          },
-          "model" : "iPad Pro 11-inch (M4)",
-          "os_version" : "18.2.1",
-          "battery" : {
-            "charging" : false,
-            "percentage" : 70
-          }
-        },
-        "device_model" : "iPad Pro 11-inch (M4)",
-        "symbol" : "ipad.landscape",
-        "last_updated" : "2025-01-19T08:01:59.696Z",
-        "device_name" : "m4eleven",
-        "device_type" : "ipad"
-      }
-    },
     "macs" : {
       "m3FIFTEEN" : {
         "system_info" : {
@@ -77,18 +39,8 @@
         "device_type" : "mac"
       },
       "M1 TFPSERVER" : {
-        "device_name" : "M1 TFPSERVER",
-        "last_updated" : "2025-01-20T16:04:23Z",
         "device_type" : "mac_mini",
         "system_info" : {
-          "temperature" : 0,
-          "power" : {
-            "on_ac_power" : true,
-            "ups_charging" : false,
-            "ups_percentage" : 100,
-            "ups_connected" : true,
-            "estimated_runtime" : 297
-          },
           "storage" : {
             "external_drives" : [
               {
@@ -101,24 +53,72 @@
             ],
             "boot_drive" : 0
           },
+          "power" : {
+            "ups_charging" : false,
+            "on_ac_power" : true,
+            "ups_percentage" : 100,
+            "ups_connected" : true,
+            "estimated_runtime" : 297
+          },
+          "temperature" : 0,
+          "os_version" : "15.2-24C101",
+          "build_number" : "24C101",
           "metrics" : {
             "gpu_frequency" : {
 
             },
-            "memory_percentage" : 27.899999999999999,
             "memory_total" : 16,
-            "total_power" : 1.25,
+            "memory_percentage" : 28.399999999999999,
+            "total_power" : 0.45000000000000001,
+            "memory_used" : 4.5499999999999998,
             "cpu_frequency" : {
 
             },
-            "memory_used" : 4.4699999999999998,
-            "cpu_usage" : 217.90000000000001,
-            "cpu_power" : 1.24,
-            "gpu_power" : 0.01
+            "cpu_usage" : 147.69999999999999,
+            "cpu_power" : 0.44,
+            "gpu_power" : 0
+          }
+        },
+        "last_updated" : "2025-01-20T16:09:23Z",
+        "device_name" : "M1 TFPSERVER"
+      }
+    },
+    "ipads" : {
+      "M1P45Db" : {
+        "system_info" : {
+          "storage" : {
+            "boot_drive" : 0
           },
-          "build_number" : "24C101",
-          "os_version" : "15.2-24C101"
-        }
+          "model" : "iPad Pro (12.9-inch) (5th generation)",
+          "os_version" : "18.3",
+          "battery" : {
+            "charging" : false,
+            "percentage" : 70
+          }
+        },
+        "device_model" : "iPad Pro (12.9-inch) (5th generation)",
+        "symbol" : "ipad",
+        "last_updated" : "2025-01-20T11:23:01.879Z",
+        "device_type" : "ipad",
+        "device_name" : "M1P45Db"
+      },
+      "m4eleven" : {
+        "system_info" : {
+          "storage" : {
+            "boot_drive" : 0
+          },
+          "model" : "iPad Pro 11-inch (M4)",
+          "os_version" : "18.2.1",
+          "battery" : {
+            "charging" : false,
+            "percentage" : 70
+          }
+        },
+        "device_model" : "iPad Pro 11-inch (M4)",
+        "symbol" : "ipad.landscape",
+        "last_updated" : "2025-01-19T08:01:59.696Z",
+        "device_name" : "m4eleven",
+        "device_type" : "ipad"
       }
     },
     "iphones" : {
@@ -160,5 +160,5 @@
       }
     }
   },
-  "last_updated" : "2025-01-20T16:04:24Z"
+  "last_updated" : "2025-01-20T16:09:24Z"
 }
