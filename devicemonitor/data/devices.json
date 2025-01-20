@@ -16,8 +16,8 @@
         "device_model" : "iPad Pro (12.9-inch) (5th generation)",
         "symbol" : "ipad",
         "last_updated" : "2025-01-19T07:57:03.235Z",
-        "device_type" : "ipad",
-        "device_name" : "M1P45Db"
+        "device_name" : "M1P45Db",
+        "device_type" : "ipad"
       },
       "m4eleven" : {
         "system_info" : {
@@ -34,17 +34,17 @@
         "device_model" : "iPad Pro 11-inch (M4)",
         "symbol" : "ipad.landscape",
         "last_updated" : "2025-01-19T08:01:59.696Z",
-        "device_type" : "ipad",
-        "device_name" : "m4eleven"
+        "device_name" : "m4eleven",
+        "device_type" : "ipad"
       }
     },
     "macs" : {
       "m3FIFTEEN" : {
         "system_info" : {
           "display" : {
-            "supports_dual_4k" : true,
+            "built_in" : true,
             "external_displays" : 1,
-            "built_in" : true
+            "supports_dual_4k" : true
           },
           "storage" : {
             "internal_drive" : {
@@ -67,28 +67,22 @@
             "gpu_power" : 0
           },
           "battery" : {
-            "is_charging" : true,
+            "time_remaining" : "11:10 remaining",
             "percentage" : 73,
-            "time_remaining" : "11:10 remaining"
+            "is_charging" : true
           },
           "build_number" : "24C101"
         },
         "last_updated" : "2025-01-20T05:49:51Z",
-        "device_type" : "mac",
-        "device_name" : "m3FIFTEEN"
+        "device_name" : "m3FIFTEEN",
+        "device_type" : "mac"
       },
       "M1 TFPSERVER" : {
+        "device_name" : "M1 TFPSERVER",
+        "last_updated" : "2025-01-20T08:15:42Z",
+        "device_type" : "mac_mini",
         "system_info" : {
-          "temperature" : 0,
-          "power" : {
-            "on_ac_power" : true,
-            "ups_connected" : true,
-            "ups_percentage" : 100,
-            "ups_charging" : false,
-            "estimated_runtime" : 134
-          },
           "storage" : {
-            "boot_drive" : 0,
             "external_drives" : [
               {
                 "used_space" : 14042898706432,
@@ -97,29 +91,35 @@
                 "total_space" : 16000690905088,
                 "name" : "8T"
               }
-            ]
+            ],
+            "boot_drive" : 0
           },
-          "build_number" : "24C101",
+          "power" : {
+            "ups_charging" : false,
+            "ups_percentage" : 100,
+            "on_ac_power" : true,
+            "ups_connected" : true,
+            "estimated_runtime" : 134
+          },
+          "temperature" : 0,
           "os_version" : "15.2-24C101",
+          "build_number" : "24C101",
           "metrics" : {
             "gpu_frequency" : {
 
             },
-            "memory_percentage" : 52.899999999999999,
             "memory_total" : 16,
-            "total_power" : 0.88,
+            "memory_percentage" : 51.299999999999997,
+            "total_power" : 0.71999999999999997,
             "cpu_frequency" : {
 
             },
-            "memory_used" : 8.4600000000000009,
-            "cpu_usage" : 326.10000000000002,
-            "cpu_power" : 0.40000000000000002,
-            "gpu_power" : 0.48999999999999999
+            "memory_used" : 8.2100000000000009,
+            "cpu_usage" : 154,
+            "cpu_power" : 0.23999999999999999,
+            "gpu_power" : 0.47999999999999998
           }
-        },
-        "device_type" : "mac_mini",
-        "device_name" : "M1 TFPSERVER",
-        "last_updated" : "2025-01-20T08:10:42Z"
+        }
       }
     },
     "iphones" : {
@@ -138,8 +138,8 @@
         "device_model" : "iPhone 13 mini",
         "symbol" : "iphone.gen2",
         "last_updated" : "2025-01-20T07:50:11.737Z",
-        "device_type" : "iphone",
-        "device_name" : "MiniProductRed13"
+        "device_name" : "MiniProductRed13",
+        "device_type" : "iphone"
       },
       "A18p tfp.la\/stirling" : {
         "system_info" : {
@@ -156,10 +156,10 @@
         "device_model" : "iPhone 16 Pro",
         "symbol" : "iphone.gen3",
         "last_updated" : "2025-01-20T07:17:44.463Z",
-        "device_type" : "iphone",
-        "device_name" : "A18p tfp.la\/stirling"
+        "device_name" : "A18p tfp.la\/stirling",
+        "device_type" : "iphone"
       }
     }
   },
-  "last_updated" : "2025-01-20T08:10:43Z"
+  "last_updated" : "2025-01-20T08:15:43Z"
 }
