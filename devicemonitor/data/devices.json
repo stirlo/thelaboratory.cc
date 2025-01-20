@@ -1,42 +1,62 @@
 {
-  "last_updated" : "2025-01-20T05:34:43Z",
   "devices" : {
-    "iphones" : {
-      "MiniProductRed13" : {
+    "macs" : {
+      "M1 TFPSERVER" : {
+        "last_updated" : "2025-01-20T05:39:42Z",
         "system_info" : {
           "storage" : {
-            "boot_drive" : 0
+            "boot_drive" : 0,
+            "external_drives" : [
+              {
+                "used_space" : 14040277934080,
+                "available_space" : 1960412971008,
+                "mount_point" : "\/Volumes\/8T",
+                "total_space" : 16000690905088,
+                "name" : "8T"
+              }
+            ]
           },
-          "model" : "iPhone 13 mini",
-          "os_version" : "18.3",
-          "battery" : {
-            "charging" : false,
-            "percentage" : 90
+          "temperature" : 0,
+          "power" : {
+            "ups_connected" : true,
+            "on_ac_power" : true,
+            "ups_charging" : false,
+            "ups_percentage" : 100,
+            "estimated_runtime" : 297
+          },
+          "build_number" : "24C101",
+          "os_version" : "15.2-24C101",
+          "metrics" : {
+            "gpu_frequency" : {
+
+            },
+            "memory_percentage" : 40.600000000000001,
+            "memory_total" : 16,
+            "total_power" : 0.88,
+            "memory_used" : 6.4900000000000002,
+            "cpu_frequency" : {
+
+            },
+            "cpu_usage" : 75.200000000000003,
+            "cpu_power" : 0.88,
+            "gpu_power" : 0.01
           }
         },
-        "device_model" : "iPhone 13 mini",
-        "symbol" : "iphone.gen2",
-        "last_updated" : "2025-01-20T04:41:40.705Z",
-        "device_name" : "MiniProductRed13",
-        "device_type" : "iphone"
+        "device_type" : "mac_mini",
+        "device_name" : "M1 TFPSERVER"
       },
-      "A18p tfp.la\/stirling" : {
+      "m3FIFTEEN" : {
         "system_info" : {
+          "temperature" : 0,
           "storage" : {
             "boot_drive" : 0
           },
-          "model" : "iPhone 16 Pro",
-          "os_version" : "18.2.1",
-          "battery" : {
-            "charging" : false,
-            "percentage" : 65
-          }
+          "os_version" : "15.2",
+          "build_number" : "24C101"
         },
-        "device_model" : "iPhone 16 Pro",
-        "symbol" : "iphone.gen3",
-        "last_updated" : "2025-01-20T04:31:16.176Z",
-        "device_type" : "iphone",
-        "device_name" : "A18p tfp.la\/stirling"
+        "last_updated" : "2025-01-19T05:29:12Z",
+        "device_name" : "m3FIFTEEN",
+        "device_type" : "mac"
       }
     },
     "ipads" : {
@@ -77,64 +97,44 @@
         "device_name" : "m4eleven"
       }
     },
-    "macs" : {
-      "m3FIFTEEN" : {
+    "iphones" : {
+      "MiniProductRed13" : {
         "system_info" : {
-          "temperature" : 0,
           "storage" : {
             "boot_drive" : 0
           },
-          "os_version" : "15.2",
-          "build_number" : "24C101"
+          "model" : "iPhone 13 mini",
+          "os_version" : "18.3",
+          "battery" : {
+            "charging" : false,
+            "percentage" : 90
+          }
         },
-        "last_updated" : "2025-01-19T05:29:12Z",
-        "device_name" : "m3FIFTEEN",
-        "device_type" : "mac"
+        "device_model" : "iPhone 13 mini",
+        "symbol" : "iphone.gen2",
+        "last_updated" : "2025-01-20T04:41:40.705Z",
+        "device_name" : "MiniProductRed13",
+        "device_type" : "iphone"
       },
-      "M1 TFPSERVER" : {
-        "last_updated" : "2025-01-20T05:34:42Z",
+      "A18p tfp.la\/stirling" : {
         "system_info" : {
-          "temperature" : 0,
-          "power" : {
-            "ups_connected" : true,
-            "ups_charging" : false,
-            "ups_percentage" : 100,
-            "on_ac_power" : true,
-            "estimated_runtime" : 127
-          },
           "storage" : {
-            "boot_drive" : 0,
-            "external_drives" : [
-              {
-                "used_space" : 14040277934080,
-                "available_space" : 1960412971008,
-                "mount_point" : "\/Volumes\/8T",
-                "total_space" : 16000690905088,
-                "name" : "8T"
-              }
-            ]
+            "boot_drive" : 0
           },
-          "metrics" : {
-            "gpu_frequency" : {
-
-            },
-            "memory_percentage" : 41.700000000000003,
-            "memory_total" : 16,
-            "total_power" : 1.74,
-            "memory_used" : 6.6600000000000001,
-            "cpu_frequency" : {
-
-            },
-            "cpu_usage" : 230.80000000000001,
-            "cpu_power" : 1.21,
-            "gpu_power" : 0.54000000000000004
-          },
-          "os_version" : "15.2-24C101",
-          "build_number" : "24C101"
+          "model" : "iPhone 16 Pro",
+          "os_version" : "18.2.1",
+          "battery" : {
+            "charging" : false,
+            "percentage" : 65
+          }
         },
-        "device_type" : "mac_mini",
-        "device_name" : "M1 TFPSERVER"
+        "device_model" : "iPhone 16 Pro",
+        "symbol" : "iphone.gen3",
+        "last_updated" : "2025-01-20T04:31:16.176Z",
+        "device_type" : "iphone",
+        "device_name" : "A18p tfp.la\/stirling"
       }
     }
-  }
+  },
+  "last_updated" : "2025-01-20T05:39:43Z"
 }
