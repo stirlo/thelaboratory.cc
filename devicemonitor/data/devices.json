@@ -1,161 +1,165 @@
 {
-  "devices": {
-    "macs": {
-      "m3FIFTEEN": {
-        "system_info": {
-          "display": {
-            "built_in": true,
-            "external_displays": 1,
-            "supports_dual_4k": true
+  "last_updated" : "2025-01-20T08:33:25Z",
+  "devices" : {
+    "iphones" : {
+      "MiniProductRed13" : {
+        "system_info" : {
+          "storage" : {
+            "boot_drive" : 0
           },
-          "storage": {
-            "internal_drive": {
-              "used_space": 444050968576,
-              "available_space": 1551167197184,
-              "mount_point": "/",
-              "total_space": 1995218165760,
-              "name": "Internal"
-            }
-          },
-          "os_version": "15.2-24C101",
-          "temperature": 0,
-          "metrics": {
-            "memory_percentage": 47.1,
-            "memory_total": 24,
-            "total_power": 0.11,
-            "memory_used": 11.31,
-            "cpu_usage": 53.4,
-            "cpu_power": 0.11,
-            "gpu_power": 0
-          },
-          "battery": {
-            "time_remaining": "11:10 remaining",
-            "percentage": 73,
-            "is_charging": true
-          },
-          "build_number": "24C101"
+          "model" : "iPhone 13 mini",
+          "os_version" : "18.3",
+          "battery" : {
+            "charging" : false,
+            "percentage" : 70
+          }
         },
-        "last_updated": "2025-01-20T05:49:51Z",
-        "device_name": "m3FIFTEEN",
-        "device_type": "mac"
+        "device_model" : "iPhone 13 mini",
+        "symbol" : "iphone.gen2",
+        "last_updated" : "2025-01-20T07:50:11.737Z",
+        "device_type" : "iphone",
+        "device_name" : "MiniProductRed13"
       },
-      "M1 TFPSERVER": {
-        "device_name": "M1 TFPSERVER",
-        "last_updated": "2025-01-20T08:15:42Z",
-        "device_type": "mac_mini",
-        "system_info": {
-          "storage": {
-            "external_drives": [
+      "A18p tfp.la\/stirling" : {
+        "device_type" : "iphone",
+        "device_model" : "iPhone 16 Pro",
+        "symbol" : "iphone.gen3",
+        "system_info" : {
+          "storage" : {
+            "boot_drive" : 0
+          },
+          "model" : "iPhone 16 Pro",
+          "os_version" : "18.2.1",
+          "battery" : {
+            "charging" : true,
+            "percentage" : 50
+          }
+        },
+        "last_updated" : "2025-01-20T08:31:29.420Z",
+        "device_name" : "A18p tfp.la\/stirling"
+      }
+    },
+    "ipads" : {
+      "M1P45Db" : {
+        "system_info" : {
+          "storage" : {
+            "boot_drive" : 0
+          },
+          "model" : "iPad Pro (12.9-inch) (5th generation)",
+          "os_version" : "18.3",
+          "battery" : {
+            "charging" : false,
+            "percentage" : 75
+          }
+        },
+        "device_model" : "iPad Pro (12.9-inch) (5th generation)",
+        "symbol" : "ipad",
+        "last_updated" : "2025-01-19T07:57:03.235Z",
+        "device_type" : "ipad",
+        "device_name" : "M1P45Db"
+      },
+      "m4eleven" : {
+        "system_info" : {
+          "storage" : {
+            "boot_drive" : 0
+          },
+          "model" : "iPad Pro 11-inch (M4)",
+          "os_version" : "18.2.1",
+          "battery" : {
+            "charging" : false,
+            "percentage" : 70
+          }
+        },
+        "device_model" : "iPad Pro 11-inch (M4)",
+        "symbol" : "ipad.landscape",
+        "last_updated" : "2025-01-19T08:01:59.696Z",
+        "device_type" : "ipad",
+        "device_name" : "m4eleven"
+      }
+    },
+    "macs" : {
+      "M1 TFPSERVER" : {
+        "system_info" : {
+          "temperature" : 0,
+          "storage" : {
+            "external_drives" : [
               {
-                "used_space": 14042898706432,
-                "available_space": 1957792198656,
-                "mount_point": "/Volumes/8T",
-                "total_space": 16000690905088,
-                "name": "8T"
+                "used_space" : 14042898706432,
+                "available_space" : 1957792198656,
+                "mount_point" : "\/Volumes\/8T",
+                "total_space" : 16000690905088,
+                "name" : "8T"
               }
             ],
-            "boot_drive": 0
+            "boot_drive" : 0
           },
-          "power": {
-            "ups_charging": false,
-            "ups_percentage": 100,
-            "on_ac_power": true,
-            "ups_connected": true,
-            "estimated_runtime": 134
+          "power" : {
+            "on_ac_power" : true,
+            "ups_charging" : false,
+            "ups_percentage" : 100,
+            "ups_connected" : true,
+            "estimated_runtime" : 297
           },
-          "temperature": 0,
-          "os_version": "15.2-24C101",
-          "build_number": "24C101",
-          "metrics": {
-            "gpu_frequency": {},
-            "memory_total": 16,
-            "memory_percentage": 51.3,
-            "total_power": 0.72,
-            "cpu_frequency": {},
-            "memory_used": 8.21,
-            "cpu_usage": 154,
-            "cpu_power": 0.24,
-            "gpu_power": 0.48
-          }
-        }
-      }
-    },
-    "ipads": {
-      "M1P45Db": {
-        "system_info": {
-          "storage": {
-            "boot_drive": 0
+          "os_version" : "15.2-24C101",
+          "metrics" : {
+            "gpu_frequency" : {
+
+            },
+            "memory_total" : 16,
+            "memory_percentage" : 41.5,
+            "total_power" : 0.02,
+            "cpu_frequency" : {
+
+            },
+            "memory_used" : 6.6399999999999997,
+            "cpu_usage" : 3.1000000000000001,
+            "cpu_power" : 0.02,
+            "gpu_power" : 0
           },
-          "model": "iPad Pro (12.9-inch) (5th generation)",
-          "os_version": "18.3",
-          "battery": {
-            "charging": false,
-            "percentage": 75
-          }
+          "build_number" : "24C101"
         },
-        "device_model": "iPad Pro (12.9-inch) (5th generation)",
-        "symbol": "ipad",
-        "last_updated": "2025-01-19T07:57:03.235Z",
-        "device_name": "M1P45Db",
-        "device_type": "ipad"
+        "device_type" : "mac_mini",
+        "device_name" : "M1 TFPSERVER",
+        "last_updated" : "2025-01-20T08:33:24Z"
       },
-      "m4eleven": {
-        "system_info": {
-          "storage": {
-            "boot_drive": 0
+      "m3FIFTEEN" : {
+        "system_info" : {
+          "display" : {
+            "supports_dual_4k" : true,
+            "external_displays" : 1,
+            "built_in" : true
           },
-          "model": "iPad Pro 11-inch (M4)",
-          "os_version": "18.2.1",
-          "battery": {
-            "charging": false,
-            "percentage": 70
-          }
-        },
-        "device_model": "iPad Pro 11-inch (M4)",
-        "symbol": "ipad.landscape",
-        "last_updated": "2025-01-19T08:01:59.696Z",
-        "device_name": "m4eleven",
-        "device_type": "ipad"
-      }
-    },
-    "iphones": {
-      "MiniProductRed13": {
-        "system_info": {
-          "storage": {
-            "boot_drive": 0
+          "storage" : {
+            "internal_drive" : {
+              "used_space" : 444050968576,
+              "available_space" : 1551167197184,
+              "mount_point" : "\/",
+              "total_space" : 1995218165760,
+              "name" : "Internal"
+            }
           },
-          "model": "iPhone 13 mini",
-          "os_version": "18.3",
-          "battery": {
-            "charging": false,
-            "percentage": 70
-          }
-        },
-        "device_model": "iPhone 13 mini",
-        "symbol": "iphone.gen2",
-        "last_updated": "2025-01-20T07:50:11.737Z",
-        "device_name": "MiniProductRed13",
-        "device_type": "iphone"
-      },
-      "A18p tfp.la/stirling": {
-        "device_name": "A18p tfp.la/stirling",
-        "device_type": "iphone",
-        "symbol": "iphone.gen3",
-        "device_model": "iPhone 16 Pro",
-        "system_info": {
-          "os_version": "18.2.1",
-          "model": "iPhone 16 Pro",
-          "battery": {
-            "percentage": 50,
-            "charging": true
+          "os_version" : "15.2-24C101",
+          "temperature" : 0,
+          "metrics" : {
+            "memory_percentage" : 47.100000000000001,
+            "memory_total" : 24,
+            "total_power" : 0.11,
+            "memory_used" : 11.31,
+            "cpu_usage" : 53.399999999999999,
+            "cpu_power" : 0.11,
+            "gpu_power" : 0
           },
-          "storage": {
-            "boot_drive": 0
-          }
+          "battery" : {
+            "is_charging" : true,
+            "percentage" : 73,
+            "time_remaining" : "11:10 remaining"
+          },
+          "build_number" : "24C101"
         },
-        "last_updated": "2025-01-20T08:31:29.420Z"
+        "last_updated" : "2025-01-20T05:49:51Z",
+        "device_type" : "mac",
+        "device_name" : "m3FIFTEEN"
       }
     }
-  },
-  "last_updated": "2025-01-20T08:31:29.420Z"
+  }
 }
