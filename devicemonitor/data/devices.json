@@ -1,88 +1,42 @@
 {
-  "last_updated" : "2025-01-20T07:09:43Z",
+  "last_updated" : "2025-01-20T07:14:43Z",
   "devices" : {
-    "macs" : {
-      "m3FIFTEEN" : {
+    "ipads" : {
+      "M1P45Db" : {
         "system_info" : {
-          "display" : {
-            "built_in" : true,
-            "external_displays" : 1,
-            "supports_dual_4k" : true
-          },
           "storage" : {
-            "internal_drive" : {
-              "used_space" : 444050968576,
-              "available_space" : 1551167197184,
-              "mount_point" : "\/",
-              "total_space" : 1995218165760,
-              "name" : "Internal"
-            }
-          },
-          "os_version" : "15.2-24C101",
-          "temperature" : 0,
-          "metrics" : {
-            "memory_percentage" : 47.100000000000001,
-            "memory_total" : 24,
-            "total_power" : 0.11,
-            "memory_used" : 11.31,
-            "cpu_usage" : 53.399999999999999,
-            "cpu_power" : 0.11,
-            "gpu_power" : 0
-          },
-          "battery" : {
-            "time_remaining" : "11:10 remaining",
-            "percentage" : 73,
-            "is_charging" : true
-          },
-          "build_number" : "24C101"
-        },
-        "last_updated" : "2025-01-20T05:49:51Z",
-        "device_name" : "m3FIFTEEN",
-        "device_type" : "mac"
-      },
-      "M1 TFPSERVER" : {
-        "device_type" : "mac_mini",
-        "last_updated" : "2025-01-20T07:09:42Z",
-        "device_name" : "M1 TFPSERVER",
-        "system_info" : {
-          "temperature" : 0,
-          "storage" : {
-            "external_drives" : [
-              {
-                "used_space" : 14042898690048,
-                "available_space" : 1957792215040,
-                "mount_point" : "\/Volumes\/8T",
-                "total_space" : 16000690905088,
-                "name" : "8T"
-              }
-            ],
             "boot_drive" : 0
           },
-          "power" : {
-            "ups_charging" : false,
-            "on_ac_power" : true,
-            "ups_connected" : true,
-            "ups_percentage" : 100,
-            "estimated_runtime" : 297
+          "model" : "iPad Pro (12.9-inch) (5th generation)",
+          "os_version" : "18.3",
+          "battery" : {
+            "charging" : false,
+            "percentage" : 75
+          }
+        },
+        "device_model" : "iPad Pro (12.9-inch) (5th generation)",
+        "symbol" : "ipad",
+        "last_updated" : "2025-01-19T07:57:03.235Z",
+        "device_name" : "M1P45Db",
+        "device_type" : "ipad"
+      },
+      "m4eleven" : {
+        "system_info" : {
+          "storage" : {
+            "boot_drive" : 0
           },
-          "os_version" : "15.2-24C101",
-          "metrics" : {
-            "gpu_frequency" : {
-
-            },
-            "memory_total" : 16,
-            "memory_percentage" : 42.799999999999997,
-            "total_power" : 1.4199999999999999,
-            "memory_used" : 6.8499999999999996,
-            "cpu_frequency" : {
-
-            },
-            "cpu_usage" : 250.80000000000001,
-            "cpu_power" : 1.4099999999999999,
-            "gpu_power" : 0.01
-          },
-          "build_number" : "24C101"
-        }
+          "model" : "iPad Pro 11-inch (M4)",
+          "os_version" : "18.2.1",
+          "battery" : {
+            "charging" : false,
+            "percentage" : 70
+          }
+        },
+        "device_model" : "iPad Pro 11-inch (M4)",
+        "symbol" : "ipad.landscape",
+        "last_updated" : "2025-01-19T08:01:59.696Z",
+        "device_name" : "m4eleven",
+        "device_type" : "ipad"
       }
     },
     "iphones" : {
@@ -123,42 +77,88 @@
         "device_type" : "iphone"
       }
     },
-    "ipads" : {
-      "M1P45Db" : {
+    "macs" : {
+      "m3FIFTEEN" : {
         "system_info" : {
-          "storage" : {
-            "boot_drive" : 0
+          "display" : {
+            "built_in" : true,
+            "external_displays" : 1,
+            "supports_dual_4k" : true
           },
-          "model" : "iPad Pro (12.9-inch) (5th generation)",
-          "os_version" : "18.3",
+          "storage" : {
+            "internal_drive" : {
+              "used_space" : 444050968576,
+              "available_space" : 1551167197184,
+              "mount_point" : "\/",
+              "total_space" : 1995218165760,
+              "name" : "Internal"
+            }
+          },
+          "os_version" : "15.2-24C101",
+          "temperature" : 0,
+          "metrics" : {
+            "memory_percentage" : 47.100000000000001,
+            "memory_total" : 24,
+            "total_power" : 0.11,
+            "memory_used" : 11.31,
+            "cpu_usage" : 53.399999999999999,
+            "cpu_power" : 0.11,
+            "gpu_power" : 0
+          },
           "battery" : {
-            "charging" : false,
-            "percentage" : 75
-          }
+            "time_remaining" : "11:10 remaining",
+            "percentage" : 73,
+            "is_charging" : true
+          },
+          "build_number" : "24C101"
         },
-        "device_model" : "iPad Pro (12.9-inch) (5th generation)",
-        "symbol" : "ipad",
-        "last_updated" : "2025-01-19T07:57:03.235Z",
-        "device_name" : "M1P45Db",
-        "device_type" : "ipad"
+        "last_updated" : "2025-01-20T05:49:51Z",
+        "device_name" : "m3FIFTEEN",
+        "device_type" : "mac"
       },
-      "m4eleven" : {
+      "M1 TFPSERVER" : {
+        "last_updated" : "2025-01-20T07:14:42Z",
+        "device_type" : "mac_mini",
         "system_info" : {
-          "storage" : {
-            "boot_drive" : 0
+          "temperature" : 0,
+          "power" : {
+            "ups_connected" : true,
+            "ups_percentage" : 100,
+            "on_ac_power" : true,
+            "ups_charging" : false,
+            "estimated_runtime" : 297
           },
-          "model" : "iPad Pro 11-inch (M4)",
-          "os_version" : "18.2.1",
-          "battery" : {
-            "charging" : false,
-            "percentage" : 70
+          "storage" : {
+            "boot_drive" : 0,
+            "external_drives" : [
+              {
+                "used_space" : 14042898690048,
+                "available_space" : 1957792215040,
+                "mount_point" : "\/Volumes\/8T",
+                "total_space" : 16000690905088,
+                "name" : "8T"
+              }
+            ]
+          },
+          "build_number" : "24C101",
+          "os_version" : "15.2-24C101",
+          "metrics" : {
+            "gpu_frequency" : {
+
+            },
+            "memory_total" : 16,
+            "memory_percentage" : 37,
+            "total_power" : 4.7699999999999996,
+            "memory_used" : 5.9199999999999999,
+            "cpu_frequency" : {
+
+            },
+            "cpu_usage" : 267.30000000000001,
+            "cpu_power" : 4.7599999999999998,
+            "gpu_power" : 0.01
           }
         },
-        "device_model" : "iPad Pro 11-inch (M4)",
-        "symbol" : "ipad.landscape",
-        "last_updated" : "2025-01-19T08:01:59.696Z",
-        "device_name" : "m4eleven",
-        "device_type" : "ipad"
+        "device_name" : "M1 TFPSERVER"
       }
     }
   }
