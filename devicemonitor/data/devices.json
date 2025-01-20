@@ -1,50 +1,9 @@
 {
   "devices" : {
-    "iphones" : {
-      "MiniProductRed13" : {
-        "system_info" : {
-          "storage" : {
-            "boot_drive" : 0
-          },
-          "model" : "iPhone 13 mini",
-          "os_version" : "18.3",
-          "battery" : {
-            "charging" : false,
-            "percentage" : 70
-          }
-        },
-        "device_model" : "iPhone 13 mini",
-        "symbol" : "iphone.gen2",
-        "last_updated" : "2025-01-20T12:13:42.219Z",
-        "device_type" : "iphone",
-        "device_name" : "MiniProductRed13"
-      },
-      "A18p tfp.la\/stirling" : {
-        "system_info" : {
-          "storage" : {
-            "boot_drive" : 0
-          },
-          "model" : "iPhone 16 Pro",
-          "os_version" : "18.2.1",
-          "battery" : {
-            "charging" : false,
-            "percentage" : 80
-          }
-        },
-        "device_model" : "iPhone 16 Pro",
-        "symbol" : "iphone.gen3",
-        "last_updated" : "2025-01-20T09:42:42.899Z",
-        "device_type" : "iphone",
-        "device_name" : "A18p tfp.la\/stirling"
-      }
-    },
     "macs" : {
       "M1 TFPSERVER" : {
         "device_type" : "mac_mini",
-        "device_name" : "M1 TFPSERVER",
-        "last_updated" : "2025-01-20T14:17:39Z",
         "system_info" : {
-          "temperature" : 0,
           "storage" : {
             "boot_drive" : 0,
             "external_drives" : [
@@ -57,31 +16,34 @@
               }
             ]
           },
+          "temperature" : 0,
           "power" : {
-            "ups_percentage" : 100,
-            "ups_charging" : false,
             "ups_connected" : true,
             "on_ac_power" : true,
+            "ups_charging" : false,
+            "ups_percentage" : 100,
             "estimated_runtime" : 297
           },
+          "build_number" : "24C101",
+          "os_version" : "15.2-24C101",
           "metrics" : {
             "gpu_frequency" : {
 
             },
-            "memory_percentage" : 38.100000000000001,
+            "memory_percentage" : 40.299999999999997,
             "memory_total" : 16,
-            "total_power" : 0.45000000000000001,
+            "total_power" : 0.46000000000000002,
+            "memory_used" : 6.4500000000000002,
             "cpu_frequency" : {
 
             },
-            "memory_used" : 6.0999999999999996,
-            "cpu_usage" : 141.90000000000001,
-            "cpu_power" : 0.45000000000000001,
+            "cpu_usage" : 129.59999999999999,
+            "cpu_power" : 0.46000000000000002,
             "gpu_power" : 0
-          },
-          "build_number" : "24C101",
-          "os_version" : "15.2-24C101"
-        }
+          }
+        },
+        "device_name" : "M1 TFPSERVER",
+        "last_updated" : "2025-01-20T14:22:39Z"
       },
       "m3FIFTEEN" : {
         "system_info" : {
@@ -119,6 +81,44 @@
         "last_updated" : "2025-01-20T08:36:01Z",
         "device_type" : "mac",
         "device_name" : "m3FIFTEEN"
+      }
+    },
+    "iphones" : {
+      "MiniProductRed13" : {
+        "system_info" : {
+          "storage" : {
+            "boot_drive" : 0
+          },
+          "model" : "iPhone 13 mini",
+          "os_version" : "18.3",
+          "battery" : {
+            "charging" : false,
+            "percentage" : 70
+          }
+        },
+        "device_model" : "iPhone 13 mini",
+        "symbol" : "iphone.gen2",
+        "last_updated" : "2025-01-20T12:13:42.219Z",
+        "device_type" : "iphone",
+        "device_name" : "MiniProductRed13"
+      },
+      "A18p tfp.la\/stirling" : {
+        "system_info" : {
+          "storage" : {
+            "boot_drive" : 0
+          },
+          "model" : "iPhone 16 Pro",
+          "os_version" : "18.2.1",
+          "battery" : {
+            "charging" : false,
+            "percentage" : 80
+          }
+        },
+        "device_model" : "iPhone 16 Pro",
+        "symbol" : "iphone.gen3",
+        "last_updated" : "2025-01-20T09:42:42.899Z",
+        "device_type" : "iphone",
+        "device_name" : "A18p tfp.la\/stirling"
       }
     },
     "ipads" : {
@@ -160,5 +160,5 @@
       }
     }
   },
-  "last_updated" : "2025-01-20T14:17:40Z"
+  "last_updated" : "2025-01-20T14:22:39Z"
 }
