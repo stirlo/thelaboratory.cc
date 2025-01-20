@@ -1,63 +1,10 @@
 {
-  "last_updated" : "2025-01-20T05:24:43Z",
   "devices" : {
-    "ipads" : {
-      "M1P45Db" : {
-        "system_info" : {
-          "storage" : {
-            "boot_drive" : 0
-          },
-          "model" : "iPad Pro (12.9-inch) (5th generation)",
-          "os_version" : "18.3",
-          "battery" : {
-            "charging" : false,
-            "percentage" : 75
-          }
-        },
-        "device_model" : "iPad Pro (12.9-inch) (5th generation)",
-        "symbol" : "ipad",
-        "last_updated" : "2025-01-19T07:57:03.235Z",
-        "device_name" : "M1P45Db",
-        "device_type" : "ipad"
-      },
-      "m4eleven" : {
-        "system_info" : {
-          "storage" : {
-            "boot_drive" : 0
-          },
-          "model" : "iPad Pro 11-inch (M4)",
-          "os_version" : "18.2.1",
-          "battery" : {
-            "charging" : false,
-            "percentage" : 70
-          }
-        },
-        "device_model" : "iPad Pro 11-inch (M4)",
-        "symbol" : "ipad.landscape",
-        "last_updated" : "2025-01-19T08:01:59.696Z",
-        "device_name" : "m4eleven",
-        "device_type" : "ipad"
-      }
-    },
     "macs" : {
-      "m3FIFTEEN" : {
-        "system_info" : {
-          "temperature" : 0,
-          "storage" : {
-            "boot_drive" : 0
-          },
-          "os_version" : "15.2",
-          "build_number" : "24C101"
-        },
-        "last_updated" : "2025-01-19T05:29:12Z",
-        "device_type" : "mac",
-        "device_name" : "m3FIFTEEN"
-      },
       "M1 TFPSERVER" : {
         "device_type" : "mac_mini",
         "device_name" : "M1 TFPSERVER",
         "system_info" : {
-          "temperature" : 0,
           "storage" : {
             "boot_drive" : 0,
             "external_drives" : [
@@ -77,25 +24,39 @@
             "on_ac_power" : true,
             "estimated_runtime" : 127
           },
-          "os_version" : "15.2-24C101",
+          "temperature" : 0,
           "build_number" : "24C101",
           "metrics" : {
             "gpu_frequency" : {
 
             },
             "memory_total" : 16,
-            "memory_percentage" : 45.799999999999997,
-            "total_power" : 1.3100000000000001,
-            "memory_used" : 7.3300000000000001,
+            "memory_percentage" : 41.899999999999999,
+            "total_power" : 1.5600000000000001,
+            "memory_used" : 6.7000000000000002,
             "cpu_frequency" : {
 
             },
-            "cpu_usage" : 151.40000000000001,
-            "cpu_power" : 1.28,
-            "gpu_power" : 0.040000000000000001
-          }
+            "cpu_usage" : 122.40000000000001,
+            "cpu_power" : 1.03,
+            "gpu_power" : 0.53000000000000003
+          },
+          "os_version" : "15.2-24C101"
         },
-        "last_updated" : "2025-01-20T05:24:42Z"
+        "last_updated" : "2025-01-20T05:29:42Z"
+      },
+      "m3FIFTEEN" : {
+        "system_info" : {
+          "temperature" : 0,
+          "storage" : {
+            "boot_drive" : 0
+          },
+          "os_version" : "15.2",
+          "build_number" : "24C101"
+        },
+        "last_updated" : "2025-01-19T05:29:12Z",
+        "device_type" : "mac",
+        "device_name" : "m3FIFTEEN"
       }
     },
     "iphones" : {
@@ -135,6 +96,45 @@
         "device_name" : "A18p tfp.la\/stirling",
         "device_type" : "iphone"
       }
+    },
+    "ipads" : {
+      "M1P45Db" : {
+        "system_info" : {
+          "storage" : {
+            "boot_drive" : 0
+          },
+          "model" : "iPad Pro (12.9-inch) (5th generation)",
+          "os_version" : "18.3",
+          "battery" : {
+            "charging" : false,
+            "percentage" : 75
+          }
+        },
+        "device_model" : "iPad Pro (12.9-inch) (5th generation)",
+        "symbol" : "ipad",
+        "last_updated" : "2025-01-19T07:57:03.235Z",
+        "device_name" : "M1P45Db",
+        "device_type" : "ipad"
+      },
+      "m4eleven" : {
+        "system_info" : {
+          "storage" : {
+            "boot_drive" : 0
+          },
+          "model" : "iPad Pro 11-inch (M4)",
+          "os_version" : "18.2.1",
+          "battery" : {
+            "charging" : false,
+            "percentage" : 70
+          }
+        },
+        "device_model" : "iPad Pro 11-inch (M4)",
+        "symbol" : "ipad.landscape",
+        "last_updated" : "2025-01-19T08:01:59.696Z",
+        "device_name" : "m4eleven",
+        "device_type" : "ipad"
+      }
     }
-  }
+  },
+  "last_updated" : "2025-01-20T05:29:43Z"
 }
