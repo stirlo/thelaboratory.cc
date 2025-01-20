@@ -1,5 +1,4 @@
 {
-  "last_updated" : "2025-01-20T17:00:44Z",
   "devices" : {
     "ipads" : {
       "M1P45Db" : {
@@ -17,8 +16,8 @@
         "device_model" : "iPad Pro (12.9-inch) (5th generation)",
         "symbol" : "ipad",
         "last_updated" : "2025-01-20T11:23:01.879Z",
-        "device_name" : "M1P45Db",
-        "device_type" : "ipad"
+        "device_type" : "ipad",
+        "device_name" : "M1P45Db"
       },
       "m4eleven" : {
         "system_info" : {
@@ -35,17 +34,17 @@
         "device_model" : "iPad Pro 11-inch (M4)",
         "symbol" : "ipad.landscape",
         "last_updated" : "2025-01-19T08:01:59.696Z",
-        "device_type" : "ipad",
-        "device_name" : "m4eleven"
+        "device_name" : "m4eleven",
+        "device_type" : "ipad"
       }
     },
     "macs" : {
       "m3FIFTEEN" : {
         "system_info" : {
           "display" : {
-            "supports_dual_4k" : true,
+            "built_in" : true,
             "external_displays" : 1,
-            "built_in" : true
+            "supports_dual_4k" : true
           },
           "storage" : {
             "internal_drive" : {
@@ -74,11 +73,10 @@
           "build_number" : "24C101"
         },
         "last_updated" : "2025-01-20T08:36:01Z",
-        "device_type" : "mac",
-        "device_name" : "m3FIFTEEN"
+        "device_name" : "m3FIFTEEN",
+        "device_type" : "mac"
       },
       "M1 TFPSERVER" : {
-        "last_updated" : "2025-01-20T17:00:43Z",
         "device_name" : "M1 TFPSERVER",
         "system_info" : {
           "storage" : {
@@ -94,31 +92,32 @@
             ]
           },
           "power" : {
-            "ups_percentage" : 100,
             "ups_charging" : false,
+            "ups_percentage" : 100,
             "ups_connected" : true,
             "on_ac_power" : true,
             "estimated_runtime" : 297
           },
           "temperature" : 0,
-          "build_number" : "24C101",
           "os_version" : "15.2-24C101",
+          "build_number" : "24C101",
           "metrics" : {
             "gpu_frequency" : {
 
             },
             "memory_total" : 16,
-            "memory_percentage" : 28.199999999999999,
-            "total_power" : 0.42999999999999999,
+            "memory_percentage" : 28.100000000000001,
+            "total_power" : 1.01,
             "memory_used" : 4.5,
             "cpu_frequency" : {
 
             },
-            "cpu_usage" : 124,
-            "cpu_power" : 0.42999999999999999,
-            "gpu_power" : 0
+            "cpu_usage" : 182.30000000000001,
+            "cpu_power" : 1,
+            "gpu_power" : 0.01
           }
         },
+        "last_updated" : "2025-01-20T17:05:43Z",
         "device_type" : "mac_mini"
       }
     },
@@ -138,8 +137,8 @@
         "device_model" : "iPhone 13 mini",
         "symbol" : "iphone.gen2",
         "last_updated" : "2025-01-20T16:10:52.306Z",
-        "device_type" : "iphone",
-        "device_name" : "MiniProductRed13"
+        "device_name" : "MiniProductRed13",
+        "device_type" : "iphone"
       },
       "A18p tfp.la\/stirling" : {
         "system_info" : {
@@ -156,9 +155,10 @@
         "device_model" : "iPhone 16 Pro",
         "symbol" : "iphone.gen3",
         "last_updated" : "2025-01-20T15:27:10.818Z",
-        "device_name" : "A18p tfp.la\/stirling",
-        "device_type" : "iphone"
+        "device_type" : "iphone",
+        "device_name" : "A18p tfp.la\/stirling"
       }
     }
-  }
+  },
+  "last_updated" : "2025-01-20T17:05:44Z"
 }
