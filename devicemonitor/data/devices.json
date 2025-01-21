@@ -1,51 +1,6 @@
 {
-  "last_updated" : "2025-01-21T02:16:52Z",
   "devices" : {
     "macs" : {
-      "M1 TFPSERVER" : {
-        "device_type" : "mac_mini",
-        "device_name" : "M1 TFPSERVER",
-        "last_updated" : "2025-01-21T02:16:51Z",
-        "system_info" : {
-          "storage" : {
-            "external_drives" : [
-              {
-                "used_space" : 14042898685952,
-                "available_space" : 1957792219136,
-                "mount_point" : "\/Volumes\/8T",
-                "total_space" : 16000690905088,
-                "name" : "8T"
-              }
-            ],
-            "boot_drive" : 0
-          },
-          "power" : {
-            "ups_charging" : false,
-            "ups_connected" : true,
-            "ups_percentage" : 100,
-            "on_ac_power" : true,
-            "estimated_runtime" : 297
-          },
-          "temperature" : 0,
-          "build_number" : "24C101",
-          "metrics" : {
-            "gpu_frequency" : {
-
-            },
-            "memory_total" : 16,
-            "memory_percentage" : 37.700000000000003,
-            "total_power" : 0.42999999999999999,
-            "cpu_frequency" : {
-
-            },
-            "memory_used" : 6.0300000000000002,
-            "cpu_usage" : 132.19999999999999,
-            "cpu_power" : 0.42999999999999999,
-            "gpu_power" : 0
-          },
-          "os_version" : "15.2-24C101"
-        }
-      },
       "m3FIFTEEN" : {
         "system_info" : {
           "display" : {
@@ -82,44 +37,50 @@
         "last_updated" : "2025-01-21T00:20:34Z",
         "device_type" : "mac",
         "device_name" : "m3FIFTEEN"
-      }
-    },
-    "iphones" : {
-      "MiniProductRed13" : {
-        "system_info" : {
-          "storage" : {
-            "boot_drive" : 0
-          },
-          "model" : "iPhone 13 mini",
-          "os_version" : "18.3",
-          "battery" : {
-            "charging" : true,
-            "percentage" : 80
-          }
-        },
-        "device_model" : "iPhone 13 mini",
-        "symbol" : "iphone.gen2",
-        "last_updated" : "2025-01-20T16:10:52.306Z",
-        "device_type" : "iphone",
-        "device_name" : "MiniProductRed13"
       },
-      "A18p tfp.la\/stirling" : {
+      "M1 TFPSERVER" : {
+        "last_updated" : "2025-01-21T02:21:51Z",
+        "device_type" : "mac_mini",
         "system_info" : {
+          "temperature" : 0,
+          "power" : {
+            "on_ac_power" : true,
+            "ups_charging" : false,
+            "ups_connected" : true,
+            "ups_percentage" : 100,
+            "estimated_runtime" : 297
+          },
           "storage" : {
+            "external_drives" : [
+              {
+                "used_space" : 14042898685952,
+                "available_space" : 1957792219136,
+                "mount_point" : "\/Volumes\/8T",
+                "total_space" : 16000690905088,
+                "name" : "8T"
+              }
+            ],
             "boot_drive" : 0
           },
-          "model" : "iPhone 16 Pro",
-          "os_version" : "18.2.1",
-          "battery" : {
-            "charging" : true,
-            "percentage" : 60
+          "os_version" : "15.2-24C101",
+          "build_number" : "24C101",
+          "metrics" : {
+            "gpu_frequency" : {
+
+            },
+            "memory_total" : 16,
+            "memory_percentage" : 39.100000000000001,
+            "total_power" : 0.45000000000000001,
+            "cpu_frequency" : {
+
+            },
+            "memory_used" : 6.2599999999999998,
+            "cpu_usage" : 144.09999999999999,
+            "cpu_power" : 0.44,
+            "gpu_power" : 0
           }
         },
-        "device_model" : "iPhone 16 Pro",
-        "symbol" : "iphone.gen3",
-        "last_updated" : "2025-01-20T15:27:10.818Z",
-        "device_name" : "A18p tfp.la\/stirling",
-        "device_type" : "iphone"
+        "device_name" : "M1 TFPSERVER"
       }
     },
     "ipads" : {
@@ -159,6 +120,45 @@
         "device_name" : "m4eleven",
         "device_type" : "ipad"
       }
+    },
+    "iphones" : {
+      "MiniProductRed13" : {
+        "system_info" : {
+          "storage" : {
+            "boot_drive" : 0
+          },
+          "model" : "iPhone 13 mini",
+          "os_version" : "18.3",
+          "battery" : {
+            "charging" : true,
+            "percentage" : 80
+          }
+        },
+        "device_model" : "iPhone 13 mini",
+        "symbol" : "iphone.gen2",
+        "last_updated" : "2025-01-20T16:10:52.306Z",
+        "device_type" : "iphone",
+        "device_name" : "MiniProductRed13"
+      },
+      "A18p tfp.la\/stirling" : {
+        "system_info" : {
+          "storage" : {
+            "boot_drive" : 0
+          },
+          "model" : "iPhone 16 Pro",
+          "os_version" : "18.2.1",
+          "battery" : {
+            "charging" : true,
+            "percentage" : 60
+          }
+        },
+        "device_model" : "iPhone 16 Pro",
+        "symbol" : "iphone.gen3",
+        "last_updated" : "2025-01-20T15:27:10.818Z",
+        "device_name" : "A18p tfp.la\/stirling",
+        "device_type" : "iphone"
+      }
     }
-  }
+  },
+  "last_updated" : "2025-01-21T02:21:51Z"
 }
