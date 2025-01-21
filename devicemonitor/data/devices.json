@@ -1,89 +1,6 @@
 {
-  "last_updated" : "2025-01-21T04:51:43Z",
+  "last_updated" : "2025-01-21T04:56:43Z",
   "devices" : {
-    "macs" : {
-      "m3FIFTEEN" : {
-        "system_info" : {
-          "display" : {
-            "built_in" : true,
-            "external_displays" : 1,
-            "supports_dual_4k" : true
-          },
-          "storage" : {
-            "internal_drive" : {
-              "used_space" : 444392673280,
-              "available_space" : 1550825492480,
-              "mount_point" : "\/",
-              "total_space" : 1995218165760,
-              "name" : "Internal"
-            }
-          },
-          "os_version" : "15.2-24C101",
-          "temperature" : 0,
-          "battery" : {
-            "percentage" : 69,
-            "is_charging" : true
-          },
-          "metrics" : {
-            "memory_total" : 24,
-            "memory_percentage" : 46.299999999999997,
-            "total_power" : 0.56000000000000005,
-            "memory_used" : 11.109999999999999,
-            "cpu_usage" : 161.40000000000001,
-            "cpu_power" : 0.56000000000000005,
-            "gpu_power" : 0.01
-          },
-          "build_number" : "24C101"
-        },
-        "last_updated" : "2025-01-21T00:20:34Z",
-        "device_name" : "m3FIFTEEN",
-        "device_type" : "mac"
-      },
-      "M1 TFPSERVER" : {
-        "last_updated" : "2025-01-21T04:51:42Z",
-        "device_name" : "M1 TFPSERVER",
-        "system_info" : {
-          "storage" : {
-            "external_drives" : [
-              {
-                "used_space" : 14042898685952,
-                "available_space" : 1957792219136,
-                "mount_point" : "\/Volumes\/8T",
-                "total_space" : 16000690905088,
-                "name" : "8T"
-              }
-            ],
-            "boot_drive" : 0
-          },
-          "power" : {
-            "ups_charging" : false,
-            "on_ac_power" : true,
-            "ups_percentage" : 100,
-            "ups_connected" : true,
-            "estimated_runtime" : 297
-          },
-          "temperature" : 0,
-          "build_number" : "24C101",
-          "metrics" : {
-            "gpu_frequency" : {
-
-            },
-            "memory_total" : 16,
-            "memory_percentage" : 31.699999999999999,
-            "total_power" : 0.44,
-            "cpu_frequency" : {
-
-            },
-            "memory_used" : 5.0700000000000003,
-            "cpu_usage" : 148.80000000000001,
-            "cpu_power" : 0.44,
-            "gpu_power" : 0
-          },
-          "os_version" : "15.2-24C101"
-        },
-        "device_type" : "mac_mini"
-      }
-    },
     "ipads" : {
       "M1P45Db" : {
         "system_info" : {
@@ -158,6 +75,89 @@
         "last_updated" : "2025-01-20T15:27:10.818Z",
         "device_type" : "iphone",
         "device_name" : "A18p tfp.la\/stirling"
+      }
+    },
+    "macs" : {
+      "M1 TFPSERVER" : {
+        "device_type" : "mac_mini",
+        "last_updated" : "2025-01-21T04:56:42Z",
+        "system_info" : {
+          "storage" : {
+            "boot_drive" : 0,
+            "external_drives" : [
+              {
+                "used_space" : 14042898685952,
+                "available_space" : 1957792219136,
+                "mount_point" : "\/Volumes\/8T",
+                "total_space" : 16000690905088,
+                "name" : "8T"
+              }
+            ]
+          },
+          "temperature" : 0,
+          "power" : {
+            "ups_connected" : true,
+            "ups_percentage" : 100,
+            "on_ac_power" : true,
+            "ups_charging" : false,
+            "estimated_runtime" : 297
+          },
+          "os_version" : "15.2-24C101",
+          "build_number" : "24C101",
+          "metrics" : {
+            "gpu_frequency" : {
+
+            },
+            "memory_total" : 16,
+            "memory_percentage" : 31.800000000000001,
+            "total_power" : 0.45000000000000001,
+            "cpu_frequency" : {
+
+            },
+            "memory_used" : 5.0899999999999999,
+            "cpu_usage" : 158.69999999999999,
+            "cpu_power" : 0.45000000000000001,
+            "gpu_power" : 0
+          }
+        },
+        "device_name" : "M1 TFPSERVER"
+      },
+      "m3FIFTEEN" : {
+        "system_info" : {
+          "display" : {
+            "built_in" : true,
+            "external_displays" : 1,
+            "supports_dual_4k" : true
+          },
+          "storage" : {
+            "internal_drive" : {
+              "used_space" : 444392673280,
+              "available_space" : 1550825492480,
+              "mount_point" : "\/",
+              "total_space" : 1995218165760,
+              "name" : "Internal"
+            }
+          },
+          "os_version" : "15.2-24C101",
+          "temperature" : 0,
+          "battery" : {
+            "percentage" : 69,
+            "is_charging" : true
+          },
+          "metrics" : {
+            "memory_total" : 24,
+            "memory_percentage" : 46.299999999999997,
+            "total_power" : 0.56000000000000005,
+            "memory_used" : 11.109999999999999,
+            "cpu_usage" : 161.40000000000001,
+            "cpu_power" : 0.56000000000000005,
+            "gpu_power" : 0.01
+          },
+          "build_number" : "24C101"
+        },
+        "last_updated" : "2025-01-21T00:20:34Z",
+        "device_name" : "m3FIFTEEN",
+        "device_type" : "mac"
       }
     }
   }
