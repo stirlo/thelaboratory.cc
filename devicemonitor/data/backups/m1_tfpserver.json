@@ -3,7 +3,7 @@
     "device_type" : "mac_mini",
     "system_info" : {
       "power" : {
-        "estimated_runtime" : 127,
+        "estimated_runtime" : 134,
         "ups_connected" : true,
         "ups_percentage" : 100,
         "on_ac_power" : true,
@@ -11,29 +11,29 @@
       },
       "os_version" : "15.2-24C101",
       "storage" : {
+        "boot_drive" : 0,
         "external_drives" : [
           {
-            "available_space" : 1957792219136,
+            "available_space" : 1957792227328,
             "mount_point" : "\/Volumes\/8T",
             "total_space" : 16000690905088,
             "name" : "8T",
-            "used_space" : 14042898685952
+            "used_space" : 14042898677760
           }
-        ],
-        "boot_drive" : 0
+        ]
       },
       "build_number" : "24C101",
       "temperature" : 0,
       "metrics" : {
-        "cpu_usage" : 204.9,
-        "memory_used" : 6.9,
-        "gpu_power" : 0.5,
-        "memory_percentage" : 43.1,
+        "cpu_usage" : 78.1,
+        "memory_used" : 7.26,
+        "gpu_power" : 0.03,
+        "memory_percentage" : 45.4,
         "cpu_frequency" : {
 
         },
-        "total_power" : 1.07,
-        "cpu_power" : 0.57,
+        "total_power" : 0.14,
+        "cpu_power" : 0.12,
         "gpu_frequency" : {
 
         },
@@ -41,9 +41,9 @@
       }
     },
     "device_name" : "M1 TFPSERVER",
-    "last_updated" : "2025-01-21T07:16:47Z"
+    "last_updated" : "2025-01-21T07:50:34Z"
   },
-  "checksum" : "eyJkZXZpY2VfdHlwZSI6Im1hY19taW5pIiwic3lzdGVtX2luZm8iOnsicG93ZXIiOnsiZXN0aW1hdGVkX3J1bnRpbWUiOjEyNywidXBzX2Nvbm5lY3RlZCI6dHJ1ZSwidXBzX3BlcmNlbnRhZ2UiOjEwMCwib25fYWNfcG93ZXIiOnRydWUsInVwc19jaGFyZ2luZyI6ZmFsc2V9LCJvc192ZXJzaW9uIjoiMTUuMi0yNEMxMDEiLCJzdG9yYWdlIjp7ImJvb3RfZHJpdmUiOjAsImV4dGVybmFsX2RyaXZlcyI6W3siYXZhaWxhYmxlX3NwYWNlIjoxOTU3NzkyMjE5MTM2LCJtb3VudF9wb2ludCI6IlwvVm9sdW1lc1wvOFQiLCJ0b3RhbF9zcGFjZSI6MTYwMDA2OTA5MDUwODgsIm5hbWUiOiI4VCIsInVzZWRfc3BhY2UiOjE0MDQyODk4Njg1OTUyfV19LCJidWlsZF9udW1iZXIiOiIyNEMxMDEiLCJ0ZW1wZXJhdHVyZSI6MCwibWV0cmljcyI6eyJjcHVfdXNhZ2UiOjIwNC45LCJtZW1vcnlfdXNlZCI6Ni45LCJncHVfcG93ZXIiOjAuNSwibWVtb3J5X3BlcmNlbnRhZ2UiOjQzLjEsImNwdV9mcmVxdWVuY3kiOnt9LCJ0b3RhbF9wb3dlciI6MS4wNywiY3B1X3Bvd2VyIjowLjU3LCJncHVfZnJlcXVlbmN5Ijp7fSwibWVtb3J5X3RvdGFsIjoxNn19LCJkZXZpY2VfbmFtZSI6Ik0xIFRGUFNFUlZFUiIsImxhc3RfdXBkYXRlZCI6IjIwMjUtMDEtMjFUMDc6MTY6NDdaIn0=",
+  "checksum" : "eyJkZXZpY2VfdHlwZSI6Im1hY19taW5pIiwic3lzdGVtX2luZm8iOnsicG93ZXIiOnsiZXN0aW1hdGVkX3J1bnRpbWUiOjEzNCwidXBzX2Nvbm5lY3RlZCI6dHJ1ZSwidXBzX3BlcmNlbnRhZ2UiOjEwMCwib25fYWNfcG93ZXIiOnRydWUsInVwc19jaGFyZ2luZyI6ZmFsc2V9LCJvc192ZXJzaW9uIjoiMTUuMi0yNEMxMDEiLCJzdG9yYWdlIjp7ImV4dGVybmFsX2RyaXZlcyI6W3siYXZhaWxhYmxlX3NwYWNlIjoxOTU3NzkyMjI3MzI4LCJtb3VudF9wb2ludCI6IlwvVm9sdW1lc1wvOFQiLCJ0b3RhbF9zcGFjZSI6MTYwMDA2OTA5MDUwODgsIm5hbWUiOiI4VCIsInVzZWRfc3BhY2UiOjE0MDQyODk4Njc3NzYwfV0sImJvb3RfZHJpdmUiOjB9LCJidWlsZF9udW1iZXIiOiIyNEMxMDEiLCJ0ZW1wZXJhdHVyZSI6MCwibWV0cmljcyI6eyJjcHVfdXNhZ2UiOjc4LjEsIm1lbW9yeV91c2VkIjo3LjI2LCJncHVfcG93ZXIiOjAuMDMsIm1lbW9yeV9wZXJjZW50YWdlIjo0NS40LCJjcHVfZnJlcXVlbmN5Ijp7fSwidG90YWxfcG93ZXIiOjAuMTQsImNwdV9wb3dlciI6MC4xMiwiZ3B1X2ZyZXF1ZW5jeSI6e30sIm1lbW9yeV90b3RhbCI6MTZ9fSwiZGV2aWNlX25hbWUiOiJNMSBURlBTRVJWRVIiLCJsYXN0X3VwZGF0ZWQiOiIyMDI1LTAxLTIxVDA3OjUwOjM0WiJ9",
   "version" : "1.0",
-  "timestamp" : "2025-01-21T07:16:47Z"
+  "timestamp" : "2025-01-21T07:50:34Z"
 }
