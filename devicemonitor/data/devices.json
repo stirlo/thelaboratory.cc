@@ -1,5 +1,4 @@
 {
-  "last_updated" : "2025-01-21T06:20:01Z",
   "devices" : {
     "ipads" : {
       "M1P45Db" : {
@@ -78,8 +77,8 @@
         "device_type" : "mac"
       },
       "M1 TFPSERVER" : {
-        "last_updated" : "2025-01-21T06:20:00Z",
         "device_name" : "M1 TFPSERVER",
+        "device_type" : "mac_mini",
         "system_info" : {
           "storage" : {
             "boot_drive" : 0,
@@ -96,30 +95,30 @@
           "temperature" : 0,
           "power" : {
             "ups_percentage" : 100,
+            "ups_connected" : true,
             "ups_charging" : false,
             "on_ac_power" : true,
-            "ups_connected" : true,
             "estimated_runtime" : 134
           },
+          "build_number" : "24C101",
           "os_version" : "15.2-24C101",
           "metrics" : {
             "gpu_frequency" : {
 
             },
-            "memory_percentage" : 43,
+            "memory_percentage" : 43.799999999999997,
             "memory_total" : 16,
-            "total_power" : 0.12,
+            "total_power" : 0.44,
+            "memory_used" : 7,
             "cpu_frequency" : {
 
             },
-            "memory_used" : 6.8700000000000001,
-            "cpu_usage" : 80.400000000000006,
-            "cpu_power" : 0.11,
-            "gpu_power" : 0.02
-          },
-          "build_number" : "24C101"
+            "cpu_usage" : 132.5,
+            "cpu_power" : 0.41999999999999998,
+            "gpu_power" : 0.029999999999999999
+          }
         },
-        "device_type" : "mac_mini"
+        "last_updated" : "2025-01-21T06:25:00Z"
       }
     },
     "iphones" : {
@@ -160,5 +159,6 @@
         "device_name" : "A18p tfp.la\/stirling"
       }
     }
-  }
+  },
+  "last_updated" : "2025-01-21T06:25:01Z"
 }
