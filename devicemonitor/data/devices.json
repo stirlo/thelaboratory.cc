@@ -1,56 +1,9 @@
 {
+  "last_updated" : "2025-01-21T02:08:01Z",
   "devices" : {
     "macs" : {
-      "m3FIFTEEN" : {
-        "system_info" : {
-          "display" : {
-            "built_in" : true,
-            "external_displays" : 1,
-            "supports_dual_4k" : true
-          },
-          "storage" : {
-            "internal_drive" : {
-              "used_space" : 444392673280,
-              "available_space" : 1550825492480,
-              "mount_point" : "\/",
-              "total_space" : 1995218165760,
-              "name" : "Internal"
-            }
-          },
-          "os_version" : "15.2-24C101",
-          "temperature" : 0,
-          "battery" : {
-            "percentage" : 69,
-            "is_charging" : true
-          },
-          "metrics" : {
-            "memory_total" : 24,
-            "memory_percentage" : 46.299999999999997,
-            "total_power" : 0.56000000000000005,
-            "memory_used" : 11.109999999999999,
-            "cpu_usage" : 161.40000000000001,
-            "cpu_power" : 0.56000000000000005,
-            "gpu_power" : 0.01
-          },
-          "build_number" : "24C101"
-        },
-        "last_updated" : "2025-01-21T00:20:34Z",
-        "device_name" : "m3FIFTEEN",
-        "device_type" : "mac"
-      },
       "M1 TFPSERVER" : {
-        "device_type" : "mac_mini",
-        "device_name" : "M1 TFPSERVER",
-        "last_updated" : "2025-01-21T02:06:51Z",
         "system_info" : {
-          "temperature" : 0,
-          "power" : {
-            "ups_charging" : false,
-            "ups_connected" : true,
-            "ups_percentage" : 100,
-            "on_ac_power" : true,
-            "estimated_runtime" : 297
-          },
           "storage" : {
             "boot_drive" : 0,
             "external_drives" : [
@@ -63,62 +16,72 @@
               }
             ]
           },
+          "power" : {
+            "ups_charging" : false,
+            "ups_connected" : true,
+            "on_ac_power" : true,
+            "ups_percentage" : 100,
+            "estimated_runtime" : 297
+          },
+          "temperature" : 0,
           "os_version" : "15.2-24C101",
           "metrics" : {
             "gpu_frequency" : {
 
             },
             "memory_total" : 16,
-            "memory_percentage" : 38.399999999999999,
-            "total_power" : 0.46000000000000002,
+            "memory_percentage" : 34.100000000000001,
+            "total_power" : 0.42999999999999999,
             "cpu_frequency" : {
 
             },
-            "memory_used" : 6.1500000000000004,
-            "cpu_usage" : 146.5,
-            "cpu_power" : 0.45000000000000001,
+            "memory_used" : 5.4500000000000002,
+            "cpu_usage" : 143.5,
+            "cpu_power" : 0.41999999999999998,
+            "gpu_power" : 0
+          },
+          "build_number" : "24C101"
+        },
+        "last_updated" : "2025-01-21T01:44:53Z",
+        "device_name" : "M1 TFPSERVER",
+        "device_type" : "mac_mini"
+      },
+      "m3FIFTEEN" : {
+        "device_type" : "mac",
+        "device_name" : "m3FIFTEEN",
+        "last_updated" : "2025-01-21T02:08:01Z",
+        "system_info" : {
+          "display" : {
+            "built_in" : true,
+            "external_displays" : 1,
+            "supports_dual_4k" : true
+          },
+          "storage" : {
+            "internal_drive" : {
+              "used_space" : 444401115136,
+              "available_space" : 1550817050624,
+              "mount_point" : "\/",
+              "total_space" : 1995218165760,
+              "name" : "Internal"
+            }
+          },
+          "os_version" : "15.2-24C101",
+          "temperature" : 0,
+          "battery" : {
+            "percentage" : 68,
+            "is_charging" : true
+          },
+          "metrics" : {
+            "memory_percentage" : 47.5,
+            "memory_total" : 24,
+            "total_power" : 0.050000000000000003,
+            "memory_used" : 11.4,
+            "cpu_usage" : 43.700000000000003,
+            "cpu_power" : 0.050000000000000003,
             "gpu_power" : 0
           },
           "build_number" : "24C101"
         }
-      }
-    },
-    "ipads" : {
-      "M1P45Db" : {
-        "system_info" : {
-          "storage" : {
-            "boot_drive" : 0
-          },
-          "model" : "iPad Pro (12.9-inch) (5th generation)",
-          "os_version" : "18.3",
-          "battery" : {
-            "charging" : false,
-            "percentage" : 70
-          }
-        },
-        "device_model" : "iPad Pro (12.9-inch) (5th generation)",
-        "symbol" : "ipad",
-        "last_updated" : "2025-01-20T11:23:01.879Z",
-        "device_type" : "ipad",
-        "device_name" : "M1P45Db"
-      },
-      "m4eleven" : {
-        "system_info" : {
-          "storage" : {
-            "boot_drive" : 0
-          },
-          "model" : "iPad Pro 11-inch (M4)",
-          "os_version" : "18.2.1",
-          "battery" : {
-            "charging" : false,
-            "percentage" : 50
-          }
-        },
-        "device_model" : "iPad Pro 11-inch (M4)",
-        "symbol" : "ipad.landscape",
-        "last_updated" : "2025-01-20T19:06:44.385Z",
-        "device_type" : "ipad",
-        "device_name" : "m4eleven"
       }
     },
     "iphones" : {
@@ -158,7 +121,44 @@
         "device_type" : "iphone",
         "device_name" : "A18p tfp.la\/stirling"
       }
+    },
+    "ipads" : {
+      "M1P45Db" : {
+        "system_info" : {
+          "storage" : {
+            "boot_drive" : 0
+          },
+          "model" : "iPad Pro (12.9-inch) (5th generation)",
+          "os_version" : "18.3",
+          "battery" : {
+            "charging" : false,
+            "percentage" : 70
+          }
+        },
+        "device_model" : "iPad Pro (12.9-inch) (5th generation)",
+        "symbol" : "ipad",
+        "last_updated" : "2025-01-20T11:23:01.879Z",
+        "device_type" : "ipad",
+        "device_name" : "M1P45Db"
+      },
+      "m4eleven" : {
+        "system_info" : {
+          "storage" : {
+            "boot_drive" : 0
+          },
+          "model" : "iPad Pro 11-inch (M4)",
+          "os_version" : "18.2.1",
+          "battery" : {
+            "charging" : false,
+            "percentage" : 50
+          }
+        },
+        "device_model" : "iPad Pro 11-inch (M4)",
+        "symbol" : "ipad.landscape",
+        "last_updated" : "2025-01-20T19:06:44.385Z",
+        "device_type" : "ipad",
+        "device_name" : "m4eleven"
+      }
     }
-  },
-  "last_updated" : "2025-01-21T02:06:52Z"
+  }
 }
