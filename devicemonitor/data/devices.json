@@ -119,22 +119,22 @@
     },
     "iphones": {
       "A18p tfp.la/stirling": {
-        "device_model": "iPhone 16 Pro",
         "device_name": "A18p tfp.la/stirling",
         "device_type": "iphone",
-        "last_updated": "2025-01-21T10:48:50.730Z",
         "symbol": "iphone.gen3",
+        "device_model": "iPhone 16 Pro",
         "system_info": {
-          "battery": {
-            "charging": false,
-            "percentage": 80
-          },
-          "model": "iPhone 16 Pro",
           "os_version": "18.2.1",
+          "model": "iPhone 16 Pro",
+          "battery": {
+            "percentage": 65,
+            "charging": true
+          },
           "storage": {
             "boot_drive": 0
           }
-        }
+        },
+        "last_updated": "2025-01-21T15:21:59.360Z"
       },
       "MiniProductRed13": {
         "device_name": "MiniProductRed13",
@@ -156,5 +156,5 @@
       }
     }
   },
-  "last_updated": "2025-01-21T15:21:44.689Z"
+  "last_updated": "2025-01-21T15:21:59.360Z"
 }
