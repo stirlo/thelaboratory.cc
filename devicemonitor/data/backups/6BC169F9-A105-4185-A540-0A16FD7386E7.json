@@ -1,0 +1,51 @@
+{
+  "checksum" : "eyJkZXZpY2VfbmFtZSI6Ik0xIFRGUFNFUlZFUiIsImRldmljZV90eXBlIjoibWFjX21pbmkiLCJsYXN0X3VwZGF0ZWQiOiIyMDI1LTAxLTIxVDA5OjQ1OjE5WiIsInN5bmNfc3RhdHVzIjp7ImhlYXJ0YmVhdCI6IjIwMjUtMDEtMjFUMDk6NDU6MTlaIiwiaXNfcHJpbWFyeSI6dHJ1ZSwibGFzdF9zeW5jIjoiMjAyNS0wMS0yMVQwOTo0NToxOVoiLCJzeW5jX3ZlcnNpb24iOiIxLjEifSwic3lzdGVtX2luZm8iOnsiYnVpbGRfbnVtYmVyIjoiMjRDMTAxIiwibWV0cmljcyI6eyJjcHVfZnJlcXVlbmN5Ijp7fSwiY3B1X3Bvd2VyIjoxLjk3LCJjcHVfdXNhZ2UiOjg1LjcsImdwdV9mcmVxdWVuY3kiOnt9LCJncHVfcG93ZXIiOjAuMDQsIm1lbW9yeV9wZXJjZW50YWdlIjo0My4xLCJtZW1vcnlfdG90YWwiOjE2LCJtZW1vcnlfdXNlZCI6Ni45LCJ0aW1lc3RhbXAiOiIyMDI1LTAxLTIxVDA5OjQ1OjE5WiIsInRvdGFsX3Bvd2VyIjoyLjAxfSwib3NfdmVyc2lvbiI6IlZlcnNpb24gMTUuMiAoQnVpbGQgMjRDMTAxKSIsInBvd2VyIjp7ImVzdGltYXRlZF9ydW50aW1lIjowLCJsYXN0X2NoZWNrIjoiMjAyNS0wMS0yMVQwOTo0NToxOVoiLCJvbl9hY19wb3dlciI6dHJ1ZSwidXBzX2NoYXJnaW5nIjpmYWxzZSwidXBzX2Nvbm5lY3RlZCI6ZmFsc2UsInVwc19wZXJjZW50YWdlIjoxMDB9LCJzdG9yYWdlIjp7ImJvb3RfZHJpdmUiOjB9LCJzeW5jX3JvbGUiOiJwcmltYXJ5IiwidGVtcGVyYXR1cmUiOjB9fQ==",
+  "device" : {
+    "device_name" : "M1 TFPSERVER",
+    "device_type" : "mac_mini",
+    "last_updated" : "2025-01-21T09:45:19Z",
+    "sync_status" : {
+      "heartbeat" : "2025-01-21T09:45:19Z",
+      "is_primary" : true,
+      "last_sync" : "2025-01-21T09:45:19Z",
+      "sync_version" : "1.1"
+    },
+    "system_info" : {
+      "build_number" : "24C101",
+      "metrics" : {
+        "cpu_frequency" : {
+
+        },
+        "cpu_power" : 1.97,
+        "cpu_usage" : 85.7,
+        "gpu_frequency" : {
+
+        },
+        "gpu_power" : 0.04,
+        "memory_percentage" : 43.1,
+        "memory_total" : 16,
+        "memory_used" : 6.9,
+        "timestamp" : "2025-01-21T09:45:19Z",
+        "total_power" : 2.01
+      },
+      "os_version" : "Version 15.2 (Build 24C101)",
+      "power" : {
+        "estimated_runtime" : 0,
+        "last_check" : "2025-01-21T09:45:19Z",
+        "on_ac_power" : true,
+        "ups_charging" : false,
+        "ups_connected" : false,
+        "ups_percentage" : 100
+      },
+      "storage" : {
+        "boot_drive" : 0
+      },
+      "sync_role" : "primary",
+      "temperature" : 0
+    }
+  },
+  "id" : "6BC169F9-A105-4185-A540-0A16FD7386E7",
+  "sync_status" : "pending",
+  "timestamp" : "2025-01-21T09:45:19Z",
+  "version" : "1.1"
+}
