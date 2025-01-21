@@ -1,0 +1,49 @@
+{
+  "checksum" : "eyJkZXZpY2VfbmFtZSI6Ik0xIFRGUFNFUlZFUiIsImxhc3RfdXBkYXRlZCI6IjIwMjUtMDEtMjFUMDY6NDY6NDZaIiwiZGV2aWNlX3R5cGUiOiJtYWNfbWluaSIsInN5c3RlbV9pbmZvIjp7InN0b3JhZ2UiOnsiYm9vdF9kcml2ZSI6MCwiZXh0ZXJuYWxfZHJpdmVzIjpbeyJ1c2VkX3NwYWNlIjoxNDA0Mjg5ODY4NTk1MiwidG90YWxfc3BhY2UiOjE2MDAwNjkwOTA1MDg4LCJtb3VudF9wb2ludCI6IlwvVm9sdW1lc1wvOFQiLCJhdmFpbGFibGVfc3BhY2UiOjE5NTc3OTIyMTkxMzYsIm5hbWUiOiI4VCJ9XX0sIm1ldHJpY3MiOnsiY3B1X2ZyZXF1ZW5jeSI6e30sImdwdV9wb3dlciI6MC4wMywiZ3B1X2ZyZXF1ZW5jeSI6e30sIm1lbW9yeV90b3RhbCI6MTYsInRvdGFsX3Bvd2VyIjowLjE4LCJjcHVfcG93ZXIiOjAuMTUsIm1lbW9yeV9wZXJjZW50YWdlIjo0Mi40LCJjcHVfdXNhZ2UiOjEwMS43LCJtZW1vcnlfdXNlZCI6Ni43OX0sImJ1aWxkX251bWJlciI6IjI0QzEwMSIsInBvd2VyIjp7InVwc19jb25uZWN0ZWQiOnRydWUsInVwc19jaGFyZ2luZyI6ZmFsc2UsInVwc19wZXJjZW50YWdlIjoxMDAsIm9uX2FjX3Bvd2VyIjp0cnVlLCJlc3RpbWF0ZWRfcnVudGltZSI6MTI3fSwidGVtcGVyYXR1cmUiOjAsIm9zX3ZlcnNpb24iOiIxNS4yLTI0QzEwMSJ9fQ==",
+  "timestamp" : "2025-01-21T06:46:46Z",
+  "device" : {
+    "system_info" : {
+      "storage" : {
+        "external_drives" : [
+          {
+            "name" : "8T",
+            "used_space" : 14042898685952,
+            "mount_point" : "\/Volumes\/8T",
+            "total_space" : 16000690905088,
+            "available_space" : 1957792219136
+          }
+        ],
+        "boot_drive" : 0
+      },
+      "power" : {
+        "estimated_runtime" : 127,
+        "on_ac_power" : true,
+        "ups_percentage" : 100,
+        "ups_connected" : true,
+        "ups_charging" : false
+      },
+      "os_version" : "15.2-24C101",
+      "temperature" : 0,
+      "build_number" : "24C101",
+      "metrics" : {
+        "cpu_frequency" : {
+
+        },
+        "gpu_power" : 0.03,
+        "gpu_frequency" : {
+
+        },
+        "memory_total" : 16,
+        "total_power" : 0.18,
+        "cpu_power" : 0.15,
+        "memory_percentage" : 42.4,
+        "memory_used" : 6.79,
+        "cpu_usage" : 101.7
+      }
+    },
+    "device_type" : "mac_mini",
+    "device_name" : "M1 TFPSERVER",
+    "last_updated" : "2025-01-21T06:46:46Z"
+  },
+  "version" : "1.0"
+}
