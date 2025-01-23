@@ -128,13 +128,13 @@
           "model": "iPhone 16 Pro",
           "battery": {
             "percentage": 40,
-            "charging": true
+            "charging": false
           },
           "storage": {
             "boot_drive": 0
           }
         },
-        "last_updated": "2025-01-23T05:30:08.820Z"
+        "last_updated": "2025-01-23T05:30:14.537Z"
       },
       "MiniProductRed13": {
         "device_model": "iPhone 13 mini",
@@ -156,5 +156,5 @@
       }
     }
   },
-  "last_updated": "2025-01-23T05:30:08.820Z"
+  "last_updated": "2025-01-23T05:30:14.537Z"
 }
