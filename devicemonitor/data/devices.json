@@ -89,14 +89,14 @@
           "os_version": "18.3",
           "model": "iPad Pro (12.9-inch) (5th generation)",
           "battery": {
-            "percentage": 70,
-            "charging": true
+            "percentage": 75,
+            "charging": false
           },
           "storage": {
             "boot_drive": 0
           }
         },
-        "last_updated": "2025-01-25T09:37:43.559Z"
+        "last_updated": "2025-01-25T09:43:35.257Z"
       },
       "m4eleven": {
         "device_name": "m4eleven",
@@ -156,5 +156,5 @@
       }
     }
   },
-  "last_updated": "2025-01-25T09:37:43.559Z"
+  "last_updated": "2025-01-25T09:43:35.257Z"
 }
