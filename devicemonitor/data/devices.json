@@ -127,14 +127,14 @@
           "os_version": "18.2.1",
           "model": "iPhone 16 Pro",
           "battery": {
-            "percentage": 50,
-            "charging": false
+            "percentage": 45,
+            "charging": true
           },
           "storage": {
             "boot_drive": 0
           }
         },
-        "last_updated": "2025-01-29T06:51:38.088Z"
+        "last_updated": "2025-01-29T07:11:00.703Z"
       },
       "MiniProductRed13": {
         "device_name": "MiniProductRed13",
@@ -156,5 +156,5 @@
       }
     }
   },
-  "last_updated": "2025-01-29T07:09:15.764Z"
+  "last_updated": "2025-01-29T07:11:00.703Z"
 }
