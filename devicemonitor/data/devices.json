@@ -137,24 +137,24 @@
         "last_updated": "2025-01-31T07:43:16.688Z"
       },
       "MiniProductRed13": {
-        "device_model": "iPhone 13 mini",
         "device_name": "MiniProductRed13",
         "device_type": "iphone",
-        "last_updated": "2025-01-31T06:26:01.364Z",
         "symbol": "iphone.gen2",
+        "device_model": "iPhone 13 mini",
         "system_info": {
-          "battery": {
-            "charging": false,
-            "percentage": 70
-          },
-          "model": "iPhone 13 mini",
           "os_version": "18.3",
+          "model": "iPhone 13 mini",
+          "battery": {
+            "percentage": 60,
+            "charging": false
+          },
           "storage": {
             "boot_drive": 0
           }
-        }
+        },
+        "last_updated": "2025-01-31T07:45:28.430Z"
       }
     }
   },
-  "last_updated": "2025-01-31T07:43:16.688Z"
+  "last_updated": "2025-01-31T07:45:28.430Z"
 }
