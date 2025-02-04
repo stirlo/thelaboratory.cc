@@ -80,9 +80,9 @@
       "M1 TFPSERVER" : {
         "device_name" : "M1 TFPSERVER",
         "device_type" : "mac_mini",
-        "last_updated" : "2025-01-21T07:16:47Z",
+        "last_updated" : "2025-02-03T07:16:47Z",
         "system_info" : {
-          "build_number" : "24C101",
+          "build_number" : "24D60",
           "metrics" : {
             "cpu_frequency" : {
 
@@ -98,7 +98,7 @@
             "memory_used" : 6.9000000000000004,
             "total_power" : 1.0700000000000001
           },
-          "os_version" : "15.2-24C101",
+          "os_version" : "15.3-24D60",
           "power" : {
             "estimated_runtime" : 127,
             "on_ac_power" : true,
