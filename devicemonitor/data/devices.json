@@ -90,13 +90,13 @@
           "model": "iPad Pro (12.9-inch) (5th generation)",
           "battery": {
             "percentage": 90,
-            "charging": true
+            "charging": false
           },
           "storage": {
             "boot_drive": 0
           }
         },
-        "last_updated": "2025-02-08T08:54:53.692Z"
+        "last_updated": "2025-02-08T08:57:34.463Z"
       },
       "m4eleven": {
         "device_model": "iPad Pro 11-inch (M4)",
@@ -156,5 +156,5 @@
       }
     }
   },
-  "last_updated": "2025-02-08T08:56:46.905Z"
+  "last_updated": "2025-02-08T08:57:34.463Z"
 }
