@@ -81,22 +81,22 @@
     },
     "ipads": {
       "M1P45Db": {
-        "device_model": "iPad Pro (12.9-inch) (5th generation)",
         "device_name": "M1P45Db",
         "device_type": "ipad",
-        "last_updated": "2025-02-08T08:57:34.463Z",
         "symbol": "ipad",
+        "device_model": "iPad Pro (12.9-inch) (5th generation)",
         "system_info": {
-          "battery": {
-            "charging": false,
-            "percentage": 90
-          },
-          "model": "iPad Pro (12.9-inch) (5th generation)",
           "os_version": "18.3",
+          "model": "iPad Pro (12.9-inch) (5th generation)",
+          "battery": {
+            "percentage": 90,
+            "charging": false
+          },
           "storage": {
             "boot_drive": 0
           }
-        }
+        },
+        "last_updated": "2025-02-09T03:43:23.555Z"
       },
       "m4eleven": {
         "device_model": "iPad Pro 11-inch (M4)",
@@ -156,5 +156,5 @@
       }
     }
   },
-  "last_updated": "2025-02-09T03:28:42.347Z"
+  "last_updated": "2025-02-09T03:43:23.555Z"
 }
