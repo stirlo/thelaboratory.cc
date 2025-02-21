@@ -1,0 +1,44 @@
+{
+  "checksum" : "eyJkZXZpY2VfbmFtZSI6Im0zRklGVEVFTiIsImRldmljZV90eXBlIjoibWFjIiwibGFzdF91cGRhdGVkIjoiMjAyNS0wMi0yMVQxNDozNjozOVoiLCJzeXN0ZW1faW5mbyI6eyJiYXR0ZXJ5Ijp7ImlzX2NoYXJnaW5nIjp0cnVlLCJwZXJjZW50YWdlIjo1MywidGltZV9yZW1haW5pbmciOiIyMDowMCByZW1haW5pbmcifSwiYnVpbGRfbnVtYmVyIjoiMjRENzAiLCJkaXNwbGF5Ijp7ImJ1aWx0X2luIjp0cnVlLCJleHRlcm5hbF9kaXNwbGF5cyI6MSwic3VwcG9ydHNfZHVhbF80ayI6dHJ1ZX0sIm1ldHJpY3MiOnsiY3B1X3Bvd2VyIjowLjAxLCJjcHVfdXNhZ2UiOjAuNiwiZ3B1X3Bvd2VyIjowLCJtZW1vcnlfcGVyY2VudGFnZSI6NDYuMSwibWVtb3J5X3RvdGFsIjoyNCwibWVtb3J5X3VzZWQiOjExLjA1LCJ0b3RhbF9wb3dlciI6MC4wMX0sIm9zX3ZlcnNpb24iOiIxNS4zLTI0RDcwIiwic3RvcmFnZSI6eyJpbnRlcm5hbF9kcml2ZSI6eyJhdmFpbGFibGVfc3BhY2UiOjE1NDgxODQ4NDIyNDAsIm1vdW50X3BvaW50IjoiXC8iLCJuYW1lIjoiSW50ZXJuYWwiLCJ0b3RhbF9zcGFjZSI6MTk5NTIxODE2NTc2MCwidXNlZF9zcGFjZSI6NDQ3MDMzMzIzNTIwfX0sInRlbXBlcmF0dXJlIjowfX0=",
+  "device" : {
+    "device_name" : "m3FIFTEEN",
+    "device_type" : "mac",
+    "last_updated" : "2025-02-21T14:36:39Z",
+    "system_info" : {
+      "battery" : {
+        "is_charging" : true,
+        "percentage" : 53,
+        "time_remaining" : "20:00 remaining"
+      },
+      "build_number" : "24D70",
+      "display" : {
+        "built_in" : true,
+        "external_displays" : 1,
+        "supports_dual_4k" : true
+      },
+      "metrics" : {
+        "cpu_power" : 0.01,
+        "cpu_usage" : 0.6,
+        "gpu_power" : 0,
+        "memory_percentage" : 46.1,
+        "memory_total" : 24,
+        "memory_used" : 11.05,
+        "total_power" : 0.01
+      },
+      "os_version" : "15.3-24D70",
+      "storage" : {
+        "internal_drive" : {
+          "available_space" : 1548184842240,
+          "mount_point" : "\/",
+          "name" : "Internal",
+          "total_space" : 1995218165760,
+          "used_space" : 447033323520
+        }
+      },
+      "temperature" : 0
+    }
+  },
+  "merge_status" : "pending",
+  "timestamp" : "2025-02-21T14:36:39Z",
+  "version" : "1.0"
+}
