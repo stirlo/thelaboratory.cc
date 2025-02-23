@@ -145,16 +145,16 @@
           "os_version": "18.4",
           "model": "iPhone 13 mini",
           "battery": {
-            "percentage": 80,
+            "percentage": 70,
             "charging": false
           },
           "storage": {
             "boot_drive": 0
           }
         },
-        "last_updated": "2025-02-23T04:00:38.772Z"
+        "last_updated": "2025-02-23T05:21:26.320Z"
       }
     }
   },
-  "last_updated": "2025-02-23T04:00:38.772Z"
+  "last_updated": "2025-02-23T05:21:26.320Z"
 }
