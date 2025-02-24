@@ -107,14 +107,14 @@
           "os_version": "18.3.1",
           "model": "iPad Pro 11-inch (M4)",
           "battery": {
-            "percentage": 35,
+            "percentage": 50,
             "charging": true
           },
           "storage": {
             "boot_drive": 0
           }
         },
-        "last_updated": "2025-02-24T03:10:28.070Z"
+        "last_updated": "2025-02-24T03:33:35.923Z"
       }
     },
     "iphones": {
@@ -156,5 +156,5 @@
       }
     }
   },
-  "last_updated": "2025-02-24T03:10:28.070Z"
+  "last_updated": "2025-02-24T03:33:35.923Z"
 }
