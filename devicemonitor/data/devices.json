@@ -127,7 +127,7 @@
         "last_updated" : "2025-02-27T08:11:19Z",
         "system_info" : {
           "battery" : {
-            "is_charging" : true,
+            "is_charging" : false,
             "percentage" : 99
           },
           "build_number" : "24D70",
