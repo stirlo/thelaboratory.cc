@@ -146,13 +146,13 @@
           "model": "iPhone 16e",
           "battery": {
             "percentage": 80,
-            "charging": true
+            "charging": false
           },
           "storage": {
             "boot_drive": 0
           }
         },
-        "last_updated": "2025-02-28T07:19:12.837Z"
+        "last_updated": "2025-02-28T07:28:14.500Z"
       },
       "MiniProductRed13": {
         "device_model": "iPhone 13 mini",
@@ -174,5 +174,5 @@
       }
     }
   },
-  "last_updated": "2025-02-28T07:23:36.719Z"
+  "last_updated": "2025-02-28T07:28:14.500Z"
 }
