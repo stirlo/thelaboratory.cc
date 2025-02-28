@@ -164,15 +164,15 @@
           "model": "iPhone 16e",
           "battery": {
             "percentage": 70,
-            "charging": false
+            "charging": true
           },
           "storage": {
             "boot_drive": 0
           }
         },
-        "last_updated": "2025-02-28T06:31:04.460Z"
+        "last_updated": "2025-02-28T06:31:13.990Z"
       }
     }
   },
-  "last_updated": "2025-02-28T06:31:04.460Z"
+  "last_updated": "2025-02-28T06:31:13.990Z"
 }
