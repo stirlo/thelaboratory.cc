@@ -145,16 +145,16 @@
           "os_version": "18.3.1",
           "model": "iPhone 16e",
           "battery": {
-            "percentage": 70,
+            "percentage": 75,
             "charging": true
           },
           "storage": {
             "boot_drive": 0
           }
         },
-        "last_updated": "2025-03-12T15:27:05.789Z"
+        "last_updated": "2025-03-12T15:37:27.179Z"
       }
     }
   },
-  "last_updated": "2025-03-12T15:27:05.789Z"
+  "last_updated": "2025-03-12T15:37:27.179Z"
 }
