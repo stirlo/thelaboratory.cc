@@ -137,24 +137,24 @@
         "last_updated": "2025-03-13T01:00:56.285Z"
       },
       "ePhone": {
-        "device_model": "iPhone 16e",
         "device_name": "ePhone",
         "device_type": "iphone",
-        "last_updated": "2025-03-12T16:17:42.881Z",
         "symbol": "iphone.gen2",
+        "device_model": "iPhone 16e",
         "system_info": {
-          "battery": {
-            "charging": true,
-            "percentage": 95
-          },
-          "model": "iPhone 16e",
           "os_version": "18.3.1",
+          "model": "iPhone 16e",
+          "battery": {
+            "percentage": 100,
+            "charging": false
+          },
           "storage": {
             "boot_drive": 0
           }
-        }
+        },
+        "last_updated": "2025-03-13T01:01:01.587Z"
       }
     }
   },
-  "last_updated": "2025-03-13T01:00:56.285Z"
+  "last_updated": "2025-03-13T01:01:01.587Z"
 }
