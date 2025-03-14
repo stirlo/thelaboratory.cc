@@ -127,14 +127,14 @@
           "os_version": "18.3.2",
           "model": "iPhone 16 Pro",
           "battery": {
-            "percentage": 50,
+            "percentage": 60,
             "charging": true
           },
           "storage": {
             "boot_drive": 0
           }
         },
-        "last_updated": "2025-03-14T05:55:24.861Z"
+        "last_updated": "2025-03-14T06:09:20.852Z"
       },
       "ePhone": {
         "device_model": "iPhone 16e",
@@ -156,5 +156,5 @@
       }
     }
   },
-  "last_updated": "2025-03-14T05:55:24.861Z"
+  "last_updated": "2025-03-14T06:09:20.852Z"
 }
