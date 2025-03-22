@@ -124,7 +124,7 @@
       "m3FIFTEEN" : {
         "device_name" : "m3FIFTEEN",
         "device_type" : "mac",
-        "last_updated" : "2025-03-22T03:53:17Z",
+        "last_updated" : "2025-03-22T04:26:14Z",
         "system_info" : {
           "battery" : {
             "is_charging" : true,
@@ -137,22 +137,22 @@
             "supports_dual_4k" : true
           },
           "metrics" : {
-            "cpu_power" : 0.02,
-            "cpu_usage" : 6.5,
+            "cpu_power" : 0.070000000000000007,
+            "cpu_usage" : 13.300000000000001,
             "gpu_power" : 0,
-            "memory_percentage" : 44.600000000000001,
+            "memory_percentage" : 45,
             "memory_total" : 24,
-            "memory_used" : 10.699999999999999,
-            "total_power" : 0.02
+            "memory_used" : 10.789999999999999,
+            "total_power" : 0.070000000000000007
           },
           "os_version" : "15.3-24D70",
           "storage" : {
             "internal_drive" : {
-              "available_space" : 1543478439936,
+              "available_space" : 1543426588672,
               "mount_point" : "\/",
               "name" : "Internal",
               "total_space" : 1995218165760,
-              "used_space" : 451739725824
+              "used_space" : 451791577088
             }
           },
           "temperature" : 0
@@ -160,5 +160,5 @@
       }
     }
   },
-  "last_updated" : "2025-03-22T03:53:18Z"
+  "last_updated" : "2025-03-22T04:26:15Z"
 }
