@@ -124,12 +124,12 @@
       "m3FIFTEEN" : {
         "device_name" : "m3FIFTEEN",
         "device_type" : "mac",
-        "last_updated" : "2025-05-06T05:57:05Z",
+        "last_updated" : "2025-05-06T06:02:05Z",
         "system_info" : {
           "battery" : {
             "is_charging" : true,
-            "percentage" : 74,
-            "time_remaining" : "0:41 remaining"
+            "percentage" : 80,
+            "time_remaining" : "0:35 remaining"
           },
           "build_number" : "24D81",
           "display" : {
@@ -138,22 +138,22 @@
             "supports_dual_4k" : true
           },
           "metrics" : {
-            "cpu_power" : 5.2699999999999996,
-            "cpu_usage" : 196.5,
-            "gpu_power" : 0.029999999999999999,
-            "memory_percentage" : 45.299999999999997,
+            "cpu_power" : 4.0099999999999998,
+            "cpu_usage" : 217,
+            "gpu_power" : 0.02,
+            "memory_percentage" : 45.799999999999997,
             "memory_total" : 24,
-            "memory_used" : 10.869999999999999,
-            "total_power" : 5.2999999999999998
+            "memory_used" : 10.99,
+            "total_power" : 4.0300000000000002
           },
           "os_version" : "15.3-24D81",
           "storage" : {
             "internal_drive" : {
-              "available_space" : 1530368958464,
+              "available_space" : 1532756574208,
               "mount_point" : "\/",
               "name" : "Internal",
               "total_space" : 1995218165760,
-              "used_space" : 464849207296
+              "used_space" : 462461591552
             }
           },
           "temperature" : 0
@@ -161,5 +161,5 @@
       }
     }
   },
-  "last_updated" : "2025-05-06T05:57:10Z"
+  "last_updated" : "2025-05-06T06:02:07Z"
 }
