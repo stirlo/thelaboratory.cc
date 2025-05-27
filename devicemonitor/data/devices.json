@@ -124,12 +124,12 @@
       "m3FIFTEEN" : {
         "device_name" : "m3FIFTEEN",
         "device_type" : "mac",
-        "last_updated" : "2025-05-27T04:07:15Z",
+        "last_updated" : "2025-05-27T04:12:15Z",
         "system_info" : {
           "battery" : {
             "is_charging" : true,
-            "percentage" : 39,
-            "time_remaining" : "1:34 remaining"
+            "percentage" : 45,
+            "time_remaining" : "1:32 remaining"
           },
           "build_number" : "24E263",
           "display" : {
@@ -138,22 +138,22 @@
             "supports_dual_4k" : true
           },
           "metrics" : {
-            "cpu_power" : 0.55000000000000004,
-            "cpu_usage" : 345.69999999999999,
-            "gpu_power" : 0.040000000000000001,
-            "memory_percentage" : 47.899999999999999,
+            "cpu_power" : 4.0999999999999996,
+            "cpu_usage" : 214.5,
+            "gpu_power" : 0.02,
+            "memory_percentage" : 45.799999999999997,
             "memory_total" : 24,
-            "memory_used" : 11.49,
-            "total_power" : 0.58999999999999997
+            "memory_used" : 10.99,
+            "total_power" : 4.1200000000000001
           },
           "os_version" : "15.4-24E263",
           "storage" : {
             "internal_drive" : {
-              "available_space" : 1539644858368,
+              "available_space" : 1536504242176,
               "mount_point" : "\/",
               "name" : "Internal",
               "total_space" : 1995218165760,
-              "used_space" : 455573307392
+              "used_space" : 458713923584
             }
           },
           "temperature" : 0
@@ -161,5 +161,5 @@
       }
     }
   },
-  "last_updated" : "2025-05-27T04:07:16Z"
+  "last_updated" : "2025-05-27T04:12:18Z"
 }
