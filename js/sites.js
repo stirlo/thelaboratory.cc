@@ -63,7 +63,7 @@ const sites = [
     {
         name: 'The Goss Room',
         url: 'https://thegossroom.com',
-        github: 'stirlo/thegossroom.com',
+        github: 'stirlo/thegossroom',
         logo: 'thegossroom-512x512.png'
     },
     {
