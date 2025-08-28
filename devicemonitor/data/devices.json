@@ -1,0 +1,16 @@
+{
+  "m1_tfpserver" : {
+    "hostname" : "m1_tfpserver",
+    "last_update" : 778057407.934621,
+    "status" : "active",
+    "system_info" : {
+      "cpu_usage" : 23.679288385111764,
+      "disk_usage" : 29.092056946609663,
+      "memory_usage" : 42.211341857910156,
+      "network_status" : "disconnected",
+      "temperature" : 0,
+      "uptime" : 324107.08652820834
+    },
+    "timestamp" : "2025-08-28T07:03:27Z"
+  }
+}
