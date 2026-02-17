@@ -1,7 +1,9 @@
 # Site Settings
 title: "The Laboratory"
 tagline: "Where experiments happen"
-description: "A collection of web projects, iOS apps, and experiments from the TFP laboratory"
+description: >-
+  A collection of web projects, iOS apps, and experiments from the TFP laboratory.
+  From LightEmitter to Galacticus, explore code experiments and creative tools.
 baseurl: ""
 url: "https://thelaboratory.cc"
 timezone: UTC
@@ -11,7 +13,12 @@ theme: minima
 
 # Build settings
 markdown: kramdown
+highlighter: rouge
 permalink: /:year/:month/:day/:title/
+
+# Performance optimizations
+future: false
+incremental: true
 
 # Collections
 collections:
@@ -30,12 +37,12 @@ defaults:
       layout: "default"
   - scope:
       path: "_posts"
-      type: "posts"
+    type: "posts"
     values:
       layout: "post"
   - scope:
       path: "_projects"
-      type: "projects"
+    type: "projects"
     values:
       layout: "project"
 
@@ -44,6 +51,10 @@ plugins:
   - jekyll-feed
   - jekyll-sitemap
   - jekyll-seo-tag
+
+# SEO and Social
+author: "TFP Laboratory"
+github_username: stirlo
 
 # Exclude files
 exclude:
@@ -55,3 +66,4 @@ exclude:
   - node_modules
   - vendor
   - "*.zip"
+  - _sass
