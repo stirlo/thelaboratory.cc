@@ -1,11 +1,53 @@
 ---
 ---
 
-/* Import SASS variables */
-@import "_variables";
-@import "_grid";
-@import "_cards";
-@import "_status";
+/* CSS Variables */
+:root {
+  /* Laboratory Light Mode */
+  --lab-light-bg: #f5f5f5;
+  --lab-light-text: #2c3e50;
+  --lab-light-primary: #3498db;
+  --lab-light-secondary: #2980b9;
+  --lab-light-accent: #1abc9c;
+  --lab-light-highlight: #ecf0f1;
+
+  /* Laboratory Dark Mode */
+  --lab-dark-bg: #1a1a2e;
+  --lab-dark-text: #e4e4e7;
+  --lab-dark-primary: #3b82f6;
+  --lab-dark-secondary: #2563eb;
+  --lab-dark-accent: #10b981;
+  --lab-dark-highlight: #374151;
+
+  /* Status Colors */
+  --success: #10b981;
+  --warning: #f59e0b;
+  --error: #ef4444;
+
+  /* Default to light mode */
+  --bg-color: var(--lab-light-bg);
+  --text-color: var(--lab-light-text);
+  --primary-color: var(--lab-light-primary);
+  --secondary-color: var(--lab-light-secondary);
+  --accent-color: var(--lab-light-accent);
+  --highlight-color: var(--lab-light-highlight);
+  --card-background: white;
+  --border-radius: 8px;
+  --box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  --hover-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-color: var(--lab-dark-bg);
+    --text-color: var(--lab-dark-text);
+    --primary-color: var(--lab-dark-primary);
+    --secondary-color: var(--lab-dark-secondary);
+    --accent-color: var(--lab-dark-accent);
+    --highlight-color: var(--lab-dark-highlight);
+    --card-background: #252542;
+  }
+}
 
 /* Global Styles */
 body {
@@ -56,6 +98,188 @@ a:hover {
   color: var(--secondary-color);
 }
 
+/* Grid System */
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  padding: 1rem 0;
+}
+
+.grid-container-2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+  gap: 2rem;
+  padding: 1rem 0;
+}
+
+.grid-container-3 {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1.5rem;
+  padding: 1rem 0;
+}
+
+/* Card Styles */
+.website {
+  background: var(--card-background);
+  border-radius: var(--border-radius);
+  padding: 1.5rem;
+  box-shadow: var(--box-shadow);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.website:hover {
+  box-shadow: var(--hover-shadow);
+  transform: translateY(-4px);
+}
+
+.site-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.site-logo {
+  width: 64px;
+  height: 64px;
+  border-radius: 12px;
+  object-fit: contain;
+  margin-bottom: 1rem;
+  background: var(--highlight-color);
+  padding: 8px;
+}
+
+.site-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0.5rem 0;
+  color: var(--text-color);
+}
+
+.site-description {
+  font-size: 0.9rem;
+  color: var(--text-color);
+  opacity: 0.8;
+  line-height: 1.4;
+  margin: 0.5rem 0 1rem 0;
+}
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.badge {
+  height: 20px;
+}
+
+.github-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--primary-color);
+  text-decoration: none;
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+}
+
+.github-link:hover {
+  color: var(--secondary-color);
+}
+
+/* Zoom effect */
+.zoom-effect {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.zoom-effect:hover {
+  transform: scale(1.02);
+}
+
+/* App Card Specific Styles */
+.app-card {
+  background: var(--card-background);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: var(--box-shadow);
+  transition: all 0.3s ease;
+}
+
+.app-card:hover {
+  box-shadow: var(--hover-shadow);
+  transform: translateY(-4px);
+}
+
+.app-icon {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+}
+
+.app-content {
+  padding: 1.5rem;
+}
+
+.app-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+}
+
+.app-subtitle {
+  font-size: 0.9rem;
+  color: var(--text-color);
+  opacity: 0.8;
+  margin: 0 0 1rem 0;
+}
+
+.app-badges {
+  display: flex;
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+
+.platform-badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  background: var(--highlight-color);
+  color: var(--text-color);
+}
+
+.app-button {
+  display: inline-block;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  background: var(--primary-color);
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+
+.app-button:hover {
+  background: var(--secondary-color);
+}
+
+.app-button.secondary {
+  background: var(--highlight-color);
+  color: var(--text-color);
+}
+
+.app-button.secondary:hover {
+  background: var(--secondary-color);
+  color: white;
+}
+
 /* Utility Classes */
 .text-center { text-align: center; }
 .mt-2 { margin-top: 2rem; }
@@ -69,6 +293,31 @@ a:hover {
 
   .container {
     padding: 0 0.75rem;
+  }
+
+  .grid-container {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .grid-container-2,
+  .grid-container-3 {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid-container {
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  }
+
+  .grid-container-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .grid-container-3 {
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
