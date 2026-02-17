@@ -1,6 +1,13 @@
 // /js/sites.js - Web projects and tools
 const sites = [
     {
+        name: 'InfiniteReality.cc',
+        url: 'https://infinitereality.cc',
+        github: 'jailbreaktheuniverse/infinitereality.cc',
+        logo: 'infinitereality.cc-384x384.png',
+        description: 'Part of our network - actively maintained'
+    },
+    {
         name: 'The Goss Room',
         url: 'https://thegossroom.com',
         github: 'stirlo/thegossroom',
