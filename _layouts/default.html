@@ -1,0 +1,120 @@
+<!-- _layouts/default.html -->
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Jekyll SEO Tag handles most meta tags -->
+  {% seo %}
+
+  <!-- Additional meta tags -->
+  <meta name="keywords" content="{{ page.tags | join: ', ' }}">
+
+  <!-- Fix Facebook image warning with dimensions -->
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+
+  <!-- Publishing metadata -->
+  {% if page.date %}
+  <meta property="article:published_time" content="{{ page.date | date_to_xmlschema }}">
+  {% endif %}
+
+  <!-- Favicons -->
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ '/assets/favicon/apple-touch-icon.png' | relative_url }}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{{ '/assets/favicon/favicon-32x32.png' | relative_url }}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{{ '/assets/favicon/favicon-16x16.png' | relative_url }}">
+  <link rel="manifest" href="{{ '/assets/favicon/site.webmanifest' | relative_url }}">
+  <link rel="mask-icon" href="{{ '/assets/favicon/safari-pinned-tab.svg' | relative_url }}" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
+
+  <style>
+    :root {
+      /* Laboratory Light Mode */
+      --lab-light-bg: #f5f5f5;
+      --lab-light-text: #2c3e50;
+      --lab-light-primary: #3498db;
+      --lab-light-secondary: #2980b9;
+      --lab-light-accent: #1abc9c;
+      --lab-light-highlight: #ecf0f1;
+
+      /* Laboratory Dark Mode */
+      --lab-dark-bg: #1a1a2e;
+      --lab-dark-text: #e4e4e7;
+      --lab-dark-primary: #3b82f6;
+      --lab-dark-secondary: #2563eb;
+      --lab-dark-accent: #10b981;
+      --lab-dark-highlight: #374151;
+
+      /* Status Colors */
+      --success: #10b981;
+      --warning: #f59e0b;
+      --error: #ef4444;
+
+      /* Default to light mode */
+      --bg-color: var(--lab-light-bg);
+      --text-color: var(--lab-light-text);
+      --primary-color: var(--lab-light-primary);
+      --secondary-color: var(--lab-light-secondary);
+      --accent-color: var(--lab-light-accent);
+      --highlight-color: var(--lab-light-highlight);
+      --card-background: white;
+      --border-radius: 8px;
+      --box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      --hover-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg-color: var(--lab-dark-bg);
+        --text-color: var(--lab-dark-text);
+        --primary-color: var(--lab-dark-primary);
+        --secondary-color: var(--lab-dark-secondary);
+        --accent-color: var(--lab-dark-accent);
+        --highlight-color: var(--lab-dark-highlight);
+        --card-background: #252542;
+      }
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    .content {
+      padding: 2rem 0;
+      min-height: calc(100vh - 200px);
+    }
+  </style>
+</head>
+<body>
+  {% include header.html %}
+
+  <div class="content">
+    <div class="container">
+      {{ content }}
+    </div>
+  </div>
+
+  {% include footer.html %}
+</body>
+</html>

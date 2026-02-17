@@ -1,0 +1,57 @@
+# Site Settings
+title: "The Laboratory"
+tagline: "Where experiments happen"
+description: "A collection of web projects, iOS apps, and experiments from the TFP laboratory"
+baseurl: ""
+url: "https://thelaboratory.cc"
+timezone: UTC
+
+# Theme
+theme: minima
+
+# Build settings
+markdown: kramdown
+permalink: /:year/:month/:day/:title/
+
+# Collections
+collections:
+  projects:
+    output: true
+    permalink: /projects/:path/
+  apps:
+    output: true
+    permalink: /apps/:path/
+
+# Default front matter
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: "default"
+  - scope:
+      path: "_posts"
+      type: "posts"
+    values:
+      layout: "post"
+  - scope:
+      path: "_projects"
+      type: "projects"
+    values:
+      layout: "project"
+
+# Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# Exclude files
+exclude:
+  - README.md
+  - LICENSE
+  - .gitignore
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+  - "*.zip"

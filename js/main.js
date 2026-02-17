@@ -40,11 +40,12 @@ async function createSiteCards() {
 
             card.innerHTML = `
                 <a href="${site.url}" target="_blank" rel="noopener noreferrer" class="site-link">
-                    <img src="${site.logo}" 
+                    <img src="${site.logo}"
                          alt="${site.name} Logo"
                          class="site-logo"
                          onerror="this.onerror=null; this.src='apple-touch-icon.png';">
                     <h2 class="site-name">${site.name}</h2>
+                    ${site.description ? `<p class="site-description">${site.description}</p>` : ''}
                 </a>
                 <div class="badges">
                     <a href="https://github.com/${site.github}" 

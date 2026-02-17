@@ -1,0 +1,50 @@
+// Grid System
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  padding: 1rem 0;
+}
+
+.grid-container-2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+  gap: 2rem;
+  padding: 1rem 0;
+}
+
+.grid-container-3 {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1.5rem;
+  padding: 1rem 0;
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .grid-container {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .grid-container-2,
+  .grid-container-3 {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid-container {
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  }
+
+  .grid-container-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .grid-container-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

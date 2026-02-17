@@ -1,0 +1,112 @@
+// Status Page Styles
+
+.status-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1.5rem;
+  padding: 1rem 0;
+}
+
+.status-card {
+  display: flex;
+  align-items: center;
+  background: var(--card-background);
+  border-radius: var(--border-radius);
+  padding: 1.25rem;
+  box-shadow: var(--box-shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+.status-card:hover {
+  box-shadow: var(--hover-shadow);
+}
+
+.status-indicator {
+  width: 4px;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.status-indicator.online {
+  background: var(--status-success);
+}
+
+.status-indicator.offline {
+  background: var(--status-error);
+}
+
+.status-indicator.degraded {
+  background: var(--status-warning);
+}
+
+.status-icon {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  margin-right: 1rem;
+  border-radius: 8px;
+  background: var(--highlight-color);
+  padding: 8px;
+}
+
+.status-details {
+  flex: 1;
+}
+
+.status-name {
+  font-weight: 600;
+  font-size: 1rem;
+  margin: 0 0 0.25rem 0;
+}
+
+.status-text {
+  font-size: 0.85rem;
+  margin: 0 0 0.5rem 0;
+  opacity: 0.9;
+}
+
+.response-time,
+.last-update,
+.github-stats {
+  font-size: 0.75rem;
+  color: var(--text-color);
+  opacity: 0.7;
+  margin: 0.15rem 0;
+}
+
+.error-message {
+  color: var(--status-error);
+  font-size: 0.85rem;
+  margin: 0.5rem 0;
+  padding: 0.5rem;
+  background: rgba(239, 68, 68, 0.1);
+  border-radius: 4px;
+}
+
+.loading {
+  text-align: center;
+  padding: 2rem;
+  font-style: italic;
+  color: var(--text-color);
+  opacity: 0.8;
+}
+
+// Responsive
+@media (max-width: 640px) {
+  .status-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .status-card {
+    padding: 1rem;
+  }
+
+  .status-icon {
+    width: 40px;
+    height: 40px;
+  }
+}

@@ -1,0 +1,119 @@
+<!-- _includes/footer.html -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>About The Laboratory</h3>
+        <p>Experimental projects, iOS applications, and web experiments from the TFP laboratory. Where code meets curiosity.</p>
+      </div>
+
+      <div class="footer-section">
+        <h3>Featured Apps</h3>
+        <ul>
+          <li><a href="https://light.thelaboratory.cc">LightEmitter</a> - Illuminate your creativity</li>
+          <li><a href="https://mrhyde.thelaboratory.cc">MrHydeBlog</a> - Your personal blog companion</li>
+          <li><a href="https://charge.thelaboratory.cc">ChargeActive</a> - Track your battery life</li>
+          <li><a href="https://galacticus.thelaboratory.cc">Galacticus</a> - Explore the cosmos</li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h3>Connect</h3>
+        <div class="social-links">
+          <a href="https://github.com/stirlo" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://littlebunker.com" target="_blank" rel="noopener">Little Bunker</a>
+          <a href="https://tfp.la" target="_blank" rel="noopener">TFP</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>
+        <a href="LICENSE">©</a> <span id="currentYear"></span>
+        <a href="https://tfp.la">TFP</a> |
+        <a href="/">The Laboratory</a> |
+        <a href="/thankyou.html">Thank You</a>
+      </p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    margin-top: 4rem;
+    padding: 2rem 0;
+    background: var(--highlight-color);
+    border-top: 1px solid var(--secondary-color);
+  }
+
+  .footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+  }
+
+  .footer-section h3 {
+    color: var(--primary-color);
+    margin: 0 0 1rem 0;
+    font-size: 1rem;
+  }
+
+  .footer-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .footer-section li {
+    margin-bottom: 0.5rem;
+  }
+
+  .footer-section a {
+    color: var(--text-color);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-section a:hover {
+    color: var(--primary-color);
+  }
+
+  .social-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .social-links a {
+    display: inline-block;
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    background: var(--bg-color);
+  }
+
+  .social-links a:hover {
+    background: var(--primary-color);
+    color: white !important;
+  }
+
+  .footer-bottom {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--secondary-color);
+    text-align: center;
+    font-size: 0.9rem;
+  }
+
+  .footer-bottom a {
+    color: var(--text-color);
+    text-decoration: none;
+  }
+
+  .footer-bottom a:hover {
+    text-decoration: underline;
+  }
+</style>
+
+<script>
+  document.getElementById('currentYear').textContent = new Date().getFullYear();
+</script>

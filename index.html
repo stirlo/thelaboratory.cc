@@ -1,40 +1,167 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Laboratory</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/png" href="apple-touch-icon.png">
-    <meta name="description" content="A collection of web projects and experiments">
-    <meta property="og:title" content="The Laboratory">
-    <meta property="og:description" content="A collection of web projects and experiments">
-    <meta property="og:image" content="apple-touch-icon.png">
-</head>
-<body>
-    <header class="site-header">
-        <h1>The Laboratory</h1>
-        <p>A collection of web projects and experiments</p>
-        <nav>
-            <a href="status.html">Status Page</a>
-        </nav>
-    </header>
+---
+layout: default
+title: The Laboratory
+---
 
-    <main>
-        <div id="sitesContainer" class="grid-container">
-            <!-- Sites will be dynamically loaded here -->
+<div class="home">
+  <div class="welcome-section">
+    <h1 class="site-welcome">{{ site.title | default: "The Laboratory" }}</h1>
+    <p class="site-description">{{ site.description | default: "Where experiments happen" }}</p>
+  </div>
+
+  <section class="featured-apps">
+    <h2 class="section-title">📱 Featured iOS Apps</h2>
+    <div class="grid-container">
+      <article class="app-card">
+        <div class="app-icon" style="background: linear-gradient(135deg, #fbbf24, #f59e0b);"></div>
+        <div class="app-content">
+          <h3 class="app-title">LightEmitter</h3>
+          <p class="app-subtitle">Illuminate your creativity with beautiful light patterns</p>
+          <div class="app-badges">
+            <span class="platform-badge">iOS</span>
+            <span class="platform-badge">Universal</span>
+          </div>
+          <a href="https://light.thelaboratory.cc" class="app-button">Learn More</a>
         </div>
-    </main>
+      </article>
 
-   <footer>
-        <p>
-            <a href="LICENSE">©</a> <span id="currentYear"></span> 
-            <a href="https://tfp.la">TFP</a> | 
-            <a href="https://thelaboratory.cc">The Laboratory</a> | 
-            <a href="https://thelaboratory.cc/thankyou.html">Thank You</a>
-        </p>
-    </footer>
-    <script src="/js/sites.js"></script>
-    <script src="/js/main.js"></script>
-</body>
-</html>
+      <article class="app-card">
+        <div class="app-icon" style="background: linear-gradient(135deg, #10b981, #059669);"></div>
+        <div class="app-content">
+          <h3 class="app-title">MrHydeBlog</h3>
+          <p class="app-subtitle">Your personal blog companion for iOS</p>
+          <div class="app-badges">
+            <span class="platform-badge">iOS</span>
+            <span class="platform-badge">iPad</span>
+          </div>
+          <a href="https://mrhyde.thelaboratory.cc" class="app-button">Learn More</a>
+        </div>
+      </article>
+
+      <article class="app-card">
+        <div class="app-icon" style="background: linear-gradient(135deg, #3b82f6, #2563eb);"></div>
+        <div class="app-content">
+          <h3 class="app-title">ChargeActive</h3>
+          <p class="app-subtitle">Track your battery health and charging patterns</p>
+          <div class="app-badges">
+            <span class="platform-badge">iOS</span>
+            <span class="platform-badge">macOS</span>
+          </div>
+          <a href="https://charge.thelaboratory.cc" class="app-button">Learn More</a>
+        </div>
+      </article>
+
+      <article class="app-card">
+        <div class="app-icon" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed);"></div>
+        <div class="app-content">
+          <h3 class="app-title">Galacticus</h3>
+          <p class="app-subtitle">Explore the cosmos from your device</p>
+          <div class="app-badges">
+            <span class="platform-badge">iOS</span>
+            <span class="platform-badge">Universal</span>
+          </div>
+          <a href="https://galacticus.thelaboratory.cc" class="app-button">Learn More</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="projects-section">
+    <h2 class="section-title">🔧 Web Projects</h2>
+    <div id="sitesContainer" class="grid-container">
+      <!-- Sites will be dynamically loaded here via JavaScript -->
+    </div>
+  </section>
+
+  <section class="lab-info">
+    <h2 class="section-title">About The Laboratory</h2>
+    <div class="info-card">
+      <p>Welcome to The Laboratory, TFP's experimental playground. This is where we test new ideas, build interesting tools, and push the boundaries of what's possible with code.</p>
+      <p>From iOS applications to web experiments, you'll find a variety of projects here at different stages of development. Some are ready for production use, while others are works in progress or learning experiments.</p>
+      <p>Feel free to explore, contribute, or reach out if something catches your interest!</p>
+      <div class="lab-links">
+        <a href="https://github.com/stirlo" class="app-button">GitHub Profile</a>
+        <a href="https://littlebunker.com" class="app-button secondary">Little Bunker</a>
+        <a href="https://tfp.la" class="app-button secondary">TFP Main Site</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<style>
+  .welcome-section {
+    text-align: center;
+    padding: 3rem 1rem;
+    background: var(--card-background);
+    border-radius: var(--border-radius);
+    margin-bottom: 2rem;
+    box-shadow: var(--box-shadow);
+  }
+
+  .site-welcome {
+    font-size: 2.5rem;
+    margin: 0 0 0.5rem 0;
+    color: var(--primary-color);
+  }
+
+  .site-description {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    margin: 0;
+  }
+
+  .section-title {
+    font-size: 1.75rem;
+    margin: 2rem 0 1rem 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--primary-color);
+  }
+
+  .featured-apps {
+    margin: 2rem 0;
+  }
+
+  .projects-section {
+    margin: 3rem 0;
+  }
+
+  .lab-info {
+    margin: 3rem 0;
+  }
+
+  .info-card {
+    background: var(--card-background);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    line-height: 1.8;
+  }
+
+  .lab-links {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+  }
+
+  @media (max-width: 768px) {
+    .site-welcome {
+      font-size: 1.75rem;
+    }
+
+    .site-description {
+      font-size: 0.95rem;
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+    }
+
+    .info-card {
+      padding: 1.5rem;
+    }
+  }
+</style>
+
+<script src="/js/sites.js"></script>
+<script src="/js/main.js"></script>

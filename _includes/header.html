@@ -1,0 +1,68 @@
+<!-- _includes/header.html -->
+<header class="main-header">
+  <div class="container">
+    <nav class="site-nav">
+      <a href="/" class="site-logo">🧪 The Laboratory</a>
+      <div class="nav-links">
+        <a href="/projects">Projects</a>
+        <a href="/apps">Apps</a>
+        <a href="/status.html">Status</a>
+        <a href="https://littlebunker.com" target="_blank" rel="noopener">Little Bunker</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .main-header {
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--highlight-color);
+    background: var(--card-background);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  }
+
+  .site-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .site-logo {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+  }
+
+  .nav-links a {
+    color: var(--text-color);
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover {
+    color: var(--primary-color);
+  }
+
+  @media (max-width: 600px) {
+    .site-nav {
+      flex-direction: column;
+      gap: 1rem;
+      text-align: center;
+    }
+
+    .nav-links {
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+    }
+  }
+</style>
