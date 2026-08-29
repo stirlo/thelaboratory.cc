@@ -6,12 +6,23 @@ date: 2026-02-17
 
 <div class="home">
   <div class="welcome-section">
-    <h1 class="site-welcome">{{ site.title | default: "The Laboratory" }}</h1>
-    <p class="site-description">{{ site.description | default: "Where experiments happen" }}</p>
+    <div class="hero-copy">
+      <span class="eyebrow">TFP / Field work / Melbourne</span>
+      <h1 class="site-welcome">The<br><span>Laboratory</span></h1>
+      <p class="site-description">Experiments, applications, and working systems—documented in public.</p>
+    </div>
+    <div class="bench-map" aria-label="The Laboratory works across applications, sites, and prototypes">
+      <div class="bench-node">Bench 01<strong>Applications</strong></div>
+      <div class="bench-node">Bench 02<strong>Sites & systems</strong></div>
+      <div class="bench-node">Bench 03<strong>Prototypes</strong></div>
+    </div>
   </div>
 
-  <section class="featured-apps">
-    <h2 class="section-title">Featured iOS Apps</h2>
+  <section id="applications" class="featured-apps">
+    <div class="section-heading">
+      <h2 class="section-title">Applications</h2>
+      <p class="section-note">Native tools currently on the bench. Some are public; others remain active experiments.</p>
+    </div>
     <div class="grid-container">
       <article class="app-card">
         <div class="app-icon" style="background: linear-gradient(135deg, #fbbf24, #f59e0b);"></div>
@@ -67,8 +78,11 @@ date: 2026-02-17
     </div>
   </section>
 
-  <section class="projects-section">
-    <h2 class="section-title">Web Projects</h2>
+  <section id="projects" class="projects-section">
+    <div class="section-heading">
+      <h2 class="section-title">Sites & experiments</h2>
+      <p class="section-note">A working registry—not a polished product shelf. Follow each specimen to its live site or source.</p>
+    </div>
     <div class="grid-container">
       <article class="website zoom-effect">
         <a href="https://infinitereality.cc" target="_blank" rel="noopener noreferrer" class="site-link">
@@ -396,12 +410,16 @@ date: 2026-02-17
     </div>
   </section>
 
-  <section class="lab-info">
-    <h2 class="section-title">About The Laboratory</h2>
+  <section id="about" class="lab-info">
+    <div class="section-heading">
+      <h2 class="section-title">About this workspace</h2>
+      <p class="section-note">Built by TFP. Maintained as projects move from idea to testable system.</p>
+    </div>
     <div class="info-card">
-      <p>Welcome to The Laboratory, TFP's experimental playground. This is where we test new ideas, build interesting tools, and push boundaries of what's possible with code.</p>
-      <p>From iOS applications to web experiments, you'll find a variety of projects here at different stages of development. Some are ready for production use, while others are works in progress or learning experiments.</p>
-      <p>Feel free to explore, contribute, or reach out if something catches your interest!</p>
+      <div class="info-copy">
+        <p>The Laboratory is TFP's public workbench: a place for useful software, strange ideas, and the evidence left behind while building them.</p>
+        <p>Projects appear here at different stages. A listing may point to a finished tool, an actively maintained system, or a proof of concept kept for reference.</p>
+      </div>
       <div class="lab-links">
         <a href="https://github.com/stirlo" class="app-button">GitHub Profile</a>
         <a href="https://littlebunker.com" class="app-button secondary">Little Bunker</a>
@@ -410,78 +428,3 @@ date: 2026-02-17
     </div>
   </section>
 </div>
-
-<style>
-  .welcome-section {
-    text-align: center;
-    padding: 3rem 1rem;
-    background: var(--card-background);
-    border-radius: var(--border-radius);
-    margin-bottom: 2rem;
-    box-shadow: var(--box-shadow);
-  }
-
-  .site-welcome {
-    font-size: 2.5rem;
-    margin: 0 0 0.5rem 0;
-    color: var(--primary-color);
-  }
-
-  .site-description {
-    font-size: 1.1rem;
-    opacity: 0.9;
-    margin: 0;
-  }
-
-  .section-title {
-    font-size: 1.75rem;
-    margin: 2rem 0 1rem 0;
-    padding-bottom: 0.5rem;
-    border-bottom: 2px solid var(--primary-color);
-  }
-
-  .featured-apps {
-    margin: 2rem 0;
-  }
-
-  .projects-section {
-    margin: 3rem 0;
-  }
-
-  .lab-info {
-    margin: 3rem 0;
-  }
-
-  .info-card {
-    background: var(--card-background);
-    padding: 2rem;
-    border-radius: var(--border-radius);
-    box-shadow: var(--box-shadow);
-    line-height: 1.8;
-  }
-
-  .lab-links {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-    margin-top: 2rem;
-  }
-
-  @media (max-width: 768px) {
-    .site-welcome {
-      font-size: 1.75rem;
-    }
-
-    .site-description {
-      font-size: 0.95rem;
-    }
-
-    .section-title {
-      font-size: 1.5rem;
-    }
-
-    .info-card {
-      padding: 1.5rem;
-    }
-  }
-</style>

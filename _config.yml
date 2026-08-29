@@ -35,6 +35,7 @@ defaults:
       path: ""
     values:
       layout: "default"
+      image: "/assets/images/laboratory-social-card.png"
   - scope:
       path: "_posts"
     type: "posts"
@@ -55,6 +56,15 @@ plugins:
 # SEO and Social
 author: "TFP Laboratory"
 github_username: stirlo
+social_image: "/assets/images/laboratory-social-card.png"
+logo: "/android-chrome-512x512.png"
+twitter:
+  card: summary_large_image
+social:
+  name: The Laboratory
+  links:
+    - https://github.com/stirlo
+    - https://tfp.la
 
 # Exclude files
 exclude:
@@ -66,4 +76,5 @@ exclude:
   - node_modules
   - vendor
   - "*.zip"
+  - "*.mvg"
   - _sass

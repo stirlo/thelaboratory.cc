@@ -5,8 +5,9 @@ title: Site Status
 
 <div class="status-page">
   <div class="page-header">
-    <h1>🔍 Site Status</h1>
-    <p>Real-time status of all laboratory projects and services</p>
+    <span class="eyebrow">Live instruments</span>
+    <h1>Site status</h1>
+    <p>Browser-side checks for Laboratory projects and services.</p>
     <p class="last-update">Last updated: <span id="lastUpdate">Loading...</span></p>
     <nav class="page-nav">
       <a href="/" class="nav-link">← Back to Home</a>
@@ -17,51 +18,6 @@ title: Site Status
     <!-- Status cards will be dynamically loaded here -->
   </div>
 </div>
-
-<style>
-  .status-page {
-    padding: 2rem 0;
-  }
-
-  .page-header {
-    text-align: center;
-    margin-bottom: 2rem;
-  }
-
-  .page-header h1 {
-    margin: 0 0 0.5rem 0;
-  }
-
-  .page-header p {
-    opacity: 0.8;
-    margin: 0.5rem 0;
-  }
-
-  .last-update {
-    font-size: 0.9rem;
-    color: var(--text-color);
-    opacity: 0.7;
-  }
-
-  .page-nav {
-    margin-top: 1.5rem;
-  }
-
-  .nav-link {
-    display: inline-block;
-    padding: 0.5rem 1rem;
-    background: var(--highlight-color);
-    color: var(--primary-color);
-    text-decoration: none;
-    border-radius: 6px;
-    transition: background 0.2s;
-  }
-
-  .nav-link:hover {
-    background: var(--primary-color);
-    color: white;
-  }
-</style>
 
 <script src="/js/sites.js"></script>
 <script src="/js/main.js"></script>
