@@ -44,15 +44,15 @@ const sites = [
         type: 'web'
     },
     {
-        name: 'JPT-flipperzero',
-        url: 'https://github.com/stirlo/JPT-flipperzero/',
-        github: 'stirlo/JPT-flipperzero',
+        name: 'Kesheva for Flipper Zero',
+        url: 'https://github.com/stirlo/kesheva-flipperzero/',
+        github: 'stirlo/kesheva-flipperzero',
         type: 'github'
     },
     {
-        name: 'adhan',
-        url: 'https://github.com/stirlo/adhan/',
-        github: 'stirlo/adhan',
+        name: 'Salat Clock for Flipper Zero',
+        url: 'https://github.com/stirlo/salat-clock-flipperzero/',
+        github: 'stirlo/salat-clock-flipperzero',
         type: 'github'
     },
     {

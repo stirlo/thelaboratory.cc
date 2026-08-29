@@ -64,18 +64,18 @@ const sites = [
         description: 'Islamic prayer times for Swift and Web'
     },
     {
-        name: 'JPT-flipperzero',
-        url: 'https://github.com/stirlo/JPT-flipperzero/',
-        github: 'stirlo/JPT-flipperzero',
+        name: 'Kesheva for Flipper Zero',
+        url: 'https://github.com/stirlo/kesheva-flipperzero/',
+        github: 'stirlo/kesheva-flipperzero',
         logo: 'JPT-flipper-512x512.png',
-        description: 'Jewish prayer times for Flipper Zero'
+        description: 'Offline zmanim and next-observance POC'
     },
     {
-        name: 'Adhan-Flipperzero',
-        url: 'https://github.com/stirlo/adhan/',
-        github: 'stirlo/adhan',
+        name: 'Salat Clock for Flipper Zero',
+        url: 'https://github.com/stirlo/salat-clock-flipperzero/',
+        github: 'stirlo/salat-clock-flipperzero',
         logo: 'adhan-flipper-512x512.png',
-        description: 'Adhan for Flipper Zero'
+        description: 'Offline five-prayer clock POC'
     },
     {
         name: 'Plaintext to ICS Converter',

@@ -25,9 +25,9 @@ const sites = [
         logo: 'zmanim_ICS.png'
     },
     {
-        name: 'Adhan-Flipperzero',
-        url: 'https://github.com/stirlo/adhan/',
-        github: 'stirlo/adhan',
+        name: 'Salat Clock for Flipper Zero',
+        url: 'https://github.com/stirlo/salat-clock-flipperzero/',
+        github: 'stirlo/salat-clock-flipperzero',
         logo: 'adhan-flipper-512x512.png'
     },
     {
@@ -43,9 +43,9 @@ const sites = [
         logo: 'infinitereality.cc-384x384.png'
     },
     {
-        name: 'JPT-flipperzero',
-        url: 'https://github.com/stirlo/JPT-flipperzero/',
-        github: 'stirlo/JPT-flipperzero',
+        name: 'Kesheva for Flipper Zero',
+        url: 'https://github.com/stirlo/kesheva-flipperzero/',
+        github: 'stirlo/kesheva-flipperzero',
         logo: 'JPT-flipper-512x512.png'
     },
     {
