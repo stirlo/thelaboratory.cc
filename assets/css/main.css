@@ -333,6 +333,9 @@ section { margin-block: clamp(72px, 10vw, 132px); }
 
 .app-card:hover { background: var(--signal-soft); }
 
+/* Let an odd final specimen close the shelf instead of leaving a blank half-row. */
+.app-card:last-child:nth-child(odd) { grid-column: 1 / -1; }
+
 .app-icon {
   width: 9px;
   height: 100%;
@@ -356,6 +359,12 @@ section { margin-block: clamp(72px, 10vw, 132px); }
   letter-spacing: -.02em;
 }
 
+.working-name {
+  color: var(--muted);
+  font-size: .52em;
+  letter-spacing: .02em;
+}
+
 .app-subtitle { max-width: 44ch; margin: 0 0 28px; color: var(--muted); }
 .app-badges, .badges { display: flex; flex-wrap: wrap; gap: 7px; margin: auto 0 22px; }
 
@@ -366,6 +375,10 @@ section { margin-block: clamp(72px, 10vw, 132px); }
   letter-spacing: .08em;
   text-transform: uppercase;
 }
+
+.platform-badge.status-active { border-color: var(--signal); color: var(--signal); }
+.platform-badge.status-incubating { border-color: var(--cyan); color: var(--ink); }
+.platform-badge.status-paused { border-style: dashed; color: var(--muted); }
 
 .app-button {
   display: inline-flex;
@@ -383,6 +396,7 @@ section { margin-block: clamp(72px, 10vw, 132px); }
 
 .app-button:hover { background: var(--signal); color: #fff; border-color: var(--signal); }
 .app-button.secondary { background: transparent; color: var(--ink); }
+.app-button-static { cursor: default; }
 
 .projects-section .website {
   /* Project numbering is generated visually so the source catalogue stays simple. */
