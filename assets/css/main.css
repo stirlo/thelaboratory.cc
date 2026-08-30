@@ -377,6 +377,7 @@ section { margin-block: clamp(72px, 10vw, 132px); }
 }
 
 .platform-badge.status-active { border-color: var(--signal); color: var(--signal); }
+.platform-badge.status-beta { border-color: var(--violet); color: var(--violet); }
 .platform-badge.status-incubating { border-color: var(--cyan); color: var(--ink); }
 .platform-badge.status-paused { border-style: dashed; color: var(--muted); }
 
