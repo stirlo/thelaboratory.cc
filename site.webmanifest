@@ -9,29 +9,29 @@
     "orientation": "any",
     "icons": [
         {
-            "src": "/android-chrome-192x192.png?v=20260830-4",
+            "src": "/tfp-android-chrome-192x192.png?v=20260830-5",
             "sizes": "192x192",
             "type": "image/png",
             "purpose": "any"
         },
         {
-            "src": "/android-chrome-512x512.png?v=20260830-4",
+            "src": "/tfp-android-chrome-512x512.png?v=20260830-5",
             "sizes": "512x512",
             "type": "image/png",
             "purpose": "any"
         },
         {
-            "src": "/apple-touch-icon.png?v=20260830-4",
+            "src": "/tfp-apple-touch-icon.png?v=20260830-5",
             "sizes": "180x180",
             "type": "image/png"
         },
         {
-            "src": "/favicon-32x32.png?v=20260830-4",
+            "src": "/tfp-favicon-32x32.png?v=20260830-5",
             "sizes": "32x32",
             "type": "image/png"
         },
         {
-            "src": "/favicon-16x16.png?v=20260830-4",
+            "src": "/tfp-favicon-16x16.png?v=20260830-5",
             "sizes": "16x16",
             "type": "image/png"
         }

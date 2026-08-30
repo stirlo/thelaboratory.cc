@@ -7,7 +7,7 @@ description: >-
 baseurl: ""
 url: "https://thelaboratory.cc"
 timezone: UTC
-asset_version: "20260830-4"
+asset_version: "20260830-5"
 
 # Theme
 theme: minima

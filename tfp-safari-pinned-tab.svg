@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <title>TFP</title>
+  <!-- Safari applies the pinned-tab colour; this file supplies only the brand silhouette. -->
+  <circle cx="256" cy="256" r="213" fill="none" stroke="#000" stroke-width="36"/>
+  <path fill="#000" fill-rule="evenodd" d="M192 90h128v32h-46v76h-36v-76h-46zm38 132h106v32h-72v26h60v32h-60v32h-34zm0 128h60c40 0 60 15 60 40s-20 40-60 40h-26v10h-34zm34 22v36h25c18 0 27-6 27-18s-9-18-27-18z"/>
+</svg>

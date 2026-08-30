@@ -14,12 +14,12 @@
     {% if page.date %}<meta property="article:published_time" content="{{ page.date | date_to_xmlschema }}">{% endif %}
 
     <!-- Version every icon reference because browsers retain favicon caches aggressively. -->
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ '/apple-touch-icon.png' | relative_url }}?v={{ site.asset_version }}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ '/favicon-32x32.png' | relative_url }}?v={{ site.asset_version }}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ '/favicon-16x16.png' | relative_url }}?v={{ site.asset_version }}">
-    <link rel="shortcut icon" href="{{ '/favicon.ico' | relative_url }}?v={{ site.asset_version }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ '/tfp-apple-touch-icon.png' | relative_url }}?v={{ site.asset_version }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ '/tfp-favicon-32x32.png' | relative_url }}?v={{ site.asset_version }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ '/tfp-favicon-16x16.png' | relative_url }}?v={{ site.asset_version }}">
+    <link rel="shortcut icon" href="{{ '/tfp-favicon.ico' | relative_url }}?v={{ site.asset_version }}">
     <link rel="manifest" href="{{ '/site.webmanifest' | relative_url }}?v={{ site.asset_version }}">
-    <link rel="mask-icon" href="{{ '/safari-pinned-tab.svg' | relative_url }}?v={{ site.asset_version }}" color="#ff6500">
+    <link rel="mask-icon" href="{{ '/tfp-safari-pinned-tab.svg' | relative_url }}?v={{ site.asset_version }}" color="#ff6500">
 
     <script>
       // Apply a saved choice before paint so day/night changes never flash.
