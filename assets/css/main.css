@@ -513,7 +513,7 @@ section { margin-block: clamp(72px, 10vw, 132px); }
   .nav-links a:nth-child(4) { display: none; }
   .theme-toggle { min-width: 66px; }
   .welcome-section { min-height: 640px; padding-top: 76px; }
-  .site-welcome { font-size: clamp(4rem, 22vw, 6.7rem); }
+  .site-welcome { font-size: clamp(3.2rem, 15vw, 4rem); letter-spacing: -.055em; }
   .section-heading { grid-template-columns: 1fr; gap: 14px; }
   .app-card, .projects-section .website { grid-column: 1 / -1; }
   .app-card, .app-icon { min-height: 275px; }
