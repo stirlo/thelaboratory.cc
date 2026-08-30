@@ -7,7 +7,7 @@ description: >-
 baseurl: ""
 url: "https://thelaboratory.cc"
 timezone: UTC
-asset_version: "20260830-3"
+asset_version: "20260830-4"
 
 # Theme
 theme: minima
@@ -58,7 +58,7 @@ plugins:
 author: "TFP Laboratory"
 github_username: stirlo
 social_image: "/assets/images/laboratory-social-card.png"
-logo: "/android-chrome-512x512.png"
+logo: "/tfp-mark-512.png"
 twitter:
   card: summary_large_image
 social:
