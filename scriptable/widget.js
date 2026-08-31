@@ -390,7 +390,7 @@ class StatusWidget {
         await this.saveNotificationState(notificationState)
 
         const notification = new Notification()
-        notification.title = "⚠️ Site Down Alert"
+        notification.title = "Site Down Alert"
         notification.subtitle = site.name
         notification.body = `${site.url} is currently unreachable`
         notification.sound = "default"

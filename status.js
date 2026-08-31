@@ -143,7 +143,7 @@ function createStatusCard(site, status) {
                 Response time: ${formatResponseTime(status.responseTime)}
             </div>
             ${status.lastUpdate ? `<div class="last-update">Updated: ${formatDate(new Date(status.lastUpdate))}</div>` : ''}
-            ${status.stars ? `<div class="github-stats">★ ${status.stars} 🍴 ${status.forks}</div>` : ''}
+            ${status.stars ? `<div class="github-stats">Stars ${status.stars} / Forks ${status.forks}</div>` : ''}
         `;
     } else {
         statusDetails = `<div class="error-message">${status.error || 'Service unavailable'}</div>`;
